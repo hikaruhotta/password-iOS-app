@@ -9,6 +9,8 @@ If you are not design inclined, you might want to ask someone who is for a favor
 ### Create your team's home page
 The TTeam will create a repository for your team. **This repo is for your team's documentation: This Github Readme.md file has to be the jumping off point to your documentation.**  This repository and documetation should evolve over time with your project.  We encourage you to use the built in Wiki that Github provides, although you are free to use what feels most sustainable for your team as long as you link to it from your Github readme.md homepage. **Two examples of Wiki based documentation can be found [here](https://github.com/cs210/Hella/wiki) and [here](https://github.com/StanfordCS194/StanFood/wiki).** Please note you can also store your source code in this same repo for a one stop shop experience or you may ask the TTeam to create you a second repository for your code to have documentation and code in separate repositories if you prefer that arrangement.
 
+[Team10 Wiki](https://github.com/StanfordCS194/Team-10/wiki)
+
 Create a new team home page (using README.md) in your team's home repo that includes at least the following:
 - **Your team name**
 - **Team logo**
