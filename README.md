@@ -5,6 +5,7 @@
 
 ### Team Members
 
+<img src="images/buck.png" width="100" height="100"> <img src="images/hikaru.jpg" width="100" height="100"> <img src="images/philip.jpg" width="100" height="100"> <img src="images/nick.png" width="100" height="100">
 ### Team skills matrix
 
 Member | Skills | Personal Traits | Desired Growth | Weaknesses
@@ -20,10 +21,11 @@ Live video transcripts
 
 DL based hand raising detector 
 
+DL based mouth movement detector
+
 Making it better than meetings in real life
 
 Deliverable will be web-based -simulation of our features
-
 
 #### Cooperative skill development app
 Angle on improving and skill sharing
@@ -32,6 +34,14 @@ Find new things to do in quarantine
 
 ML: Match to people, match to activities
 
+#### Game
+Networking for multiplayer
+
+Host multiple games
+
+ML bot for single player
+
+Philips’ Password Game
 
 ### Team Communication
 Buck: bbukaty@stanford.edu
