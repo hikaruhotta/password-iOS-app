@@ -3,6 +3,12 @@
 
 ### [Team10 Wiki](https://github.com/StanfordCS194/Team-10/wiki)
 
+## Latest News
+Simple lobby web app with Firebase Realtime Database backend.
+<img src="images/lobby.gif">
+
+---
+
 ### Team Members
 
 <img src="images/buck.png" width="100" height="100"> <img src="images/hikaru.jpg" width="100" height="100"> <img src="images/philip.jpg" width="100" height="100"> <img src="images/nick.png" width="100" height="100">
