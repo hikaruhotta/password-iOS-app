@@ -21,6 +21,7 @@ class MyDatabase {
 class Lobby {
     var players: [String]
     = []
+    //var submittedWords
     var lobbyID: String = "ABCD"
     init() {
         self.addPlayer("philip")
