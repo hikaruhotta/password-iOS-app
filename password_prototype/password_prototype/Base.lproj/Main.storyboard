@@ -60,7 +60,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-26" y="77"/>
+            <point key="canvasLocation" x="-551" y="92"/>
         </scene>
         <!--Create New Game View Controller-->
         <scene sceneID="XIt-4X-iPm">
@@ -428,7 +428,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="LAX-5l-Uvw"/>
+        <segue reference="Gnd-6L-Kwq"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="lock.png" width="981" height="982"/>
