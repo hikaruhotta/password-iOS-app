@@ -8,8 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class SplashVC: UIViewController {
+    @IBAction func unwindToSplashVC(_ sender: UIStoryboardSegue) {
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.

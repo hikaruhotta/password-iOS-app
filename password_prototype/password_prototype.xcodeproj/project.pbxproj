@@ -11,24 +11,24 @@
 		6E5E97C62460CC1E0075BF09 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5E97C42460CC1E0075BF09 /* RoundedButton.swift */; };
 		D7275C11245E0AFC009C0B84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C10245E0AFC009C0B84 /* AppDelegate.swift */; };
 		D7275C13245E0AFC009C0B84 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C12245E0AFC009C0B84 /* SceneDelegate.swift */; };
-		D7275C15245E0AFC009C0B84 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C14245E0AFC009C0B84 /* ViewController.swift */; };
+		D7275C15245E0AFC009C0B84 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C14245E0AFC009C0B84 /* SplashVC.swift */; };
 		D7275C18245E0AFC009C0B84 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7275C16245E0AFC009C0B84 /* Main.storyboard */; };
 		D7275C1A245E0B03009C0B84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7275C19245E0B03009C0B84 /* Assets.xcassets */; };
 		D7275C1D245E0B03009C0B84 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7275C1B245E0B03009C0B84 /* LaunchScreen.storyboard */; };
 		D7275C28245E0B04009C0B84 /* password_prototypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C27245E0B04009C0B84 /* password_prototypeTests.swift */; };
 		D7275C33245E0B04009C0B84 /* password_prototypeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C32245E0B04009C0B84 /* password_prototypeUITests.swift */; };
 		D7275C41245E0C94009C0B84 /* WelcomeScreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C40245E0C94009C0B84 /* WelcomeScreenButton.swift */; };
-		D7275C45245E120C009C0B84 /* JoinGameLobbyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C44245E120C009C0B84 /* JoinGameLobbyViewController.swift */; };
+		D7275C45245E120C009C0B84 /* JoinLobbyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C44245E120C009C0B84 /* JoinLobbyVC.swift */; };
 		D7275C47245E1498009C0B84 /* NameListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C46245E1498009C0B84 /* NameListCell.swift */; };
 		D7275C52245FB727009C0B84 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = D7275C51245FB727009C0B84 /* lock.png */; };
-		D7275C54245FCC46009C0B84 /* EnterRoomCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C53245FCC46009C0B84 /* EnterRoomCodeViewController.swift */; };
+		D7275C54245FCC46009C0B84 /* JoinRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C53245FCC46009C0B84 /* JoinRoomVC.swift */; };
 		D7275C5824609238009C0B84 /* UserIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C5724609238009C0B84 /* UserIconImageView.swift */; };
 		D7275C5A2460997F009C0B84 /* nick.png in Resources */ = {isa = PBXBuildFile; fileRef = D7275C592460997E009C0B84 /* nick.png */; };
-		D7275C5C2460B370009C0B84 /* CreateNewGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C5B2460B370009C0B84 /* CreateNewGameViewController.swift */; };
+		D7275C5C2460B370009C0B84 /* NewGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C5B2460B370009C0B84 /* NewGameVC.swift */; };
 		D7275C5E2460C0A6009C0B84 /* buck.png in Resources */ = {isa = PBXBuildFile; fileRef = D7275C5D2460C0A6009C0B84 /* buck.png */; };
 		D7275C602460C125009C0B84 /* philip.png in Resources */ = {isa = PBXBuildFile; fileRef = D7275C5F2460C125009C0B84 /* philip.png */; };
 		D7275C642460C1EC009C0B84 /* hikaru.png in Resources */ = {isa = PBXBuildFile; fileRef = D7275C632460C1EC009C0B84 /* hikaru.png */; };
-		D7275C662460C48A009C0B84 /* RoomAuthenticationUIStoryBoardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C652460C48A009C0B84 /* RoomAuthenticationUIStoryBoardSegue.swift */; };
+		D7275C6B2460D471009C0B84 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C6A2460D471009C0B84 /* Database.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +54,7 @@
 		D7275C0D245E0AFC009C0B84 /* password_prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = password_prototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7275C10245E0AFC009C0B84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7275C12245E0AFC009C0B84 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D7275C14245E0AFC009C0B84 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D7275C14245E0AFC009C0B84 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		D7275C17245E0AFC009C0B84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D7275C19245E0B03009C0B84 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D7275C1C245E0B03009C0B84 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -66,17 +66,17 @@
 		D7275C32245E0B04009C0B84 /* password_prototypeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = password_prototypeUITests.swift; sourceTree = "<group>"; };
 		D7275C34245E0B04009C0B84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7275C40245E0C94009C0B84 /* WelcomeScreenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenButton.swift; sourceTree = "<group>"; };
-		D7275C44245E120C009C0B84 /* JoinGameLobbyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinGameLobbyViewController.swift; sourceTree = "<group>"; };
+		D7275C44245E120C009C0B84 /* JoinLobbyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLobbyVC.swift; sourceTree = "<group>"; };
 		D7275C46245E1498009C0B84 /* NameListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameListCell.swift; sourceTree = "<group>"; };
 		D7275C51245FB727009C0B84 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lock.png; path = ../../../../Downloads/lock.png; sourceTree = "<group>"; };
-		D7275C53245FCC46009C0B84 /* EnterRoomCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterRoomCodeViewController.swift; sourceTree = "<group>"; };
+		D7275C53245FCC46009C0B84 /* JoinRoomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomVC.swift; sourceTree = "<group>"; };
 		D7275C5724609238009C0B84 /* UserIconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIconImageView.swift; sourceTree = "<group>"; };
 		D7275C592460997E009C0B84 /* nick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nick.png; path = ../../../../Downloads/nick.png; sourceTree = "<group>"; };
-		D7275C5B2460B370009C0B84 /* CreateNewGameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewGameViewController.swift; sourceTree = "<group>"; };
+		D7275C5B2460B370009C0B84 /* NewGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameVC.swift; sourceTree = "<group>"; };
 		D7275C5D2460C0A6009C0B84 /* buck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buck.png; path = ../../../../Downloads/buck.png; sourceTree = "<group>"; };
 		D7275C5F2460C125009C0B84 /* philip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = philip.png; path = ../../../../Downloads/philip.png; sourceTree = "<group>"; };
 		D7275C632460C1EC009C0B84 /* hikaru.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hikaru.png; path = ../../../../Downloads/hikaru.png; sourceTree = "<group>"; };
-		D7275C652460C48A009C0B84 /* RoomAuthenticationUIStoryBoardSegue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomAuthenticationUIStoryBoardSegue.swift; sourceTree = "<group>"; };
+		D7275C6A2460D471009C0B84 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Database.swift; path = password_prototype/Database.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,17 +130,10 @@
 			children = (
 				D7275C10245E0AFC009C0B84 /* AppDelegate.swift */,
 				D7275C12245E0AFC009C0B84 /* SceneDelegate.swift */,
-				D7275C14245E0AFC009C0B84 /* ViewController.swift */,
 				D7275C16245E0AFC009C0B84 /* Main.storyboard */,
-				6E5E97C32460CC1D0075BF09 /* GradientButton.swift */,
-				6E5E97C42460CC1E0075BF09 /* RoundedButton.swift */,
-				D7275C5B2460B370009C0B84 /* CreateNewGameViewController.swift */,
-				D7275C53245FCC46009C0B84 /* EnterRoomCodeViewController.swift */,
-				D7275C40245E0C94009C0B84 /* WelcomeScreenButton.swift */,
-				D7275C44245E120C009C0B84 /* JoinGameLobbyViewController.swift */,
-				D7275C46245E1498009C0B84 /* NameListCell.swift */,
-				D7275C652460C48A009C0B84 /* RoomAuthenticationUIStoryBoardSegue.swift */,
-				D7275C5724609238009C0B84 /* UserIconImageView.swift */,
+				D7275C672460D2E5009C0B84 /* Model */,
+				D7275C682460D2EF009C0B84 /* View */,
+				D7275C692460D2F6009C0B84 /* Controller */,
 				D7275C19245E0B03009C0B84 /* Assets.xcassets */,
 				D7275C1B245E0B03009C0B84 /* LaunchScreen.storyboard */,
 				D7275C1E245E0B03009C0B84 /* Info.plist */,
@@ -176,6 +169,37 @@
 				D7275C51245FB727009C0B84 /* lock.png */,
 			);
 			path = content;
+			sourceTree = "<group>";
+		};
+		D7275C672460D2E5009C0B84 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D7275C6A2460D471009C0B84 /* Database.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D7275C682460D2EF009C0B84 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6E5E97C32460CC1D0075BF09 /* GradientButton.swift */,
+				6E5E97C42460CC1E0075BF09 /* RoundedButton.swift */,
+				D7275C40245E0C94009C0B84 /* WelcomeScreenButton.swift */,
+				D7275C46245E1498009C0B84 /* NameListCell.swift */,
+				D7275C5724609238009C0B84 /* UserIconImageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D7275C692460D2F6009C0B84 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				D7275C14245E0AFC009C0B84 /* SplashVC.swift */,
+				D7275C5B2460B370009C0B84 /* NewGameVC.swift */,
+				D7275C53245FCC46009C0B84 /* JoinRoomVC.swift */,
+				D7275C44245E120C009C0B84 /* JoinLobbyVC.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,16 +340,16 @@
 			files = (
 				D7275C5824609238009C0B84 /* UserIconImageView.swift in Sources */,
 				D7275C41245E0C94009C0B84 /* WelcomeScreenButton.swift in Sources */,
-				D7275C15245E0AFC009C0B84 /* ViewController.swift in Sources */,
+				D7275C15245E0AFC009C0B84 /* SplashVC.swift in Sources */,
 				D7275C47245E1498009C0B84 /* NameListCell.swift in Sources */,
 				6E5E97C52460CC1E0075BF09 /* GradientButton.swift in Sources */,
-				D7275C54245FCC46009C0B84 /* EnterRoomCodeViewController.swift in Sources */,
-				D7275C5C2460B370009C0B84 /* CreateNewGameViewController.swift in Sources */,
+				D7275C54245FCC46009C0B84 /* JoinRoomVC.swift in Sources */,
+				D7275C6B2460D471009C0B84 /* Database.swift in Sources */,
+				D7275C5C2460B370009C0B84 /* NewGameVC.swift in Sources */,
 				6E5E97C62460CC1E0075BF09 /* RoundedButton.swift in Sources */,
 				D7275C11245E0AFC009C0B84 /* AppDelegate.swift in Sources */,
-				D7275C45245E120C009C0B84 /* JoinGameLobbyViewController.swift in Sources */,
+				D7275C45245E120C009C0B84 /* JoinLobbyVC.swift in Sources */,
 				D7275C13245E0AFC009C0B84 /* SceneDelegate.swift in Sources */,
-				D7275C662460C48A009C0B84 /* RoomAuthenticationUIStoryBoardSegue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

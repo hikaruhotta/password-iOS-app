@@ -7,12 +7,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--SplashVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="password_prototype" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SplashVC" customModule="password_prototype" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MSO-Cn-Wtm" customClass="WelcomeScreenButton" customModule="password_prototype" customModuleProvider="target">
@@ -29,7 +29,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="tdX-N1-DaT" kind="showDetail" id="VNG-JO-1nb"/>
+                                    <segue destination="tdX-N1-DaT" kind="presentation" modalPresentationStyle="fullScreen" id="VNG-JO-1nb"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lock.png" translatesAutoresizingMaskIntoConstraints="NO" id="ij4-g3-jCW">
@@ -50,7 +50,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="kNL-T8-HjL" kind="presentation" id="Z4y-OC-jxv"/>
+                                    <segue destination="kNL-T8-HjL" kind="presentation" modalPresentationStyle="fullScreen" id="Z4y-OC-jxv"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -62,12 +62,12 @@
             </objects>
             <point key="canvasLocation" x="-551" y="92"/>
         </scene>
-        <!--Create New Game View Controller-->
+        <!--New GameVC-->
         <scene sceneID="XIt-4X-iPm">
             <objects>
-                <viewController id="tdX-N1-DaT" customClass="CreateNewGameViewController" customModule="password_prototype" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tdX-N1-DaT" customClass="NewGameVC" customModule="password_prototype" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eKf-H3-EIr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3T4-32-fBb">
@@ -207,7 +207,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="showDetail" id="LAX-5l-Uvw"/>
+                                    <segue destination="QoL-Kt-2km" kind="unwind" unwindAction="unwindToSplashVC:" id="WHp-EZ-SSr"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -219,15 +219,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Sb-cc-XcP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="QoL-Kt-2km" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1011.5942028985507" y="-320.08928571428572"/>
         </scene>
-        <!--Join Game Lobby View Controller-->
+        <!--Join LobbyVC-->
         <scene sceneID="ntj-TG-2rX">
             <objects>
-                <viewController storyboardIdentifier="JoinGameLobbyVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SlL-I3-Kev" customClass="JoinGameLobbyViewController" customModule="password_prototype" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="JoinGameLobbyVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="SlL-I3-Kev" customClass="JoinLobbyVC" customModule="password_prototype" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cgE-43-Mmy">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OzD-dO-LNB">
@@ -345,7 +346,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="showDetail" id="Gnd-6L-Kwq"/>
+                                    <segue destination="ADB-3S-mBt" kind="unwind" unwindAction="unwindToJoinGameController:" id="CsF-MT-vFP"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ABCD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="shw-EJ-ze0">
@@ -364,15 +365,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qf-56-HZq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="ADB-3S-mBt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1987" y="481"/>
         </scene>
         <!--Title-->
         <scene sceneID="6Oe-Gw-HI8">
             <objects>
-                <viewController storyboardIdentifier="EnterRoomCodeVC" id="kNL-T8-HjL" customClass="EnterRoomCodeViewController" customModule="password_prototype" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EnterRoomCodeVC" id="kNL-T8-HjL" customClass="JoinRoomVC" customModule="password_prototype" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Goy-o3-QXN">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lde-5d-5ZF" customClass="WelcomeScreenButton" customModule="password_prototype" customModuleProvider="target">
@@ -389,7 +391,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="SlL-I3-Kev" kind="showDetail" id="RNo-1y-kGs"/>
+                                    <segue destination="SlL-I3-Kev" kind="presentation" modalPresentationStyle="fullScreen" id="RNo-1y-kGs"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" usesAttributedText="YES" allowsEditingTextAttributes="YES" borderStyle="bezel" placeholder="Enter Room Code" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" minimumFontSize="40" translatesAutoresizingMaskIntoConstraints="NO" id="vuG-qv-EUx">
@@ -413,7 +415,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="showDetail" id="1wD-Vt-B3r"/>
+                                    <segue destination="aVU-3l-kgL" kind="unwind" unwindAction="unwindToSplashVC:" id="4PB-PW-4BF"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -423,13 +425,11 @@
                     <navigationItem key="navigationItem" title="Title" id="IWS-2N-WAf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SsW-qe-jpv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="aVU-3l-kgL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1014" y="481"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="Gnd-6L-Kwq"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="lock.png" width="981" height="982"/>
         <image name="nick.png" width="504" height="504"/>
