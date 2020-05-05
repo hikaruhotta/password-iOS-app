@@ -16,6 +16,12 @@ class SplashVC: UIViewController {
         // Do any additional setup after loading the view.
     }
 
-
+    @IBOutlet weak var profileButton: ProfileButton!
+    
+    @IBAction func changeProfile(_ sender: Any) {
+        let button = sender as! ProfileButton
+        button.randomizeProfile()
+    }
+    
 }
 

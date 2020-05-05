@@ -23,16 +23,14 @@ class SubmittedWordCell: UITableViewCell {
         wordLabel.text = word
     }
     
-    var icons = [UIImage(named: "bear.png"), UIImage(named: "frog.png"), UIImage(named: "hippo.png"), UIImage(named: "lion.png"), UIImage(named: "panda.png"), UIImage(named: "zebra.png") ]
     
-    var colors = [UIColor.gray.cgColor, UIColor.red.cgColor, UIColor.orange.cgColor, UIColor.yellow.cgColor, UIColor.green.cgColor, UIColor.blue.cgColor, UIColor.purple.cgColor]
     
     func modifyIcon(name: String) {
-        userIcon.image = icons[Int.random(in: 0..<icons.count)]
+        userIcon.image = LOCAL.icons[Int.random(in: 0..<LOCAL.icons.count)]
         userIcon.layer.cornerRadius = (userIcon.frame.size.width ) / 2
         userIcon.clipsToBounds = true
         userIcon.layer.borderWidth = 3.0
-        userIcon.layer.borderColor = colors[Int.random(in: 0..<colors.count)]
+        userIcon.layer.borderColor = LOCAL.colors[Int.random(in: 0..<LOCAL.colors.count)]
     }
 
 }
