@@ -48,12 +48,67 @@ exports.createLobby = functions.https.onRequest(async (req, res) => {
 });
 
 // WIP
-// exports.joinLobby = functions.https.onRequest(async (req, res) => {
+exports.joinLobby = functions.https.onRequest(async (req, res) => {
     
-//     const username = req.query.username;
-//     if (!username) {
-//         res.status(400).send("Missing username in request.");
-//         return;
-//     }
+    const username = req.query.username;
+     if (!username) {
+         res.status(400).send("Missing username in request.");
+         return;
+     }
 
-// });
+    const lobbyCode = req.query.lobbyCode;
+     if (!lobbyCode) {
+         res.status(400).send("Missing lobby code in request.");
+         return;
+     }
+
+     const mappingRef = admin.database().ref('/lobbyCodeMap/' + lobbyCode);
+
+     let lobbyMapping = undefined;
+
+     mappingRef.once('value').then (function (snapshot){
+        lobbyMapping = snapshot.val();
+     }
+
+     if (!lobbyMapping){
+        res.status(404).send("Invalid lobby code.");
+        return;
+     }
+
+     const lobbyId = lobbyMapping.lobbyId;
+
+     const mappingLobbyRef = admin.database().ref('/lobbies/' + lobbyId);
+
+     let lobbyProperties = undefined;
+
+     mappingLobbyRef.once('value').then (function (snapshot){
+        lobbyProperties = snapshot.val();
+     }
+
+     if (!lobbyProperties){
+        res.status(404).send("Invalid lobby.");
+        return;
+     }
+
+     admin.database().ref('/lobbies/' + lobbyId).transaction((lobby) => {
+        if (lobby.status=='LOBBY') {
+            //admin.database().ref('/lobbies/' + lobbyId + '/users/').push({username: username});
+            lobby.users.push ({username: username});
+            return lobby;
+        } else {
+            return undefined; // abort transaction
+        }
+    }, (error, committed, lobby) => {
+        if (error) {
+          console.log("Error adding user to lobby ", error);
+        } else if (!committed) {
+          console.log("Error: game already started.");
+        } else {
+          console.log('Added user to lobby.');
+        }
+        console.log("Lobby: ", lobby.val());
+    });
+
+    
+
+ });
