@@ -9,10 +9,11 @@ function createLobbyCode() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let code = '';
     for (let i = 0; i < 4; i++) {
-        code += chars[Math.random() * 26];
+        code += chars[Math.floor(Math.random() * 26)];
     }
     return code;
 }
+
 
 exports.createLobby = functions.https.onRequest(async (req, res) => {
     const now = admin.database.ServerValue.TIMESTAMP;
