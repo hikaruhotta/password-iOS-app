@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -23,6 +23,7 @@
 		6E77C65D24611A0800766BFE /* hippo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C65724611A0800766BFE /* hippo.png */; };
 		6E77C65E24611A0800766BFE /* frog.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C65824611A0800766BFE /* frog.png */; };
 		6E77C66024613E8C00766BFE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C65F24613E8C00766BFE /* GoogleService-Info.plist */; };
+		6E77C66724615E3900766BFE /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77C66624615E3900766BFE /* Word.swift */; };
 		7FDD618CFED41C677D661A10 /* Pods_password_prototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AED2556EEACCF0505C92DA30 /* Pods_password_prototype.framework */; };
 		D7275C11245E0AFC009C0B84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C10245E0AFC009C0B84 /* AppDelegate.swift */; };
 		D7275C13245E0AFC009C0B84 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C12245E0AFC009C0B84 /* SceneDelegate.swift */; };
@@ -38,7 +39,6 @@
 		D7275C54245FCC46009C0B84 /* JoinRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C53245FCC46009C0B84 /* JoinRoomVC.swift */; };
 		D7275C5824609238009C0B84 /* UserIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C5724609238009C0B84 /* UserIconImageView.swift */; };
 		D7275C5C2460B370009C0B84 /* NewGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C5B2460B370009C0B84 /* NewGameVC.swift */; };
-		D7275C6B2460D471009C0B84 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C6A2460D471009C0B84 /* Database.swift */; };
 		F9FC5D222DFBB03D0F2DEE11 /* Pods_password_prototypeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F910AE24F22C6EFBADC71633 /* Pods_password_prototypeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +78,7 @@
 		6E77C65724611A0800766BFE /* hippo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hippo.png; sourceTree = "<group>"; };
 		6E77C65824611A0800766BFE /* frog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frog.png; sourceTree = "<group>"; };
 		6E77C65F24613E8C00766BFE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		6E77C66624615E3900766BFE /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
 		714B1463800CD9B4800525F7 /* Pods-password_prototype.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-password_prototype.release.xcconfig"; path = "Target Support Files/Pods-password_prototype/Pods-password_prototype.release.xcconfig"; sourceTree = "<group>"; };
 		AADAC16418A1C2962540018C /* Pods-password_prototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-password_prototype.debug.xcconfig"; path = "Target Support Files/Pods-password_prototype/Pods-password_prototype.debug.xcconfig"; sourceTree = "<group>"; };
 		AED2556EEACCF0505C92DA30 /* Pods_password_prototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_password_prototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,7 +103,6 @@
 		D7275C53245FCC46009C0B84 /* JoinRoomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomVC.swift; sourceTree = "<group>"; };
 		D7275C5724609238009C0B84 /* UserIconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIconImageView.swift; sourceTree = "<group>"; };
 		D7275C5B2460B370009C0B84 /* NewGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameVC.swift; sourceTree = "<group>"; };
-		D7275C6A2460D471009C0B84 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Database.swift; path = password_prototype/Database.swift; sourceTree = SOURCE_ROOT; };
 		EE9DEE6846631B02705E8ECD /* Pods-password_prototype-password_prototypeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-password_prototype-password_prototypeUITests.debug.xcconfig"; path = "Target Support Files/Pods-password_prototype-password_prototypeUITests/Pods-password_prototype-password_prototypeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F910AE24F22C6EFBADC71633 /* Pods_password_prototypeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_password_prototypeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -145,6 +145,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6E77C66524615E2900766BFE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6E77C66624615E3900766BFE /* Word.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		769A7DBA24B865A695238E51 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -155,7 +163,6 @@
 				4B3687AC5C4F04774B77C576 /* Pods-password_prototypeTests.debug.xcconfig */,
 				5133E5D322D60D9B7CF59502 /* Pods-password_prototypeTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -188,7 +195,7 @@
 				D7275C10245E0AFC009C0B84 /* AppDelegate.swift */,
 				D7275C12245E0AFC009C0B84 /* SceneDelegate.swift */,
 				D7275C16245E0AFC009C0B84 /* Main.storyboard */,
-				D7275C672460D2E5009C0B84 /* Model */,
+				6E77C66524615E2900766BFE /* Model */,
 				D7275C682460D2EF009C0B84 /* View */,
 				D7275C692460D2F6009C0B84 /* Controller */,
 				D7275C19245E0B03009C0B84 /* Assets.xcassets */,
@@ -232,14 +239,6 @@
 				6E77C65624611A0800766BFE /* zebra.png */,
 			);
 			path = content;
-			sourceTree = "<group>";
-		};
-		D7275C672460D2E5009C0B84 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				D7275C6A2460D471009C0B84 /* Database.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		D7275C682460D2EF009C0B84 /* View */ = {
@@ -518,12 +517,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7275C5824609238009C0B84 /* UserIconImageView.swift in Sources */,
+				6E77C66724615E3900766BFE /* Word.swift in Sources */,
 				D7275C41245E0C94009C0B84 /* WelcomeScreenButton.swift in Sources */,
 				D7275C15245E0AFC009C0B84 /* SplashVC.swift in Sources */,
 				D7275C47245E1498009C0B84 /* NameListCell.swift in Sources */,
 				6E5E97C52460CC1E0075BF09 /* GradientButton.swift in Sources */,
 				D7275C54245FCC46009C0B84 /* JoinRoomVC.swift in Sources */,
-				D7275C6B2460D471009C0B84 /* Database.swift in Sources */,
 				D7275C5C2460B370009C0B84 /* NewGameVC.swift in Sources */,
 				6E5E97C62460CC1E0075BF09 /* RoundedButton.swift in Sources */,
 				D7275C11245E0AFC009C0B84 /* AppDelegate.swift in Sources */,

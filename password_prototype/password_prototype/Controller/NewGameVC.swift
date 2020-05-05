@@ -11,13 +11,13 @@ import UIKit
 class NewGameVC: UIViewController, UITableViewDelegate,
     UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return db.lobbies[0].players.count
+        return 0
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NameListCell") as! NameListCell
         //cell.changeName(name: db.lobbies[0])
-        cell.changeName(name: db.lobbies[0].players[indexPath.row])
-        cell.modifyIcon(name: db.lobbies[0].players[indexPath.row])
+//        cell.changeName(name: db.lobbies[0].players[indexPath.row])
+//        cell.modifyIcon(name: db.lobbies[0].players[indexPath.row])
         return cell
     }
     

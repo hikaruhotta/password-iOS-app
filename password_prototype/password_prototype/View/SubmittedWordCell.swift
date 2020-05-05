@@ -11,13 +11,16 @@ import UIKit
 class SubmittedWordCell: UITableViewCell {
 
     @IBOutlet weak var userIcon: UserIconImageView!
+    
+    @IBOutlet weak var wordLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
 
-    func updateWord(name: String) {
-//        nameLabel.text = name
+    func updateWord(word: String) {
+        wordLabel.text = word
     }
     
     var icons = [UIImage(named: "bear.png"), UIImage(named: "frog.png"), UIImage(named: "hippo.png"), UIImage(named: "lion.png"), UIImage(named: "panda.png"), UIImage(named: "zebra.png") ]
