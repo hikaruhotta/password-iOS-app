@@ -28,7 +28,7 @@ class NameListCell: UITableViewCell {
     }
     
     func modifyIcon(name: String) {
-        userIcon.image=UIImage(named: name + ".png")
+        userIcon.image = UIImage(named: name + ".png")
         userIcon.layer.cornerRadius = (userIcon.frame.size.width ) / 2
         userIcon.clipsToBounds = true
         userIcon.layer.borderWidth = 3.0

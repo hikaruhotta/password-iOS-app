@@ -7,9 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65970DD41D47B83EFF740A64 /* Pods_password_prototype_password_prototypeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBEF5789E44882F2007E82A4 /* Pods_password_prototype_password_prototypeUITests.framework */; };
 		6E5E97C52460CC1E0075BF09 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5E97C32460CC1D0075BF09 /* GradientButton.swift */; };
 		6E5E97C62460CC1E0075BF09 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5E97C42460CC1E0075BF09 /* RoundedButton.swift */; };
 		6E77C6462460DC2E00766BFE /* SubmittedWordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77C6452460DC2E00766BFE /* SubmittedWordCell.swift */; };
+		6E77C64B2460DE5200766BFE /* philip.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C6472460DE5200766BFE /* philip.png */; };
+		6E77C64C2460DE5200766BFE /* hikaru.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C6482460DE5200766BFE /* hikaru.png */; };
+		6E77C64D2460DE5200766BFE /* nick.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C6492460DE5200766BFE /* nick.png */; };
+		6E77C64E2460DE5200766BFE /* buck.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C64A2460DE5200766BFE /* buck.png */; };
+		6E77C6522461141200766BFE /* GameScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77C6512461141200766BFE /* GameScreenVC.swift */; };
+		6E77C65924611A0800766BFE /* lion.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C65324611A0700766BFE /* lion.png */; };
+		6E77C65A24611A0800766BFE /* bear.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C65424611A0700766BFE /* bear.png */; };
+		6E77C65B24611A0800766BFE /* panda.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C65524611A0700766BFE /* panda.png */; };
+		6E77C65C24611A0800766BFE /* zebra.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C65624611A0800766BFE /* zebra.png */; };
+		6E77C65D24611A0800766BFE /* hippo.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C65724611A0800766BFE /* hippo.png */; };
+		6E77C65E24611A0800766BFE /* frog.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C65824611A0800766BFE /* frog.png */; };
+		6E77C66024613E8C00766BFE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6E77C65F24613E8C00766BFE /* GoogleService-Info.plist */; };
+		7FDD618CFED41C677D661A10 /* Pods_password_prototype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AED2556EEACCF0505C92DA30 /* Pods_password_prototype.framework */; };
 		D7275C11245E0AFC009C0B84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C10245E0AFC009C0B84 /* AppDelegate.swift */; };
 		D7275C13245E0AFC009C0B84 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C12245E0AFC009C0B84 /* SceneDelegate.swift */; };
 		D7275C15245E0AFC009C0B84 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C14245E0AFC009C0B84 /* SplashVC.swift */; };
@@ -21,15 +35,11 @@
 		D7275C41245E0C94009C0B84 /* WelcomeScreenButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C40245E0C94009C0B84 /* WelcomeScreenButton.swift */; };
 		D7275C45245E120C009C0B84 /* JoinLobbyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C44245E120C009C0B84 /* JoinLobbyVC.swift */; };
 		D7275C47245E1498009C0B84 /* NameListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C46245E1498009C0B84 /* NameListCell.swift */; };
-		D7275C52245FB727009C0B84 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = D7275C51245FB727009C0B84 /* lock.png */; };
 		D7275C54245FCC46009C0B84 /* JoinRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C53245FCC46009C0B84 /* JoinRoomVC.swift */; };
 		D7275C5824609238009C0B84 /* UserIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C5724609238009C0B84 /* UserIconImageView.swift */; };
-		D7275C5A2460997F009C0B84 /* nick.png in Resources */ = {isa = PBXBuildFile; fileRef = D7275C592460997E009C0B84 /* nick.png */; };
 		D7275C5C2460B370009C0B84 /* NewGameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C5B2460B370009C0B84 /* NewGameVC.swift */; };
-		D7275C5E2460C0A6009C0B84 /* buck.png in Resources */ = {isa = PBXBuildFile; fileRef = D7275C5D2460C0A6009C0B84 /* buck.png */; };
-		D7275C602460C125009C0B84 /* philip.png in Resources */ = {isa = PBXBuildFile; fileRef = D7275C5F2460C125009C0B84 /* philip.png */; };
-		D7275C642460C1EC009C0B84 /* hikaru.png in Resources */ = {isa = PBXBuildFile; fileRef = D7275C632460C1EC009C0B84 /* hikaru.png */; };
 		D7275C6B2460D471009C0B84 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C6A2460D471009C0B84 /* Database.swift */; };
+		F9FC5D222DFBB03D0F2DEE11 /* Pods_password_prototypeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F910AE24F22C6EFBADC71633 /* Pods_password_prototypeTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,9 +60,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4B3687AC5C4F04774B77C576 /* Pods-password_prototypeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-password_prototypeTests.debug.xcconfig"; path = "Target Support Files/Pods-password_prototypeTests/Pods-password_prototypeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5133E5D322D60D9B7CF59502 /* Pods-password_prototypeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-password_prototypeTests.release.xcconfig"; path = "Target Support Files/Pods-password_prototypeTests/Pods-password_prototypeTests.release.xcconfig"; sourceTree = "<group>"; };
+		6AF2BB128B0866C1B88E3B1A /* Pods-password_prototype-password_prototypeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-password_prototype-password_prototypeUITests.release.xcconfig"; path = "Target Support Files/Pods-password_prototype-password_prototypeUITests/Pods-password_prototype-password_prototypeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6E5E97C32460CC1D0075BF09 /* GradientButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		6E5E97C42460CC1E0075BF09 /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		6E77C6452460DC2E00766BFE /* SubmittedWordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubmittedWordCell.swift; sourceTree = "<group>"; };
+		6E77C6472460DE5200766BFE /* philip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = philip.png; sourceTree = "<group>"; };
+		6E77C6482460DE5200766BFE /* hikaru.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hikaru.png; sourceTree = "<group>"; };
+		6E77C6492460DE5200766BFE /* nick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nick.png; sourceTree = "<group>"; };
+		6E77C64A2460DE5200766BFE /* buck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buck.png; sourceTree = "<group>"; };
+		6E77C6512461141200766BFE /* GameScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScreenVC.swift; sourceTree = "<group>"; };
+		6E77C65324611A0700766BFE /* lion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lion.png; sourceTree = "<group>"; };
+		6E77C65424611A0700766BFE /* bear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bear.png; sourceTree = "<group>"; };
+		6E77C65524611A0700766BFE /* panda.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = panda.png; sourceTree = "<group>"; };
+		6E77C65624611A0800766BFE /* zebra.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zebra.png; sourceTree = "<group>"; };
+		6E77C65724611A0800766BFE /* hippo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hippo.png; sourceTree = "<group>"; };
+		6E77C65824611A0800766BFE /* frog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = frog.png; sourceTree = "<group>"; };
+		6E77C65F24613E8C00766BFE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		714B1463800CD9B4800525F7 /* Pods-password_prototype.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-password_prototype.release.xcconfig"; path = "Target Support Files/Pods-password_prototype/Pods-password_prototype.release.xcconfig"; sourceTree = "<group>"; };
+		AADAC16418A1C2962540018C /* Pods-password_prototype.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-password_prototype.debug.xcconfig"; path = "Target Support Files/Pods-password_prototype/Pods-password_prototype.debug.xcconfig"; sourceTree = "<group>"; };
+		AED2556EEACCF0505C92DA30 /* Pods_password_prototype.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_password_prototype.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BBEF5789E44882F2007E82A4 /* Pods_password_prototype_password_prototypeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_password_prototype_password_prototypeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7275C0D245E0AFC009C0B84 /* password_prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = password_prototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7275C10245E0AFC009C0B84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7275C12245E0AFC009C0B84 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -70,15 +99,12 @@
 		D7275C40245E0C94009C0B84 /* WelcomeScreenButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreenButton.swift; sourceTree = "<group>"; };
 		D7275C44245E120C009C0B84 /* JoinLobbyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLobbyVC.swift; sourceTree = "<group>"; };
 		D7275C46245E1498009C0B84 /* NameListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameListCell.swift; sourceTree = "<group>"; };
-		D7275C51245FB727009C0B84 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lock.png; path = ../../../../Downloads/lock.png; sourceTree = "<group>"; };
 		D7275C53245FCC46009C0B84 /* JoinRoomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinRoomVC.swift; sourceTree = "<group>"; };
 		D7275C5724609238009C0B84 /* UserIconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIconImageView.swift; sourceTree = "<group>"; };
-		D7275C592460997E009C0B84 /* nick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nick.png; path = ../../../../Downloads/nick.png; sourceTree = "<group>"; };
 		D7275C5B2460B370009C0B84 /* NewGameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewGameVC.swift; sourceTree = "<group>"; };
-		D7275C5D2460C0A6009C0B84 /* buck.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = buck.png; path = ../../../../Downloads/buck.png; sourceTree = "<group>"; };
-		D7275C5F2460C125009C0B84 /* philip.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = philip.png; path = ../../../../Downloads/philip.png; sourceTree = "<group>"; };
-		D7275C632460C1EC009C0B84 /* hikaru.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = hikaru.png; path = ../../../../Downloads/hikaru.png; sourceTree = "<group>"; };
 		D7275C6A2460D471009C0B84 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Database.swift; path = password_prototype/Database.swift; sourceTree = SOURCE_ROOT; };
+		EE9DEE6846631B02705E8ECD /* Pods-password_prototype-password_prototypeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-password_prototype-password_prototypeUITests.debug.xcconfig"; path = "Target Support Files/Pods-password_prototype-password_prototypeUITests/Pods-password_prototype-password_prototypeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F910AE24F22C6EFBADC71633 /* Pods_password_prototypeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_password_prototypeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +112,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FDD618CFED41C677D661A10 /* Pods_password_prototype.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +120,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9FC5D222DFBB03D0F2DEE11 /* Pods_password_prototypeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,12 +128,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65970DD41D47B83EFF740A64 /* Pods_password_prototype_password_prototypeUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		575C684A8B74BABA64FB4BF6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AED2556EEACCF0505C92DA30 /* Pods_password_prototype.framework */,
+				BBEF5789E44882F2007E82A4 /* Pods_password_prototype_password_prototypeUITests.framework */,
+				F910AE24F22C6EFBADC71633 /* Pods_password_prototypeTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		769A7DBA24B865A695238E51 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				AADAC16418A1C2962540018C /* Pods-password_prototype.debug.xcconfig */,
+				714B1463800CD9B4800525F7 /* Pods-password_prototype.release.xcconfig */,
+				EE9DEE6846631B02705E8ECD /* Pods-password_prototype-password_prototypeUITests.debug.xcconfig */,
+				6AF2BB128B0866C1B88E3B1A /* Pods-password_prototype-password_prototypeUITests.release.xcconfig */,
+				4B3687AC5C4F04774B77C576 /* Pods-password_prototypeTests.debug.xcconfig */,
+				5133E5D322D60D9B7CF59502 /* Pods-password_prototypeTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		D7275C04245E0AFC009C0B84 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +167,8 @@
 				D7275C26245E0B04009C0B84 /* password_prototypeTests */,
 				D7275C31245E0B04009C0B84 /* password_prototypeUITests */,
 				D7275C0E245E0AFC009C0B84 /* Products */,
+				769A7DBA24B865A695238E51 /* Pods */,
+				575C684A8B74BABA64FB4BF6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +192,7 @@
 				D7275C682460D2EF009C0B84 /* View */,
 				D7275C692460D2F6009C0B84 /* Controller */,
 				D7275C19245E0B03009C0B84 /* Assets.xcassets */,
+				6E77C65F24613E8C00766BFE /* GoogleService-Info.plist */,
 				D7275C1B245E0B03009C0B84 /* LaunchScreen.storyboard */,
 				D7275C1E245E0B03009C0B84 /* Info.plist */,
 			);
@@ -164,11 +220,16 @@
 		D7275C50245FB6A5009C0B84 /* content */ = {
 			isa = PBXGroup;
 			children = (
-				D7275C592460997E009C0B84 /* nick.png */,
-				D7275C632460C1EC009C0B84 /* hikaru.png */,
-				D7275C5F2460C125009C0B84 /* philip.png */,
-				D7275C5D2460C0A6009C0B84 /* buck.png */,
-				D7275C51245FB727009C0B84 /* lock.png */,
+				6E77C64A2460DE5200766BFE /* buck.png */,
+				6E77C6482460DE5200766BFE /* hikaru.png */,
+				6E77C6492460DE5200766BFE /* nick.png */,
+				6E77C6472460DE5200766BFE /* philip.png */,
+				6E77C65424611A0700766BFE /* bear.png */,
+				6E77C65824611A0800766BFE /* frog.png */,
+				6E77C65724611A0800766BFE /* hippo.png */,
+				6E77C65324611A0700766BFE /* lion.png */,
+				6E77C65524611A0700766BFE /* panda.png */,
+				6E77C65624611A0800766BFE /* zebra.png */,
 			);
 			path = content;
 			sourceTree = "<group>";
@@ -201,6 +262,7 @@
 				D7275C5B2460B370009C0B84 /* NewGameVC.swift */,
 				D7275C53245FCC46009C0B84 /* JoinRoomVC.swift */,
 				D7275C44245E120C009C0B84 /* JoinLobbyVC.swift */,
+				6E77C6512461141200766BFE /* GameScreenVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -212,9 +274,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7275C37245E0B04009C0B84 /* Build configuration list for PBXNativeTarget "password_prototype" */;
 			buildPhases = (
+				4BA91B0D4BFEA947AAC89718 /* [CP] Check Pods Manifest.lock */,
 				D7275C09245E0AFC009C0B84 /* Sources */,
 				D7275C0A245E0AFC009C0B84 /* Frameworks */,
 				D7275C0B245E0AFC009C0B84 /* Resources */,
+				8417776752757D454EB3B29B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -229,6 +293,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7275C3A245E0B04009C0B84 /* Build configuration list for PBXNativeTarget "password_prototypeTests" */;
 			buildPhases = (
+				CCD220050132B677091EF287 /* [CP] Check Pods Manifest.lock */,
 				D7275C1F245E0B04009C0B84 /* Sources */,
 				D7275C20245E0B04009C0B84 /* Frameworks */,
 				D7275C21245E0B04009C0B84 /* Resources */,
@@ -247,9 +312,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7275C3D245E0B04009C0B84 /* Build configuration list for PBXNativeTarget "password_prototypeUITests" */;
 			buildPhases = (
+				9DFBDB6B642172E265A0745D /* [CP] Check Pods Manifest.lock */,
 				D7275C2A245E0B04009C0B84 /* Sources */,
 				D7275C2B245E0B04009C0B84 /* Frameworks */,
 				D7275C2C245E0B04009C0B84 /* Resources */,
+				A9B1EFD1A7E87FE550391E26 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -309,14 +376,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E77C65B24611A0800766BFE /* panda.png in Resources */,
 				D7275C1D245E0B03009C0B84 /* LaunchScreen.storyboard in Resources */,
-				D7275C642460C1EC009C0B84 /* hikaru.png in Resources */,
-				D7275C5A2460997F009C0B84 /* nick.png in Resources */,
-				D7275C602460C125009C0B84 /* philip.png in Resources */,
-				D7275C5E2460C0A6009C0B84 /* buck.png in Resources */,
-				D7275C52245FB727009C0B84 /* lock.png in Resources */,
+				6E77C64C2460DE5200766BFE /* hikaru.png in Resources */,
+				6E77C65A24611A0800766BFE /* bear.png in Resources */,
+				6E77C65D24611A0800766BFE /* hippo.png in Resources */,
+				6E77C65E24611A0800766BFE /* frog.png in Resources */,
+				6E77C64E2460DE5200766BFE /* buck.png in Resources */,
+				6E77C65C24611A0800766BFE /* zebra.png in Resources */,
+				6E77C64D2460DE5200766BFE /* nick.png in Resources */,
 				D7275C1A245E0B03009C0B84 /* Assets.xcassets in Resources */,
+				6E77C65924611A0800766BFE /* lion.png in Resources */,
 				D7275C18245E0AFC009C0B84 /* Main.storyboard in Resources */,
+				6E77C64B2460DE5200766BFE /* philip.png in Resources */,
+				6E77C66024613E8C00766BFE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +409,109 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4BA91B0D4BFEA947AAC89718 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-password_prototype-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8417776752757D454EB3B29B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-password_prototype/Pods-password_prototype-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-password_prototype/Pods-password_prototype-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-password_prototype/Pods-password_prototype-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9DFBDB6B642172E265A0745D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-password_prototype-password_prototypeUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A9B1EFD1A7E87FE550391E26 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-password_prototype-password_prototypeUITests/Pods-password_prototype-password_prototypeUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-password_prototype-password_prototypeUITests/Pods-password_prototype-password_prototypeUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-password_prototype-password_prototypeUITests/Pods-password_prototype-password_prototypeUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CCD220050132B677091EF287 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-password_prototypeTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D7275C09245E0AFC009C0B84 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -351,6 +527,7 @@
 				D7275C5C2460B370009C0B84 /* NewGameVC.swift in Sources */,
 				6E5E97C62460CC1E0075BF09 /* RoundedButton.swift in Sources */,
 				D7275C11245E0AFC009C0B84 /* AppDelegate.swift in Sources */,
+				6E77C6522461141200766BFE /* GameScreenVC.swift in Sources */,
 				D7275C45245E120C009C0B84 /* JoinLobbyVC.swift in Sources */,
 				D7275C13245E0AFC009C0B84 /* SceneDelegate.swift in Sources */,
 				6E77C6462460DC2E00766BFE /* SubmittedWordCell.swift in Sources */,
@@ -524,6 +701,7 @@
 		};
 		D7275C38245E0B04009C0B84 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AADAC16418A1C2962540018C /* Pods-password_prototype.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -541,6 +719,7 @@
 		};
 		D7275C39245E0B04009C0B84 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 714B1463800CD9B4800525F7 /* Pods-password_prototype.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -558,6 +737,7 @@
 		};
 		D7275C3B245E0B04009C0B84 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4B3687AC5C4F04774B77C576 /* Pods-password_prototypeTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -579,6 +759,7 @@
 		};
 		D7275C3C245E0B04009C0B84 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5133E5D322D60D9B7CF59502 /* Pods-password_prototypeTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -600,6 +781,7 @@
 		};
 		D7275C3E245E0B04009C0B84 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE9DEE6846631B02705E8ECD /* Pods-password_prototype-password_prototypeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -619,6 +801,7 @@
 		};
 		D7275C3F245E0B04009C0B84 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6AF2BB128B0866C1B88E3B1A /* Pods-password_prototype-password_prototypeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
