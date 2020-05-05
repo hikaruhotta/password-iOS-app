@@ -29,7 +29,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
-        cell.modifyIcon(name: "hikaru")
+        cell.modifyIcon(name: indexPath.row % 2 == 0 ? "philip" : "lion")
         cell.updateWord(word: words[indexPath.row].word ?? "")
         return cell
     }
@@ -40,7 +40,29 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     var counter: Int = 1
     
+    @IBOutlet weak var inputField: UITextField!
+    
+    @IBAction func submitButton(_ sender: Any) {
+        if inputField.text == nil  || inputField.text?.count == 0 {
+            return
+        }
+        //how to post
+        let post1 = [ "word" : inputField.text!,
+                      "user" : "user1",
+                      "order" : self.counter as Any,
+                      "score" : 0,
+                      "vetoCount" : [String]() ] as [String : Any]
+        let myUpdates = ["/sampleLobby/wordList/word\(self.counter)" : post1]
+        self.ref?.updateChildValues(myUpdates)
+        // update counter
+        self.counter += 1
+        ref?.updateChildValues(["/sampleLobby/counter" : ["value" : counter]])
+        inputField.text = ""
+    }
+    
     override func viewDidLoad() {
+        
+
         super.viewDidLoad()
         // Set the firebase reference
         ref = Database.database().reference()
@@ -123,11 +145,15 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
             
             self.wordsTableView.reloadData()
+            self.wordsTableView.scrollToBottom()
         }
+        
         
         wordsTableView.dataSource = self
         wordsTableView.delegate = self
     }
+    
+    
 }
 
 /*
@@ -150,3 +176,24 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
  SETTING ONE VALUE
              self.ref?.child("lobby1WordList").child("1").setValue(["word": "air"])
  */
+
+extension UITableView {
+
+    func scrollToBottom(){
+
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(
+                row: self.numberOfRows(inSection:  self.numberOfSections-1) - 1,
+                section: self.numberOfSections - 1)
+            self.scrollToRow(at: indexPath, at: .bottom, animated: true)
+        }
+    }
+
+    func scrollToTop() {
+
+        DispatchQueue.main.async {
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.scrollToRow(at: indexPath, at: .top, animated: false)
+        }
+    }
+}

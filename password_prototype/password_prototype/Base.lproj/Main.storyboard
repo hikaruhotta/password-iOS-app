@@ -449,17 +449,26 @@
                                     <segue destination="bdo-Pb-0Fu" kind="unwind" unwindAction="unwindToSplashVC:" id="NPF-5q-B79"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qya-aC-git">
-                                <rect key="frame" x="43" y="738" width="328" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qya-aC-git">
+                                <rect key="frame" x="9" y="738" width="342" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Duo-DE-3o2">
+                                <rect key="frame" x="359" y="738.5" width="35" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" backgroundImage="arrowshape.turn.up.left.circle.fill" catalog="system"/>
+                                <connections>
+                                    <action selector="submitButton:" destination="swv-99-rg2" eventType="touchUpInside" id="5Rm-ye-w0W"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="oKb-ve-ocL"/>
                     </view>
                     <connections>
+                        <outlet property="inputField" destination="qya-aC-git" id="FyD-d2-jwx"/>
                         <outlet property="wordsTableView" destination="Q1d-CN-sId" id="nNZ-66-mFo"/>
                     </connections>
                 </viewController>
@@ -530,6 +539,7 @@
     </scenes>
     <resources>
         <image name="arrow.left" catalog="system" width="128" height="98"/>
+        <image name="arrowshape.turn.up.left.circle.fill" catalog="system" width="128" height="121"/>
         <image name="frog.png" width="150" height="150"/>
         <image name="hikaru.png" width="285" height="380"/>
         <image name="nick.png" width="504" height="504"/>

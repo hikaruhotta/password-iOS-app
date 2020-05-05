@@ -19,7 +19,7 @@ class JoinLobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
-    var sampleData = ["philip", "hikaru", "nick", "buck"]
+    var sampleData = ["philip", "lion"]
     
     @IBOutlet weak var playerListTableView: UITableView!
     override func viewDidLoad() {
