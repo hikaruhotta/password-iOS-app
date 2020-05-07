@@ -25,7 +25,7 @@ class WelcomeScreenButton: UIButton {
         }
     }
     
-     var sampleData = ["philip", "hikaru", "nick", "buck"]
+    //var sampleData = ["philip", "hikaru", "nick", "buck"]
     
     func setButton(cornerRadius: CGFloat) {
         layer.cornerRadius = cornerRadius

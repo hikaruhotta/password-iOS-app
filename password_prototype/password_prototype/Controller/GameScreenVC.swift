@@ -23,15 +23,36 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     @IBOutlet weak var wordsTableView: UITableView!
     
+    @IBOutlet weak var mySegmentedControl: UISegmentedControl!
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return words.count
+        switch(mySegmentedControl.selectedSegmentIndex) {
+        case 0:
+            return words.count
+        case 1:
+            return 1
+        default:
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
-        cell.modifyIcon(name: indexPath.row % 2 == 0 ? "philip" : "lion")
-        cell.updateWord(word: words[indexPath.row].word ?? "")
-        return cell
+        switch(mySegmentedControl.selectedSegmentIndex) {
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
+            cell.modifyIcon(name: indexPath.row % 2 == 0 ? "philip" : "lion")
+            cell.updateWord(word: words[indexPath.row].word ?? "")
+            return cell
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell") as! ChatCell
+            //cell.modifyIcon(name: indexPath.row % 2 == 0 ? "philip" : "lion")
+            cell.updateChat(chat: "hello!")
+            return cell
+        default:
+            return tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -123,16 +144,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         ref?.updateChildValues(["/sampleLobby/counter" : ["value" : counter]])
         
         
-            
-            
-         
-        
-        
-        
-        
-        
-        
-        
         // for observing child added
         ref?.child("/sampleLobby/wordList").observe(.childAdded) { (snapshot) in
             if let wordDetails = snapshot.value as? [String: Any] {
@@ -154,7 +165,13 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     
     
+    @IBAction func segmentControlToggled(_ sender: Any) {
+        self.wordsTableView.reloadData()
+    }
+    
+    
 }
+
 
 /*
  PULLING ONCE

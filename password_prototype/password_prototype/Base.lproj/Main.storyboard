@@ -227,7 +227,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5Sb-cc-XcP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="QoL-Kt-2km" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1987" y="-193"/>
+            <point key="canvasLocation" x="758" y="-189"/>
         </scene>
         <!--Join LobbyVC-->
         <scene sceneID="ntj-TG-2rX">
@@ -383,7 +383,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qf-56-HZq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="ADB-3S-mBt" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1986.9565217391305" y="480.80357142857139"/>
+            <point key="canvasLocation" x="1628" y="507"/>
         </scene>
         <!--Game ScreenVC-->
         <scene sceneID="OoQ-Dh-LWw">
@@ -435,6 +435,31 @@
                                             <outlet property="wordLabel" destination="ebo-mG-Orp" id="b5m-cg-6Fx"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChatCell" rowHeight="92" id="n37-Nd-1y5" customClass="ChatCell" customModule="password_prototype" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="108" width="414" height="92"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="n37-Nd-1y5" id="edU-eq-mFL">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="92"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="hikaru.png" translatesAutoresizingMaskIntoConstraints="NO" id="Y3I-DB-wWw" customClass="UserIconImageView" customModule="password_prototype" customModuleProvider="target">
+                                                    <rect key="frame" x="20" y="21" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYK-Jq-Wop">
+                                                    <rect key="frame" x="98" y="36" width="37" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="chatMessage" destination="jYK-Jq-Wop" id="Txs-vz-x3d"/>
+                                            <outlet property="userIcon" destination="Y3I-DB-wWw" id="t2l-TH-H1h"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="imH-0z-1qg">
@@ -463,19 +488,31 @@
                                     <action selector="submitButton:" destination="swv-99-rg2" eventType="touchUpInside" id="5Rm-ye-w0W"/>
                                 </connections>
                             </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ADV-KR-1aT">
+                                <rect key="frame" x="132" y="805" width="151" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Game"/>
+                                    <segment title="Chat"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentControlToggled:" destination="swv-99-rg2" eventType="valueChanged" id="uEx-YV-BZU"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="oKb-ve-ocL"/>
                     </view>
                     <connections>
                         <outlet property="inputField" destination="qya-aC-git" id="FyD-d2-jwx"/>
+                        <outlet property="mySegmentedControl" destination="ADV-KR-1aT" id="6Qg-oe-Uzh"/>
                         <outlet property="wordsTableView" destination="Q1d-CN-sId" id="nNZ-66-mFo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0kV-vM-Gl0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="bdo-Pb-0Fu" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3040.579710144928" y="-1.3392857142857142"/>
+            <point key="canvasLocation" x="2494.202898550725" y="506.91964285714283"/>
         </scene>
         <!--Title-->
         <scene sceneID="6Oe-Gw-HI8">
@@ -534,7 +571,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SsW-qe-jpv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="aVU-3l-kgL" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="962" y="444"/>
+            <point key="canvasLocation" x="759" y="507"/>
         </scene>
     </scenes>
     <resources>
