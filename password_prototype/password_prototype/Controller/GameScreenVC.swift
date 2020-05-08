@@ -21,6 +21,8 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     var words: [Word] = []
     
+    var messages: [Message] = []
+    
     @IBOutlet weak var wordsTableView: UITableView!
     
     @IBOutlet weak var mySegmentedControl: UISegmentedControl!
@@ -31,7 +33,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         case 0:
             return words.count
         case 1:
-            return 1
+            return 3
         default:
             return 0
         }
@@ -43,11 +45,23 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
             cell.modifyIcon(name: indexPath.row % 2 == 0 ? "philip" : "lion")
             cell.updateWord(word: words[indexPath.row].word ?? "")
+            print(indexPath.row)
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell") as! ChatCell
-            //cell.modifyIcon(name: indexPath.row % 2 == 0 ? "philip" : "lion")
-            cell.updateChat(chat: "hello!")
+            let messageID = "message" + String(indexPath.row + 1)
+            print(messageID)
+            ref?.child("/sampleLobby/chat/" + messageID).observe(DataEventType.value, with: { (snapshot) in
+                let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+                let user = postDict["user"]! as! String
+                let contents = postDict["content"]! as! String
+                if user == "user1" {
+                    cell.modifyIcon(name: "philip")
+                } else {
+                    cell.modifyIcon(name: "lion")
+                }
+                cell.updateChat(chat: contents)
+            })
             return cell
         default:
             return tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
@@ -60,25 +74,49 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     
     var counter: Int = 1
+    var chatCounter: Int = 1
     
     @IBOutlet weak var inputField: UITextField!
     
     @IBAction func submitButton(_ sender: Any) {
-        if inputField.text == nil  || inputField.text?.count == 0 {
+        switch(mySegmentedControl.selectedSegmentIndex) {
+        case 0: // game toggle
+            if inputField.text == nil  || inputField.text?.count == 0 {
+                return
+            }
+            //how to post word
+            let post1 = [ "word" : inputField.text!,
+                          "user" : "user1",
+                          "order" : self.counter as Any,
+                          "score" : 0,
+                          "vetoCount" : [String]() ] as [String : Any]
+            let myUpdates = ["/sampleLobby/wordList/word\(self.counter)" : post1]
+            self.ref?.updateChildValues(myUpdates)
+            // update counter
+            self.counter += 1
+            ref?.updateChildValues(["/sampleLobby/counter" : ["value" : counter]])
+            inputField.text = ""
+        case 1: // chat toggle
+            if inputField.text == nil  || inputField.text?.count == 0 {
+                return
+            }
+            //how to post word
+            let formatter = DateFormatter()
+            // initially set the format based on your datepicker date / server String
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let post1 = ["content" : inputField.text!,
+                         "user" : "user1",
+                         "timeStamp" : formatter.string(from: Date())
+                ] as [String : Any]
+            let myUpdates = ["/sampleLobby/chat/message\(self.chatCounter)" : post1]
+            self.ref?.updateChildValues(myUpdates)
+            // update counter
+            self.chatCounter += 1
+            ref?.updateChildValues(["/sampleLobby/chatCounter" : ["value" : chatCounter]])
+            inputField.text = ""
+        default:
             return
         }
-        //how to post
-        let post1 = [ "word" : inputField.text!,
-                      "user" : "user1",
-                      "order" : self.counter as Any,
-                      "score" : 0,
-                      "vetoCount" : [String]() ] as [String : Any]
-        let myUpdates = ["/sampleLobby/wordList/word\(self.counter)" : post1]
-        self.ref?.updateChildValues(myUpdates)
-        // update counter
-        self.counter += 1
-        ref?.updateChildValues(["/sampleLobby/counter" : ["value" : counter]])
-        inputField.text = ""
     }
     
     override func viewDidLoad() {
@@ -96,6 +134,12 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         ref?.updateChildValues(uploadCounter)
         print("***** initiate counter")
         
+        // create chat counter
+        let initiateChatCounter = ["value" : chatCounter] as [String: Int]
+        let uploadChatCounter = ["/sampleLobby/chatCounter" : initiateChatCounter]
+        ref?.updateChildValues(uploadChatCounter)
+        print("***** initiate chat counter")
+        
         
         // observe counter
         ref?.child("/sampleLobby/counter").observe(.value) { (snapshot) in
@@ -105,8 +149,23 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             print("***** observe counter: \(self.counter)")
         }
         
+        // observe chat counter
+        ref?.child("/sampleLobby/chatCounter").observe(.value) { (snapshot) in
+            if let possibleValue = snapshot.value as? [String : Int] {
+                self.chatCounter = possibleValue["value"]!
+            }
+            print("***** observe chat counter: \(self.chatCounter)")
+        }
         
-        //how to post
+        // observe messages
+        ref?.child("/sampleLobby/chat/message1").observe(DataEventType.value, with: { (snapshot) in
+            let postDict = snapshot.value as? [String : AnyObject] ?? [:]
+            print("***** observe message: \(postDict["content"]!)")
+        })
+        
+        
+        
+        //how to post words
         let post1 = [ "word" : "apple",
                       "user" : "user1",
                       "order" : self.counter as Any,
@@ -159,6 +218,55 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             self.wordsTableView.scrollToBottom()
         }
         
+        // how to post messages
+        let formatter = DateFormatter()
+        // initially set the format based on your datepicker date / server String
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let postMessage1 = ["content" : "What's up dude!",
+                     "user" : "user1",
+                     "timeStamp" : formatter.string(from: Date())
+            ] as [String : Any]
+        myUpdates = ["/sampleLobby/chat/message\(self.chatCounter)" : postMessage1]
+        self.ref?.updateChildValues(myUpdates)
+        // update counter
+        self.chatCounter += 1
+        ref?.updateChildValues(["/sampleLobby/chatCounter" : ["value" : chatCounter]])
+        
+        let postMessage2 = ["content" : "Nothing much you?",
+                     "user" : "user2",
+                     "timeStamp" : formatter.string(from: Date())
+            ] as [String : Any]
+        myUpdates = ["/sampleLobby/chat/message\(self.chatCounter)" : postMessage2]
+        self.ref?.updateChildValues(myUpdates)
+        // update counter
+        self.chatCounter += 1
+        ref?.updateChildValues(["/sampleLobby/chatCounter" : ["value" : chatCounter]])
+        
+        let postMessage3 = ["content" : "I'm not buying that word you played dude :(",
+                     "user" : "user1",
+                     "timeStamp" : formatter.string(from: Date())
+            ] as [String : Any]
+        myUpdates = ["/sampleLobby/chat/message\(self.chatCounter)" : postMessage3]
+        self.ref?.updateChildValues(myUpdates)
+        // update counter
+        self.chatCounter += 1
+        ref?.updateChildValues(["/sampleLobby/chatCounter" : ["value" : chatCounter]])
+        
+        // for observing message child added
+        //ref?.child("/sampleLobby/chat").observe(.childAdded) { (snapshot) in
+          //  if let messageDetails = snapshot.value as? [String: Any] {
+            //    let newMessage = Message(dictionary: messageDetails)
+              //  self.messages.append(newMessage)
+            //}
+            
+            //self.messages.sort { (left, right) -> Bool in
+              //  formatter(from: left.timeStamp!) < formatter(right.timeStamp!)
+            //}
+            
+            //self.wordsTableView.reloadData()
+            //self.wordsTableView.scrollToBottom()
+        //}
         
         wordsTableView.dataSource = self
         wordsTableView.delegate = self
@@ -168,6 +276,8 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     @IBAction func segmentControlToggled(_ sender: Any) {
         self.wordsTableView.reloadData()
     }
+    
+    
     
     
 }
