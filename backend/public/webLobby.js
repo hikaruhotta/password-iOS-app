@@ -1,8 +1,14 @@
 "use strict";
 
 document.getElementById("createLobby").onclick = function() {
-    const lobbyRef = firebase.database().ref('/lobbies/').push();
-    joinLobby(lobbyRef);
+    firebase.functions().useFunctionsEmulator("http://localhost:5001");
+    var createLobby = firebase.functions().httpsCallable('createLobby');
+    createLobby({username: "john"}).then(function(result) {
+    // Read result of the Cloud Function.
+        console.log(result);
+    });
+    // const lobbyRef = firebase.database().ref('/lobbies/').push();
+    // joinLobby(lobbyRef);
 };
 
 document.getElementById("joinLobby").onclick = function() {
