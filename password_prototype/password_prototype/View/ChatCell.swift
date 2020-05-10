@@ -25,8 +25,8 @@ class ChatCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func updateChat(chat: String) {
-            chatMessage.text = chat
+    func updateChat(message: String) {
+            chatMessage.text = message
     }
         
         

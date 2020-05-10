@@ -20,9 +20,7 @@ class ProfileButton: UIButton {
         self.clipsToBounds = true
         self.layer.borderWidth = 5.0
         
-        
         randomizeProfile()
-        
     }
     
     
