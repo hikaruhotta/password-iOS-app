@@ -22,7 +22,7 @@ document.getElementById("joinLobby").onclick = function() {
     let joinLobby = firebase.functions().httpsCallable('joinLobby');
     joinLobby({lobbyCode: lobbyCode, user: {username: username}}).then(result => {
         // console.log(result);
-        let lobbyId = result.data;
+        let lobbyId = result.data.lobbyId;
         document.getElementById("lobbyCodeDisplay").value = lobbyCode;
         createLobbyListener(lobbyId);
     });
@@ -35,7 +35,7 @@ document.getElementById("copyLobbyId").onclick = function() {
 }
 
 function createLobbyListener(lobbyId) {
-    console.log(lobbyId);
+    // console.log(lobbyId);
     const lobbyRef = firebase.database().ref('/lobbies/' + lobbyId);
     lobbyRef.on('value', function(snapshot) {
         // console.log(snapshot.val());

@@ -154,5 +154,5 @@ exports.joinLobby = functions.https.onCall(async (data, context) => {
 
     const lobbyId = await getLobbyIdFromCode(lobbyCode);
     await addUserToLobby(lobbyId, user);
-    return lobbyId;
+    return { lobbyId: lobbyId };
 });
