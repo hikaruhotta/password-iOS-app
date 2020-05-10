@@ -13,14 +13,12 @@ struct Word {
     var user: String?
     var timeStamp: String?
     var score: Int?
-    var vetoCount: [String]?
     
-    init(word: String, user: String, timeStamp: String, score: Int, vetoCount:[String]) {
+    init(word: String, user: String, timeStamp: String, score: Int) {
         self.word = word
         self.user = user
         self.timeStamp = timeStamp
         self.score = score
-        self.vetoCount = ["user"]
     }
     
     init(dictionary: [String : Any] ) {
@@ -28,7 +26,6 @@ struct Word {
         self.user = dictionary["user"] as? String
         self.timeStamp = dictionary["timeStamp"] as? String
         self.score = dictionary["score"] as? Int
-        self.vetoCount = dictionary["vetoCount"] as? [String]
         
     }
     
@@ -38,7 +35,6 @@ struct Word {
             "user" : user!,
             "timeStamp" : timeStamp!,
             "score" : score!,
-            "vetoCount" : vetoCount!
         ] as [String : Any]
         return dict
     }

@@ -11,7 +11,7 @@ import UIKit
 class ChatCell: UITableViewCell {
     
     
-    @IBOutlet weak var userIcon: UserIconImageView!
+    @IBOutlet weak var userIcon: UserSmallIconButton!
     @IBOutlet weak var chatMessage: UILabel!
     
     override func awakeFromNib() {
@@ -31,11 +31,11 @@ class ChatCell: UITableViewCell {
         
         
     func modifyIcon(name: String) {
-        userIcon.image = UIImage(named: name + ".png")
-        userIcon.layer.cornerRadius = (userIcon.frame.size.width ) / 2
-        userIcon.clipsToBounds = true
-        userIcon.layer.borderWidth = 3.0
-        userIcon.layer.borderColor = name == "philip" ? UIColor.red.cgColor : UIColor.blue.cgColor
+//        userIcon.image = UIImage(named: name + ".png")
+//        userIcon.layer.cornerRadius = (userIcon.frame.size.width ) / 2
+//        userIcon.clipsToBounds = true
+//        userIcon.layer.borderWidth = 3.0
+//        userIcon.layer.borderColor = name == "philip" ? UIColor.red.cgColor : UIColor.blue.cgColor
     //        userIcon.layer.borderColor = LOCAL.colors[Int.random(in: 0..<LOCAL.colors.count)]
         }
 

@@ -70,11 +70,11 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             if inputField.text == nil  || inputField.text?.count == 0 {
                 return
             }
-            let word = Word(word: inputField.text!, user: "user1",
+            let word = Word(word: inputField.text!, user: LOCAL.userName,
                           timeStamp : dateFormatter.string(from: Date()),
-                          score : 1,
-                          vetoCount : ["0"])
-            let myUpdates = ["/sampleLobby/wordList/word\(words.count)" : word.constructDict()]
+                          score : 0)
+            
+            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/wordList/word\(words.count)" : word.constructDict()]
             self.ref?.updateChildValues(myUpdates)
             inputField.text = ""
         case 1: // chat toggle
@@ -82,7 +82,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 return
             }
             let message = Message(user: "user1", message: inputField.text!, timeStamp: dateFormatter.string(from: Date()))
-            let myUpdates = ["/sampleLobby/chat/message\(messages.count)" : message.constructDict()]
+            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/chat/message\(messages.count)" : message.constructDict()]
             self.ref?.updateChildValues(myUpdates)
             inputField.text = ""
             return
@@ -99,7 +99,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         ref = Database.database().reference()
 
         // for observing child added
-        ref?.child("/sampleLobby/wordList").observe(.childAdded) { (snapshot) in
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/wordList").observe(.childAdded) { (snapshot) in
             if let wordDetails = snapshot.value as? [String: Any] {
                 let newWord = Word(dictionary: wordDetails)
                 self.words.append(newWord)
@@ -112,7 +112,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         
         // for observing message child added
-        ref?.child("/sampleLobby/chat").observe(.childAdded) { (snapshot) in
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/chat").observe(.childAdded) { (snapshot) in
             if let messageDetails = snapshot.value as? [String: Any] {
                 let newMessage = Message(dictionary: messageDetails)
                 self.messages.append(newMessage)
@@ -143,12 +143,13 @@ extension UITableView {
             let indexPath = IndexPath(
                 row: self.numberOfRows(inSection:  self.numberOfSections-1) - 1,
                 section: self.numberOfSections - 1)
-            self.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            if indexPath.row >= 0, indexPath.section >= 0 {
+                self.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
         }
     }
 
     func scrollToTop() {
-
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: 0, section: 0)
             self.scrollToRow(at: indexPath, at: .top, animated: false)

@@ -8,35 +8,35 @@
 
 import UIKit
 
+@IBDesignable
 class ProfileButton: UIButton {
 
-    var imageName : String!
-    var borderColor : CGColor!
+    
+    @IBInspectable
+    var borderWidth: CGFloat = 5.0 {
+        didSet {
+            setBorderWidth(borderWidth: borderWidth)
+        }
+    }
+    
+    func setBorderWidth(borderWidth: CGFloat) {
+        self.layer.cornerRadius = self.frame.size.width / 2
+        self.clipsToBounds = true
+        self.layer.borderWidth = borderWidth
+    }
+    
+    func reloadButton() {
+        self.setTitle(LOCAL.emojis[LOCAL.emojiNumber], for: .normal)
+        self.layer.borderColor = LOCAL.colors[LOCAL.colorNumber]
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        self.layer.cornerRadius = self.frame.size.width / 2
-        self.clipsToBounds = true
-        self.layer.borderWidth = 5.0
-        
-        randomizeProfile()
+        self.titleLabel?.font = UIFont.systemFont(ofSize: self.frame.height * 0.75)
+        reloadButton()
     }
     
     
     
     
-    func randomizeProfile() {
-        
-        self.imageName = LOCAL.imageNames[Int.random(in: 0..<LOCAL.imageNames.count)]
-        self.setBackgroundImage(UIImage(named: imageName), for: .normal)
-        
-        self.borderColor = LOCAL.colors[Int.random(in: 0..<LOCAL.colors.count)]
-        self.layer.borderColor = self.borderColor
-    }
-    
-    
-    
-    
-
 }

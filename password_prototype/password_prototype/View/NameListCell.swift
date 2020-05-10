@@ -10,8 +10,10 @@ import UIKit
 
 class NameListCell: UITableViewCell {
 
-    @IBInspectable @IBOutlet weak var nameLabel: UILabel!
-    @IBInspectable @IBOutlet weak var userIcon: UserIconImageView!
+    @IBInspectable
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var userIcon: UserSmallIconButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,16 +25,9 @@ class NameListCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func changeName(name: String) {
-        nameLabel.text = name
-    }
-    
-    func modifyIcon(name: String) {
-        userIcon.image = UIImage(named: name + ".png")
-        userIcon.layer.cornerRadius = (userIcon.frame.size.width ) / 2
-        userIcon.clipsToBounds = true
-        userIcon.layer.borderWidth = 3.0
-        userIcon.layer.borderColor = UIColor.gray.cgColor
+    func setUser(user: User) {
+        nameLabel.text = user.username
+        userIcon.setUserIcon(user: user)
     }
 
 }

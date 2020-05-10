@@ -9,6 +9,7 @@ target 'password_prototype' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
+  pod 'Firebase/Functions'
   
   target 'password_prototypeTests' do
     inherit! :search_paths
