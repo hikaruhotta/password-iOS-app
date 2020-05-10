@@ -34,7 +34,8 @@ async function createLobbyCodeMapping(lobbyId, timestamp) {
             }
         }
         if (!freeCode) {
-            return; // couldn't find a lobby code, abort transaction and throw error below.
+            // couldn't find a lobby code, abort transaction and throw error below.
+            return undefined;
         }
         
         let newMapping = { lobbyId: lobbyId, created: timestamp };
@@ -88,7 +89,8 @@ async function addUserToLobby(lobbyId, user) {
             return null;
         }
         if (lobby.status !== 'LOBBY') {
-            return; // lobby closed, abort transaction and throw error in callback below
+            // lobby closed, abort transaction and throw error in callback below
+            return undefined;
         }
         
         if (!lobby.users) {
@@ -112,6 +114,7 @@ async function addUserToLobby(lobbyId, user) {
             console.error(error);
             throw error;
         }
+        return result.snapshot.val();
     });
 }
 
