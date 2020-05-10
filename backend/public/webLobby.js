@@ -1,20 +1,31 @@
 "use strict";
 
+firebase.functions().useFunctionsEmulator("http://localhost:5001");
+
 document.getElementById("createLobby").onclick = function() {
-    firebase.functions().useFunctionsEmulator("http://localhost:5001");
-    var createLobby = firebase.functions().httpsCallable('createLobby');
-    createLobby({username: "john"}).then(function(result) {
-    // Read result of the Cloud Function.
-        console.log(result);
+    const username = document.getElementById("username").value;
+
+    let createLobby = firebase.functions().httpsCallable('createLobby');
+    createLobby({user: {username: username}}).then(result => {
+        // console.log(result);
+        let lobbyId = result.data.lobbyId;
+        createLobbyListener(lobbyId);
+        document.getElementById("lobbyCodeDisplay").value = result.data.lobbyCode;
+        
     });
-    // const lobbyRef = firebase.database().ref('/lobbies/').push();
-    // joinLobby(lobbyRef);
 };
 
 document.getElementById("joinLobby").onclick = function() {
-    const lobbyKey = document.getElementById("lobbyId").value;
-    const lobbyRef = firebase.database().ref('/lobbies/' + lobbyKey);
-    joinLobby(lobbyRef);
+    const username = document.getElementById("username").value;
+    const lobbyCode = document.getElementById("lobbyCodeEntry").value;
+    
+    let joinLobby = firebase.functions().httpsCallable('joinLobby');
+    joinLobby({lobbyCode: lobbyCode, user: {username: username}}).then(result => {
+        // console.log(result);
+        let lobbyId = result.data;
+        document.getElementById("lobbyCodeDisplay").value = lobbyCode;
+        createLobbyListener(lobbyId);
+    });
 }
 
 document.getElementById("copyLobbyId").onclick = function() {
@@ -23,21 +34,22 @@ document.getElementById("copyLobbyId").onclick = function() {
     document.execCommand("copy");
 }
 
-function joinLobby(lobbyRef) {
+function createLobbyListener(lobbyId) {
+    console.log(lobbyId);
+    const lobbyRef = firebase.database().ref('/lobbies/' + lobbyId);
     lobbyRef.on('value', function(snapshot) {
-        displayLobby(snapshot.key, snapshot.val());
+        // console.log(snapshot.val());
+        displayLobby(snapshot.val().users);
     });
-
-    const username = document.getElementById("username").value;
-    lobbyRef.push({username: username});
 }
 
-function displayLobby(lobbyId, lobby) {
-    document.getElementById("lobbyIdDisplay").value = lobbyId;
+function displayLobby(lobby) {
+    // console.log(lobby);
+    
     const ul = document.getElementById("lobby");
     ul.innerHTML = ""; // reset lobby display
-    for (const userKey in lobby) {
-        const user = lobby[userKey];
+    for (let i = 0; i < lobby.length; i++) {
+        const user = lobby[i];
         let li = document.createElement("li");
         li.appendChild(document.createTextNode(user.username));
         ul.appendChild(li);
