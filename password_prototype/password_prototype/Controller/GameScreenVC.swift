@@ -39,12 +39,12 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         switch(mySegmentedControl.selectedSegmentIndex) {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
-            cell.modifyIcon(name: indexPath.row % 2 == 0 ? "philip" : "lion")
+            cell.modifyIcon(user: words[indexPath.row].user!)
             cell.updateWord(word: words[indexPath.row].word ?? "")
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell") as! ChatCell
-            cell.modifyIcon(name: indexPath.row % 2 == 0 ? "philip" : "lion")
+            cell.modifyIcon(user: messages[indexPath.row].user!)
             cell.updateChat(message: messages[indexPath.row].message ?? "")
             return cell
         default:
