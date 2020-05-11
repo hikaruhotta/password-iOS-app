@@ -1,16 +1,18 @@
-"use strict";
 
 firebase.functions().useFunctionsEmulator("http://localhost:5001");
+firebase.auth().signInAnonymously()
+
+var pageLobbyId;
 
 document.getElementById("createLobby").onclick = function() {
     const username = document.getElementById("username").value;
 
     let createLobby = firebase.functions().httpsCallable('createLobby');
     createLobby({user: {username: username}}).then(result => {
-        // console.log(result);
-        let lobbyId = result.data.lobbyId;
-        createLobbyListener(lobbyId);
+        console.log(result);
+        pageLobbyId = result.data.lobbyId;
         document.getElementById("lobbyCodeDisplay").value = result.data.lobbyCode;
+        createLobbyListener(pageLobbyId);
         
     });
 };
@@ -21,10 +23,17 @@ document.getElementById("joinLobby").onclick = function() {
     
     let joinLobby = firebase.functions().httpsCallable('joinLobby');
     joinLobby({lobbyCode: lobbyCode, user: {username: username}}).then(result => {
-        // console.log(result);
-        let lobbyId = result.data.lobbyId;
+        console.log(result);
+        pageLobbyId = result.data.lobbyId;
         document.getElementById("lobbyCodeDisplay").value = lobbyCode;
-        createLobbyListener(lobbyId);
+        createLobbyListener(pageLobbyId);
+    });
+}
+
+document.getElementById("startGame").onclick = function() {    
+    let startGame = firebase.functions().httpsCallable('startGame');
+    startGame({lobbyId: pageLobbyId}).then(result => {
+        console.log(result);
     });
 }
 
@@ -36,10 +45,10 @@ document.getElementById("copyLobbyId").onclick = function() {
 
 function createLobbyListener(lobbyId) {
     // console.log(lobbyId);
-    const lobbyRef = firebase.database().ref('/lobbies/' + lobbyId);
-    lobbyRef.on('value', function(snapshot) {
-        // console.log(snapshot.val());
-        displayLobby(snapshot.val().users);
+    const lobbyUsers = firebase.database().ref('/lobbies/' + lobbyId + '/users');
+    lobbyUsers.on('value', function(snapshot) {
+        console.log(snapshot.val());
+        displayLobby(snapshot.val());
     });
 }
 
