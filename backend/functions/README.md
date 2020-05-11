@@ -1,5 +1,9 @@
 # Calling Cloud Functions from iOS
 ```swift
+Auth.auth().signInAnonymously() { (authResult, error) in
+  // 
+}
+
 functions.httpsCallable("addMessage").call(["text": inputField.text]) { (result, error) in
   if let error = error as NSError? {
     if error.domain == FunctionsErrorDomain {
@@ -14,13 +18,15 @@ functions.httpsCallable("addMessage").call(["text": inputField.text]) { (result,
   }
 }
 ```
-[See Firebase Documentation Here](https://firebase.google.com/docs/functions/callable#call_the_function)
+Authentication documentation: https://firebase.google.com/docs/auth/ios/anonymous-auth  
+Calling cloud functions documentation: https://firebase.google.com/docs/functions/callable#call_the_function
 ## Handling Errors
 Errors will be drawn from this list of possible codes: https://firebase.google.com/docs/reference/js/firebase.functions#functionserrorcode  
 
 See this documentation page for how to handle errors in iOS: https://firebase.google.com/docs/functions/callable#handle_errors_on_the_client
 
 # Cloud Function Descriptions
+
 See [index.js](./functions/index.js) for source code.
 ## createLobby
 Creates a new lobby, adds the requesting user into it, and creates a new code to access that lobby. Gives the requesting user a hostkey used to start the game, and the generated lobby code so that the client can display something like `"Send this code to your friends: AXDF"`
