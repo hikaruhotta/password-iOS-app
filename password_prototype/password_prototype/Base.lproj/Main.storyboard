@@ -67,7 +67,7 @@
                                 <rect key="frame" x="115" y="475" width="184" height="58"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <attributedString key="attributedText"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <connections>
                                     <action selector="inputUserName:" destination="BYZ-38-t0r" eventType="editingChanged" id="DK3-Np-hsw"/>
                                 </connections>
@@ -582,6 +582,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="IWS-2N-WAf"/>
                     <connections>
+                        <outlet property="enterLobbyButton" destination="Lde-5d-5ZF" id="6EG-6N-i91"/>
                         <outlet property="inputTextField" destination="vuG-qv-EUx" id="wJZ-O4-oGh"/>
                         <segue destination="SlL-I3-Kev" kind="presentation" identifier="segueToLobby" modalPresentationStyle="fullScreen" id="ONs-M5-DwY"/>
                     </connections>

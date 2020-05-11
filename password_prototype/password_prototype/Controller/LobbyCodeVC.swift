@@ -16,12 +16,15 @@ class LobbyCodeVC: UIViewController {
     
     lazy var functions = Functions.functions()
     
-    @IBAction func enterLobbyButtonPressed(_ sender: Any) {
+    @IBOutlet weak var enterLobbyButton: WelcomeScreenButton!
+    
+    @IBAction func enterLobbyButtonPressed(_ sender: UIButton) {
+        self.enterLobbyButton.isEnabled = false
         print(inputTextField.text ?? "nothing" )
         // REGISTER USER
         functions.httpsCallable("joinLobby").call(["lobbyCode" : "\(inputTextField.text!)",
-            "user": ["username" : "\(LOCAL.userName)", "emojiNumber" : "\(LOCAL.emojiNumber)",
-                "colorNumber" : "\(LOCAL.colorNumber)", "score" : "0"]]) { (result, error) in
+            "user": ["username" : "\(LOCAL.user.username)", "emojiNumber" : "\(LOCAL.user.emojiNumber)",
+                "colorNumber" : "\(LOCAL.user.colorNumber)", "score" : "0"]]) { (result, error) in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
                     //              let code = FunctionsErrorCode(rawValue: error.code)
@@ -30,12 +33,13 @@ class LobbyCodeVC: UIViewController {
                 }
                 print("error in create lobby request")
                 // TODO: - MAKE ALERT HERE TO SHOW LOBBY DOES NOT EXIST
+                self.enterLobbyButton.isEnabled = true
                 return
             }
             if var resultDictionary = result?.data as? [String: String] {
-//                print(resultDictionary)
                 resultDictionary["lobbyCode"] = self.inputTextField.text!
                 LOCAL.lobby = Lobby(dictionary: resultDictionary)
+                self.enterLobbyButton.isEnabled = true
                 self.performSegue(withIdentifier: "segueToLobby", sender: nil)
             }
         }

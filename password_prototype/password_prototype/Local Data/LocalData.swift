@@ -27,14 +27,15 @@ class LocalData {
     
     var codeToTry: String?
     
-    var userName: String = "Anonymous"
-    var emojiNumber: Int = 0
-    var colorNumber: Int = 0
+    var user = User()
+    
+//    var userName: String = "Anonymous"
+//    var emojiNumber: Int = 0
+//    var colorNumber: Int = 0
     
     func randomizeIcon() {
-        print("randomized called")
-        emojiNumber = Int.random(in: 0..<emojis.count)
-        colorNumber = Int.random(in: 0..<colors.count)
+        self.user.emojiNumber = Int.random(in: 0..<emojis.count)
+        self.user.colorNumber = Int.random(in: 0..<colors.count)
     }
     
 }

@@ -10,11 +10,11 @@ import Foundation
 
 struct Word {
     var word: String?
-    var user: String?
+    var user: User?
     var timeStamp: String?
     var score: Int?
     
-    init(word: String, user: String, timeStamp: String, score: Int) {
+    init(word: String, user: User, timeStamp: String, score: Int) {
         self.word = word
         self.user = user
         self.timeStamp = timeStamp
@@ -23,7 +23,8 @@ struct Word {
     
     init(dictionary: [String : Any] ) {
         self.word = dictionary["word"] as? String
-        self.user = dictionary["user"] as? String
+        //print(dictionary["user"]!)
+        self.user = User(dictionary: (dictionary["user"] as! [String : String]))
         self.timeStamp = dictionary["timeStamp"] as? String
         self.score = dictionary["score"] as? Int
         
@@ -32,9 +33,9 @@ struct Word {
     func constructDict() -> Dictionary<String, Any> {
         let dict  = [
             "word" : word!,
-            "user" : user!,
+            "user" : user!.constructDict(),
             "timeStamp" : timeStamp!,
-            "score" : score!,
+            "score" : String(score!),
         ] as [String : Any]
         return dict
     }

@@ -20,4 +20,21 @@ struct User {
         self.emojiNumber = Int(dictionary["emojiNumber"] ?? "0") ?? 0
         self.score = Int(dictionary["score"] ?? "0") ?? 0
     }
+    
+    init(){
+        self.username = "Anonymous"
+        self.colorNumber = 0
+        self.emojiNumber = 0
+        self.score = 0
+    }
+    
+    func constructDict() -> Dictionary<String, Any> {
+        let dict  = [
+            "username" : self.username,
+            "colorNumber" : String(colorNumber),
+            "emojiNumber" : String(emojiNumber),
+            "score" : String(score),
+        ] as [String : Any]
+        return dict
+    }
 }

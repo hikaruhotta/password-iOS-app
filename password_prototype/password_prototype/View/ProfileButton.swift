@@ -26,8 +26,8 @@ class ProfileButton: UIButton {
     }
     
     func reloadButton() {
-        self.setTitle(LOCAL.emojis[LOCAL.emojiNumber], for: .normal)
-        self.layer.borderColor = LOCAL.colors[LOCAL.colorNumber]
+        self.setTitle(LOCAL.emojis[LOCAL.user.emojiNumber], for: .normal)
+        self.layer.borderColor = LOCAL.colors[LOCAL.user.colorNumber]
     }
     
     override func awakeFromNib() {

@@ -70,7 +70,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             if inputField.text == nil  || inputField.text?.count == 0 {
                 return
             }
-            let word = Word(word: inputField.text!, user: LOCAL.userName,
+            let word = Word(word: inputField.text!, user: LOCAL.user,
                           timeStamp : dateFormatter.string(from: Date()),
                           score : 0)
             
@@ -81,7 +81,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             if inputField.text == nil  || inputField.text?.count == 0 {
                 return
             }
-            let message = Message(user: "user1", message: inputField.text!, timeStamp: dateFormatter.string(from: Date()))
+            let message = Message(user: LOCAL.user, message: inputField.text!, timeStamp: dateFormatter.string(from: Date()))
             let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/chat/message\(messages.count)" : message.constructDict()]
             self.ref?.updateChildValues(myUpdates)
             inputField.text = ""

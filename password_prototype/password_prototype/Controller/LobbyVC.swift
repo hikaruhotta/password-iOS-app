@@ -22,8 +22,6 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     
-    var sampleData = ["philip", "lion"]
-    
     override func viewWillAppear(_ animated: Bool) {
 //        print("**** DELETE")
 //        users = []
@@ -40,10 +38,9 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         ref = Database.database().reference()
         // for observing child added
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/users").observe(.childAdded) { (snapshot) in
-            
             if let userDetails = snapshot.value as? [String: String] {
-                print("***** USER DETAILS BELOW *****")
-                print(userDetails)
+//                print("***** USER DETAILS BELOW *****")
+//                print(userDetails)
                 let newUser = User(dictionary: userDetails)
                 self.users.append(newUser)
             }

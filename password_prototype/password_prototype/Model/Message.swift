@@ -9,25 +9,25 @@
 import Foundation
 
 struct Message {
-    var user: String?
+    var user: User?
     var message: String?
     var timeStamp: String?
     
-    init(user: String, message: String, timeStamp: String) {
+    init(user: User, message: String, timeStamp: String) {
         self.user = user
         self.message = message
         self.timeStamp = timeStamp
     }
     
     init(dictionary: [String : Any] ) {
-        self.user = dictionary["user"] as? String
+        self.user = User(dictionary: (dictionary["user"] as! [String : String]))
         self.message = dictionary["message"] as? String
         self.timeStamp = dictionary["timeStamp"] as? String
     }
     
     func constructDict() -> Dictionary<String, Any> {
         let dict  = [
-            "user" : user!,
+            "user" : user!.constructDict(),
             "message": message!,
             "timeStamp" : timeStamp!,
         ] as [String : Any]

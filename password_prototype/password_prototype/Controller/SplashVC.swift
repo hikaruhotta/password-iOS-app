@@ -18,13 +18,13 @@ class SplashVC: UIViewController {
     
     @IBAction func inputUserName(_ sender: Any) {
         let field = sender as? UITextField
-        LOCAL.userName = field?.text ?? "Anonymous"
+        LOCAL.user.username = field?.text ?? "Anonymous"
     }
     
     @IBAction func newGameButtonPressed(_ sender: Any) {
         // REGISTER USER
-        functions.httpsCallable("createLobby").call(["user": ["username" : "\(LOCAL.userName)",
-            "emojiNumber" : "\(LOCAL.emojiNumber)", "colorNumber" : "\(LOCAL.colorNumber)", "score" : "0"] ]) { (result, error) in
+        functions.httpsCallable("createLobby").call(["user": ["username" : "\(LOCAL.user.username)",
+            "emojiNumber" : "\(LOCAL.user.emojiNumber)", "colorNumber" : "\(LOCAL.user.colorNumber)", "score" : "0"] ]) { (result, error) in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
                     //              let code = FunctionsErrorCode(rawValue: error.code)
