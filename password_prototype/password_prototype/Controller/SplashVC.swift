@@ -23,6 +23,8 @@ class SplashVC: UIViewController {
     
     @IBAction func newGameButtonPressed(_ sender: Any) {
         // REGISTER USER
+//        print("EMOJI: \(LOCAL.user.emojiNumber)")
+//        print("COLOR: \(LOCAL.user.colorNumber)")
         functions.httpsCallable("createLobby").call(["user": ["username" : "\(LOCAL.user.username)",
             "emojiNumber" : "\(LOCAL.user.emojiNumber)", "colorNumber" : "\(LOCAL.user.colorNumber)", "score" : "0"] ]) { (result, error) in
             if let error = error as NSError? {
@@ -52,6 +54,7 @@ class SplashVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
     }
 
     @IBOutlet weak var profileButton: ProfileButton!

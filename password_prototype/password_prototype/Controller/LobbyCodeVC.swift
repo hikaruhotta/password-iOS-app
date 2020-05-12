@@ -32,7 +32,7 @@ class LobbyCodeVC: UIViewController {
                     //              let details = error.userInfo[FunctionsErrorDetailsKey]
                 }
                 print("error in create lobby request")
-                // TODO: - MAKE ALERT HERE TO SHOW LOBBY DOES NOT EXIST
+                // TODO: - MAKE "ALERT" HERE TO SHOW LOBBY DOES NOT EXIST
                 self.enterLobbyButton.isEnabled = true
                 return
             }

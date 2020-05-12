@@ -42,6 +42,9 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //                print("***** USER DETAILS BELOW *****")
 //                print(userDetails)
                 let newUser = User(dictionary: userDetails)
+                print("EMOJI: \(newUser.emojiNumber)")
+                print("COLOR: \(newUser.colorNumber)")
+                
                 self.users.append(newUser)
             }
             self.playerListTableView.reloadData()

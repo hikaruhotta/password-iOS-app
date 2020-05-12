@@ -13,8 +13,6 @@ import UIKit
 
 class LocalData {
     
-//    var icons = [
-//        UIImage(named: "bear.png"), UIImage(named: "frog.png"), UIImage(named: "hippo.png"), UIImage(named: "lion.png"), UIImage(named: "panda.png"), UIImage(named: "zebra.png"), UIImage(named: "buck.png"), UIImage(named: "nick.png"), UIImage(named: "philip.png"), UIImage(named: "hikaru.png")]
 
     var imageNames = ["bear.png", "frog.png", "buck.png", "nick.png", "hikaru.png", "philip.png"]
 
@@ -28,10 +26,6 @@ class LocalData {
     var codeToTry: String?
     
     var user = User()
-    
-//    var userName: String = "Anonymous"
-//    var emojiNumber: Int = 0
-//    var colorNumber: Int = 0
     
     func randomizeIcon() {
         self.user.emojiNumber = Int.random(in: 0..<emojis.count)
