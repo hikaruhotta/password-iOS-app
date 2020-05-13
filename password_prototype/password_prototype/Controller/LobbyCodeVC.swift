@@ -32,7 +32,12 @@ class LobbyCodeVC: UIViewController {
                     //              let details = error.userInfo[FunctionsErrorDetailsKey]
                 }
                 print("error in create lobby request")
-                // TODO: - MAKE "ALERT" HERE TO SHOW LOBBY DOES NOT EXIST
+                // MAKE "ALERT" HERE TO SHOW LOBBY DOES NOT EXIST
+                let alert = UIAlertController(title: "Lobby \(self.inputTextField.text ?? "nothing") Does Not Exist", message: "Please double check the Lobby code.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                self.inputTextField.text = ""
+                
                 self.enterLobbyButton.isEnabled = true
                 return
             }

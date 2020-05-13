@@ -13,7 +13,10 @@ class ChatCell: UITableViewCell {
     
     @IBOutlet weak var userIcon: UserSmallIconButton!
     
-    @IBOutlet weak var chatMessage: UILabel!
+    //@IBOutlet weak var chatMessage: UILabel!
+    
+    @IBOutlet weak var chatMessage: UITextView!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
