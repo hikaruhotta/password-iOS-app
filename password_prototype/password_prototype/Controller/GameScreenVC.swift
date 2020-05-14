@@ -185,14 +185,15 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         wordButton2.setTitle(word2, for: .normal)
         wordButton3.setTitle(word3, for: .normal)
 
-        
-        wordsTableView.estimatedRowHeight = 100
-        wordsTableView.rowHeight = UITableView.automaticDimension
-        
         wordsTableView.dataSource = self
         wordsTableView.delegate = self
         
-
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        wordsTableView.estimatedRowHeight = 100
+        wordsTableView.rowHeight = UITableView.automaticDimension
+        
     }
     
     
