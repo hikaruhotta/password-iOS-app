@@ -1,81 +1,64 @@
 {
     "lobbies" : {
         "-M74qOnArTZvKHVwpLrK" : {
-            "created" : 1589236047060,
-            "hostId" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
-            "status" : "GAME",
+            "internal": {
+                "created" : 1589236047060,
+                "hostId" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
+                "status" : "GAME"
+            },
             "public" : {
-                "users" : {
+                "players" : {
                     "sNbbJ6hAdQbINVVeJLG9nW6irLv1": {
-                        "username" : "hikaru",
+                        "displayName" : "hikaru",
                         "colorNumber": 4,
                         "emojiNumber" : 10,
                         "score": 2
                     },
                     "IRVnDKYU5JdYUnfIKOW7qJDpwxt1": {
-                        "username" : "nick",
+                        "displayName" : "nick",
                         "colorNumber": 3,
                         "emojiNumber" : 6,
                         "score": 3
                     }
                 },
-                "wordList" : {
+                "playerOrder": [
+                    "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
+                    "IRVnDKYU5JdYUnfIKOW7qJDpwxt1"
+                ],
+                "turns" : {
                     "-M74d8BRhv_uUHgdvnJB": {
-                        "user" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
-                        "word" : "pizza",
-                        "wasSubmittersWord": false,
-                        "wasOthersWord": false,
-                        "otherId": null,
+                        "player" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
+                        "submittedWord" : "pizza",
                         "wasCalled": false,
-                        "callerId": null
+                        "wasSubmittersWord": false
                     },
-                    "-M74dDGAE1EKpv2r-Hyj___ACCEPTED_BEFORE": {
-                        "user" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
-                        "word" : "brown"
-                    },
-                    "-M74dDGAE1EKpv2r-Hyj___ACCEPTED_AFTER": {
-                        "user" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
-                        "word" : "brown",
-                        "wasSubmittersWord": true,
-                        "wasOthersWord": false,
-                        "otherId": null,
-                        "wasCalled": false,
-                        "callerId": null
-                    },
-                    "-M74dIecuZrKkJ82xw7R___REJECTED_BEFORE": {
-                        "user" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
-                        "word" : "brown"
-                    },
-                    "-M74dIecuZrKkJ82xw7R___REJECTED_AFTER": {
-                        "user" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
-                        "word" : "brown",
-                        "wasSubmittersWord": true,
-                        "wasOthersWord": false,
-                        "otherId": null,
+                    "-M74dIecuZrKkJ82xw7R": {
+                        "player" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
+                        "submittedWord" : "brown",
                         "wasCalled": true,
-                        "callerId": "sNbbJ6hAdQbINVVeJLG9nW6irLv1"
+                        "callerId": "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
+                        "wasSubmittersWord": true
                     },
-                    "-M74dQYCi8piAb6zZLsZ___OTHERS_WORD_BEFORE": {
-                        "user" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
-                        "word" : "lazy"
-                    },
-                    "-M74dQYCi8piAb6zZLsZ___OTHERS_WORD_AFTER": {
-                        "user" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
-                        "word" : "lazy",
-                        "wasSubmittersWord": false,
-                        "wasOthersWord": true,
-                        "otherId": "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
+                    "-M74dDGAE1EKpv2r-Hyj": {
+                        "player" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
+                        "submittedWord" : "lazy",
                         "wasCalled": false,
-                        "callerId": null
+                        "wasSubmittersWord": true
+                    },
+                    "-M74dQYCi8piAb6zZLsZ": {
+                        "player" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
+                        "submittedWord" : "jump",
+                        "wasOthersWord": true,
+                        "otherId": "sNbbJ6hAdQbINVVeJLG9nW6irLv1"
                     }
                 }
             },
             "private" : {
                 "IRVnDKYU5JdYUnfIKOW7qJDpwxt1" : {
-                    "words" : [ "quick", "brown", "fox" ]
+                    "targetWords" : [ "quick", "brown", "fox" ]
                 },
                 "sNbbJ6hAdQbINVVeJLG9nW6irLv1" : {
-                    "words" : [ "jump", "lazy", "dog" ]
+                    "targetWords" : [ "jump", "lazy", "dog" ]
                 }
             }
         }
