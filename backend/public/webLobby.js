@@ -1,14 +1,21 @@
 
 firebase.functions().useFunctionsEmulator("http://localhost:5001");
-firebase.auth().signInAnonymously()
+firebase.auth().signInAnonymously();
 
 var pageLobbyId;
 
-document.getElementById("createLobby").onclick = function() {
-    const username = document.getElementById("username").value;
+function dummyPlayer() {
+    const displayName = document.getElementById("displayName").value;
+    return {
+        displayName: displayName,
+        colorNumber: 3,
+        emojiNumber: 4
+    };
+}
 
+document.getElementById("createLobby").onclick = function() {
     let createLobby = firebase.functions().httpsCallable('createLobby');
-    createLobby({user: {username: username}}).then(result => {
+    createLobby({player: dummyPlayer()}).then(result => {
         console.log(result);
         pageLobbyId = result.data.lobbyId;
         document.getElementById("lobbyCodeDisplay").value = result.data.lobbyCode;
@@ -18,11 +25,10 @@ document.getElementById("createLobby").onclick = function() {
 };
 
 document.getElementById("joinLobby").onclick = function() {
-    const username = document.getElementById("username").value;
     const lobbyCode = document.getElementById("lobbyCodeEntry").value;
     
     let joinLobby = firebase.functions().httpsCallable('joinLobby');
-    joinLobby({lobbyCode: lobbyCode, user: {username: username}}).then(result => {
+    joinLobby({lobbyCode: lobbyCode, player: dummyPlayer()}).then(result => {
         console.log(result);
         pageLobbyId = result.data.lobbyId;
         document.getElementById("lobbyCodeDisplay").value = lobbyCode;
@@ -37,16 +43,16 @@ document.getElementById("startGame").onclick = function() {
     });
 }
 
-document.getElementById("copyLobbyId").onclick = function() {
-    let copyText = document.getElementById("lobbyIdDisplay");
+document.getElementById("copyLobbyCode").onclick = function() {
+    let copyText = document.getElementById("lobbyCodeDisplay");
     copyText.select();
     document.execCommand("copy");
 }
 
 function createLobbyListener(lobbyId) {
     // console.log(lobbyId);
-    const lobbyUsers = firebase.database().ref('/lobbies/' + lobbyId + '/users');
-    lobbyUsers.on('value', function(snapshot) {
+    const lobbyPlayers = firebase.database().ref('/lobbies/' + lobbyId + '/public/players');
+    lobbyPlayers.on('value', function(snapshot) {
         console.log(snapshot.val());
         displayLobby(snapshot.val());
     });
@@ -57,10 +63,10 @@ function displayLobby(lobby) {
     
     const ul = document.getElementById("lobby");
     ul.innerHTML = ""; // reset lobby display
-    for (let i = 0; i < lobby.length; i++) {
-        const user = lobby[i];
+    for (const uid in lobby) {
+        let user = lobby[uid];
         let li = document.createElement("li");
-        li.appendChild(document.createTextNode(user.username));
+        li.appendChild(document.createTextNode(user.displayName));
         ul.appendChild(li);
     }
 }

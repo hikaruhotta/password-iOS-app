@@ -13,6 +13,19 @@ function generateLobbyCode() {
     return code;
 }
 
+// courtesy of https://medium.com/@nitinpatel_20236/how-to-shuffle-correctly-shuffle-an-array-in-javascript-15ea3f84bfb
+function shuffleArray(inputArray) {
+    // copy input array:
+    let array = inputArray.slice();
+    for (let i = array.length - 1; i > 0; i--){
+        const j = Math.floor(Math.random() * i)
+        const temp = array[i]
+        array[i] = array[j]
+        array[j] = temp
+    }
+    return array;
+}
+
 async function createLobbyCodeMapping(lobbyId, timestamp) {
     let transactionError;
     return admin.database().ref('/lobbyCodeMap/').transaction(lobbyCodeMap => {
@@ -65,23 +78,39 @@ async function getLobbyIdFromCode(lobbyCode) {
     });
 }
 
-function validateUser(user) {
-    if (!user) {
+function validatePlayer(data) {
+    let player = data.player;
+    if (!player) {
         throw new functions.https.HttpsError("invalid-argument",
-            `Missing user object.`);
+            `Missing player object.`);
     }
-    if (!user.username) {
+    if (!player.displayName) {
         throw new functions.https.HttpsError("invalid-argument",
-            `Missing username.`);
+            `Missing player.displayName.`);
+    }
+    if (player.colorNumber === undefined) {
+        throw new functions.https.HttpsError("invalid-argument",
+            `Missing player.colorNumber.`);
+    }
+    if (player.emojiNumber === undefined) {
+        throw new functions.https.HttpsError("invalid-argument",
+            `Missing player.emojiNumber.`);
+    }
+}
+
+function checkAuthenticated(context) {
+    if (!(context.auth && context.auth.uid)) {
+        throw new functions.https.HttpsError('unauthenticated',
+            `Missing Firebase authentication information in request.`);
     }
 }
 
 /**
- * Try to add a user to the lobby with id `lobbyId`.
+ * Try to add a player to the lobby with id `lobbyId`.
  * Returns promise that resolves on addition or rejects with error if lobby missing or closed.
- * Assumes user object is valid.
+ * Assumes player object is valid.
  */
-async function addUserToLobby(lobbyId, user, uid) {
+async function addPlayerToLobby(lobbyId, player, uid) {
     const lobbyRef = admin.database().ref('/lobbies/' + lobbyId);
     let transactionError;
     return lobbyRef.transaction(lobby => {
@@ -96,16 +125,17 @@ async function addUserToLobby(lobbyId, user, uid) {
                 `Lobby with id ${lobbyId} not found.`);
             return null;
         }
-        if (lobby.status !== 'LOBBY') {
+        if (lobby.internal.status !== 'LOBBY') {
             transactionError = new functions.https.HttpsError("failed-precondition",
                 `Lobby with id ${lobbyId} is no longer open to join.`);
             return undefined;
         }
         
-        if (!lobby.users) {
-            lobby.users = [];
+        if (!lobby.public) {
+            lobby.public = { players: {} };
         }
-        lobby.users.push({uid: uid, username: user.username}); // Array.push, not ref().push
+        player.score = 0;
+        lobby.public.players[uid] = player;
         return lobby;
     }).then(result => {
         if (!result.committed || !result.snapshot.exists()) {
@@ -116,25 +146,25 @@ async function addUserToLobby(lobbyId, user, uid) {
 }
 
 exports.createLobby = functions.https.onCall(async (data, context) => {
-    console.log(context);
-    if (!(context.auth && context.auth.uid)) {
-        throw new functions.https.HttpsError('unauthenticated',
-            `Missing Firebase authentication information in request.`);
-    }
     const now = admin.database.ServerValue.TIMESTAMP;
+    checkAuthenticated(context);
     let uid = context.auth.uid;
-    let user = data.user;
-    validateUser(user);
+    validatePlayer(data);
+    let player = data.player;
     
     const lobbyCreation = admin.database().ref('/lobbies/').push({
-        status: "LOBBY", created: now, hostId: uid
+        internal: {
+            status: "LOBBY",
+            created: now,
+            hostId: uid
+        }
     });
-    // lobbyInitialization is a "ThenableReference";
+    // lobbyCreation is a "ThenableReference";
     // a promise whose .key property can be accessed immediately
     const lobbyId = lobbyCreation.key;
     
     const hostAdding = lobbyCreation.then(() => {
-        return addUserToLobby(lobbyId, user, uid);
+        return addPlayerToLobby(lobbyId, player, uid);
     });
     
     const lobbyCodeCreation = createLobbyCodeMapping(lobbyId, now);
@@ -150,32 +180,25 @@ exports.createLobby = functions.https.onCall(async (data, context) => {
 });
 
 exports.joinLobby = functions.https.onCall(async (data, context) => {
-    console.log(context);
-    if (!(context.auth && context.auth.uid)) {
-        throw new functions.https.HttpsError('unauthenticated',
-            `Missing Firebase authentication information in request.`);
-    }
+    checkAuthenticated(context);
     let uid = context.auth.uid;
+    validatePlayer(data);
+    let player = data.player;
+
     let lobbyCode = data.lobbyCode;
     if (!lobbyCode || lobbyCode.length !== 4) {
         throw new functions.https.HttpsError("invalid-argument",
             `Missing or invalid lobby code.`);
     }
-    let user = data.user;
-    validateUser(user);
 
     const lobbyId = await getLobbyIdFromCode(lobbyCode);
-    await addUserToLobby(lobbyId, user, uid);
+    await addPlayerToLobby(lobbyId, player, uid);
     return { lobbyId: lobbyId };
 });
 
 
 exports.startGame = functions.https.onCall(async (data, context) => {
-    if (!(context.auth && context.auth.uid)) {
-        throw new functions.https.HttpsError('unauthenticated',
-            `Missing Firebase authentication information in request.`);
-    }
-    
+    checkAuthenticated(context);
     let uid = context.auth.uid;
 
     let lobbyId = data.lobbyId;
@@ -188,38 +211,48 @@ exports.startGame = functions.https.onCall(async (data, context) => {
     let transactionError;
     return lobbyRef.transaction(lobby => {
         if (lobby === null) {
-            // See addUserToLobby for detailed description of this case,
+            // See addPlayerToLobby for detailed description of this case,
             // and why we didn't return undefined in the transaction.
             transactionError = new functions.https.HttpsError("not-found",
                 `Lobby with id ${lobbyId} not found.`);
             return null;
         }
-        if (lobby.hostId !== uid) {
+        if (lobby.internal.hostId !== uid) {
             transactionError = new functions.https.HttpsError("permission-denied",
                 `You are not the host of the lobby with id ${lobbyId}.`);
             return undefined;
         }
-        if (lobby.status !== 'LOBBY') {
+        if (lobby.internal.status !== 'LOBBY') {
             transactionError = new functions.https.HttpsError("failed-precondition",
                 `Lobby with id ${lobbyId} already started.`);
             return undefined;
         }
-        lobby.status = "GAME";        
+        lobby.internal.status = "GAME";        
         return lobby;
     }).then(result => {
         if (!result.committed || !result.snapshot.exists()) {
             throw transactionError;
         }
-        return result.snapshot.val();
-    }).then(lobby => {
-        let createWordListPromises = [];
-        for (let i = 0; i < lobby.users.length; i++) {
-            const user = lobby.users[i];
-            privateInfoRef = lobbyRef.child("privateInfo/" + user.uid);
-            let newPrivateInfo = {words: ["quick", "brown", "fox", "jump", "dog"]};
-            createWordListPromises.push(privateInfoRef.set(newPrivateInfo));
-        }
-        return Promise.all(createWordListPromises);
+        // on successful game status change, generate word lists and player order.
+        const lobbyObj = result.snapshot.val(); 
+        const playerIds = Object.keys(lobbyObj.public.players);
+        const shuffledIds = shuffleArray(playerIds);
+
+        // the following are promises for all the game initialization tasks
+        const playerOrder = lobbyRef.child('public/playerOrder').set(shuffledIds);
+        const targetWords = playerIds.map(uid => {
+            const privateInfoRef = lobbyRef.child("private/" + uid);
+            const newPrivateInfo = { targetWords: ["quick", "brown", "fox", "jump", "dog"] };
+            return privateInfoRef.set(newPrivateInfo);
+        });
+        const startWord = lobbyRef.child('public/startWord').set("password");
+        const firstTurn = admin.database().ref('/lobbies/' + lobbyId + '/public/turns').push({
+            player: shuffledIds[0]
+        })
+        // convert .push()'s thenableReference to promise or else some parser down the line throws a fit :/
+        .then(() => {}); 
+        
+        return Promise.all([playerOrder, startWord, firstTurn, ...targetWords]);
     });
 
 });

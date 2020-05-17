@@ -30,15 +30,15 @@ Errors will be drawn from this list of possible codes: https://firebase.google.c
 See this documentation page for how to handle errors in iOS: https://firebase.google.com/docs/functions/callable#handle_errors_on_the_client
 
 # Cloud Function Descriptions
-## See [index.js](index.js) for source code and [schema.json](schema.json) for database schema.
+## See [index.js](index.js) for source code and [schema.json](../schema/schema.json) for database schema.
 
 ## createLobby
 Creates a new lobby, adds the requesting user into it, and creates a new code to access that lobby. Gives the requesting user the generated lobby code so that the client can display something like `"Send this code to your friends: AXDF"`.
 ### Input Data:
 ```json
 {
-    "user": {
-        "username": "username",
+    "player": {
+        "displayName": "Kate",
         "colorNumber": 2,
         "emojiNumber": 4
     }
@@ -65,8 +65,8 @@ Adds the requesting user into an existing lobby if it is still accepting new pla
 ```json
 {
   "lobbyCode": "AXDF",
-    "user": {
-      "username": "username",
+    "player": {
+        "displayName": "Nick",
         "colorNumber": 2,
         "emojiNumber": 4
     }
@@ -107,7 +107,7 @@ null
 `invalid-argument`: if missing lobby id in request  
 `not-found`: if lobby with given id not found  
 `failed-precondition`: if lobby status is not open  
-`permission-denied`: if you aren't the firebase user that created the lobby
+`permission-denied`: if you aren't the firebase user that created the lobby  
 `internal`: if something fails in an unexpected way in the backend   
 ___
 
