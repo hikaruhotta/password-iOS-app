@@ -123,8 +123,23 @@ null
 ```
 ### Possible Errors:
 `invalid-argument`: if missing or invalid word in request  
-`failed-precondition`:  
-* if lobby status is not `SUBMISSION`
-* if it's not your turn
-* if a word has already been submitted for this turn, but in that case the status shouldn't be `SUBMISSION` anyway  
+`failed-precondition`: if lobby status is not `SUBMISSION` or it's not your turn  
+___
 
+## voteOnWord
+### Input Data:
+```json
+{
+    "challenge": true or false
+}
+```
+### Returned Data:
+```json
+null
+```
+### Possible Errors:
+`invalid-argument`: if missing or invalid vote in request  
+`failed-precondition`: 
+* if the lobby status is not `VOTING`
+* if you try to vote on your own word
+* if you already voted

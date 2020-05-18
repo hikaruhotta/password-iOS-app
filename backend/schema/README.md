@@ -9,8 +9,8 @@ turns: [
     }
 ]
 ```
-You can watch for this event in Swift with the `FIRDataEventTypeChildAdded` listener on the turn list.  
-See this realtime database documentation page for info: https://firebase.google.com/docs/database/ios/lists-of-data#listen_for_child_events
+In Swift, you can watch for this modifications to the turn list with the `FIRDataEventTypeValue` event listener.  
+See this realtime database documentation page for info: https://firebase.google.com/docs/database/ios/read-and-write#listen_for_value_events
 
 # Current player submits a word:
 This is done through the `submitWord` cloud function.
@@ -38,12 +38,11 @@ turns: [
     }
 ]
 ```
-You can watch for these update events in Swift with the `FIRDataEventTypeChildChanged` listener on the turn list.  
-See this realtime database documentation page for info: https://firebase.google.com/docs/database/ios/lists-of-data#listen_for_child_events
 
 # Voting begins:
 The client displays the submitted word and gives the player the option to challenge it, with a countdown timer.  
-Each client sends either a `CHALLENGE` or `TIMEOUT` response to some backend endpoint TBD, and the server waits until **one** player sends a `CHALLENGE` or it has received a `TIMEOUT` from **all** players.
+Each client sends a `{ "challenge": true or false }` response to the `voteOnWord` endpoint, and the server waits until **one** player challenges or **all** players pass.  
+Eventually we can implement client-side code that automatically sends `{ "challenge": false }` after 5 seconds as a timer on voting.
 
 ## No players challenged:
 ```json
