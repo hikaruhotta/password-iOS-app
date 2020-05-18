@@ -83,7 +83,7 @@ async function findLobbyIdFromCode(lobbyCode) {
  * Checks the mapping to find a player's current lobby, returning a promise with the result.
  */
 async function findLobbyIdFromUID(uid) {
-    return admin.database().ref('/playerLobbyMapping/' + uid).once('value').then(snapshot => {
+    return admin.database().ref('/playerLobbyMap/' + uid).once('value').then(snapshot => {
         if (!snapshot.exists()) {
             throw new functions.https.HttpsError("internal",
                 `Could not find current lobby for user ${uid}.`)
@@ -169,7 +169,7 @@ async function addPlayerToLobby(lobbyId, player, uid) {
     }
     
     const lobbyUpdate = updateLobby(lobbyId, validateLobbyFn, updateLobbyFn);
-    const playerMapping = admin.database().ref('/playerLobbyMapping/' + uid).set(lobbyId);
+    const playerMapping = admin.database().ref('/playerLobbyMap/' + uid).set(lobbyId);
     return Promise.all([lobbyUpdate, playerMapping]);
 }
 
@@ -228,11 +228,8 @@ exports.startGame = functions.https.onCall(async (data, context) => {
         const playerIds = Object.keys(lobby.public.players);
         lobby.public.playerOrder = shuffleArray(playerIds);
         lobby.public.startWord = "password";
-        const firstTurn = {
-            player: lobby.public.playerOrder[0],
-            submittedWord: "pizza"
-        };
-        lobby.public.turns = [firstTurn];
+        lobby.public.turns = [];
+        pushNextTurn(lobby);
 
         lobby.private = {};
         for (const uid of playerIds) {
@@ -258,14 +255,54 @@ exports.submitWord = functions.https.onCall(async (data, context) => {
             return new functions.https.HttpsError("failed-precondition",
                 `Lobby with id ${lobbyId} not awaiting word submission.`);
         }
+
+        const turnList = lobby.public.turns;
+        const currTurn = turnList[turnList.length - 1];
+        if (currTurn.player !== uid) {
+            const activePlayer = lobby.public.players[currTurn.player].displayName;
+            return new functions.https.HttpsError("failed-precondition",
+                `Not your turn: awaiting word submission from ${activePlayer}.`);
+        }
+        if (currTurn.submittedWord) {
+            return new functions.https.HttpsError("failed-precondition",
+                `Word "${currTurn.submittedWord}" has already been submitted for this turn.`);
+        }
+
         return null;
     }
 
     let updateLobbyFn = lobby => {
+        let turnList = lobby.public.turns;
+        let currTurn = turnList[turnList.length - 1]
+        currTurn.submittedWord = word;
+
+        // check if submitted word is other player's target word
+        for (const uid in lobby.private) {
+            if (lobby.private[uid].targetWords.includes(word)) {
+                currTurn.wasOthersWord = true;
+                currTurn.otherId = uid;
+                // TODO: generate new word for Other?
+                // leave status as SUBMISSION because we move straight to next player
+                pushNextTurn(lobby);
+                return;
+            }
+        }
+
+        lobby.internal.status = "VOTING";
         return;
     }
+
     return updateLobby(lobbyId, validateLobbyFn, updateLobbyFn);
 });
+
+function pushNextTurn(lobby) {
+    const playerOrder = lobby.public.playerOrder;
+    const numPlayers = playerOrder.length;
+    const numTurnsSoFar = lobby.public.turns.length;
+
+    const nextPlayer = playerOrder[numTurnsSoFar % numPlayers];
+    lobby.public.turns.push({"player": nextPlayer});
+}
 
 /**
  * Performs a transaction on a lobby object.

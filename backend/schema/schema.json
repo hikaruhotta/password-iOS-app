@@ -4,7 +4,7 @@
             "internal": {
                 "created" : 1589236047060,
                 "hostId" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
-                "status" : "GAME"
+                "status" : "SUBMISSION"
             },
             "public" : {
                 "players" : {
@@ -25,33 +25,34 @@
                     "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
                     "IRVnDKYU5JdYUnfIKOW7qJDpwxt1"
                 ],
-                "turns" : {
-                    "-M74d8BRhv_uUHgdvnJB": {
+                "startWord": "password",
+                "turns" : [
+                    {
                         "player" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
                         "submittedWord" : "pizza",
                         "wasCalled": false,
                         "wasSubmittersWord": false
                     },
-                    "-M74dIecuZrKkJ82xw7R": {
+                    {
                         "player" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
                         "submittedWord" : "brown",
                         "wasCalled": true,
                         "callerId": "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
                         "wasSubmittersWord": true
                     },
-                    "-M74dDGAE1EKpv2r-Hyj": {
+                    {
                         "player" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
                         "submittedWord" : "lazy",
                         "wasCalled": false,
                         "wasSubmittersWord": true
                     },
-                    "-M74dQYCi8piAb6zZLsZ": {
+                    {
                         "player" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
                         "submittedWord" : "jump",
                         "wasOthersWord": true,
                         "otherId": "sNbbJ6hAdQbINVVeJLG9nW6irLv1"
                     }
-                }
+                ]
             },
             "private" : {
                 "IRVnDKYU5JdYUnfIKOW7qJDpwxt1" : {
@@ -69,5 +70,9 @@
         "lobbyId" : "-M74qOnArTZvKHVwpLrK"
       },
       "mostRecent" : "AXKX"
-    }
+    },
+    "playerLobbyMap": {
+        "6hr2jZh6GqS0kQxyfWcyQtghYRL2" : "-M7a5N4pgG8MP_hcCDpj",
+        "LnqzOMhVEYNzSPrwLJuVxUDPBPG3" : "-M7a5N4pgG8MP_hcCDpj"
+    }      
 }
