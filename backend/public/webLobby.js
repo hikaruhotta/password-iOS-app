@@ -38,7 +38,15 @@ document.getElementById("joinLobby").onclick = function() {
 
 document.getElementById("startGame").onclick = function() {    
     let startGame = firebase.functions().httpsCallable('startGame');
-    startGame({lobbyId: pageLobbyId}).then(result => {
+    startGame().then(result => {
+        console.log(result);
+    });
+}
+
+document.getElementById("submitWord").onclick = function() {    
+    let submitWord = firebase.functions().httpsCallable('submitWord');
+    let word = document.getElementById('wordEntry').value;
+    submitWord({word: word}).then(result => {
         console.log(result);
     });
 }
