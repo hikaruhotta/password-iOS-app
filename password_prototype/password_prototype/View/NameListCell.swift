@@ -26,7 +26,7 @@ class NameListCell: UITableViewCell {
     }
     
     func setUser(user: User) {
-        nameLabel.text = user.username
+        nameLabel.text = user.displayName
         userIcon.setUserIcon(user: user)
     }
 

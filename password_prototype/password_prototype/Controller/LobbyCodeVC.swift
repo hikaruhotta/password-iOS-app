@@ -22,13 +22,15 @@ class LobbyCodeVC: UIViewController {
         self.enterLobbyButton.isEnabled = false
         print(inputTextField.text ?? "nothing" )
         // REGISTER USER
+        
         functions.httpsCallable("joinLobby").call(["lobbyCode" : "\(inputTextField.text!)",
-            "user": ["username" : "\(LOCAL.user.username)", "emojiNumber" : "\(LOCAL.user.emojiNumber)",
-                "colorNumber" : "\(LOCAL.user.colorNumber)", "score" : "0"]]) { (result, error) in
+            "player": ["displayName" : "\(LOCAL.user.displayName)",
+                "colorNumber" : LOCAL.user.colorNumber,  "emojiNumber" : LOCAL.user.emojiNumber]]) { (result, error) in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
                     //              let code = FunctionsErrorCode(rawValue: error.code)
-                    //              let message = error.localizedDescription
+                    let message = error.localizedDescription
+                    print(message)
                     //              let details = error.userInfo[FunctionsErrorDetailsKey]
                 }
                 print("error in create lobby request")

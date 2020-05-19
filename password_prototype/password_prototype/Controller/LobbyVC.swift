@@ -37,16 +37,18 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // Set the firebase reference
         ref = Database.database().reference()
         // for observing child added
-        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/users").observe(.childAdded) { (snapshot) in
+        print("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players")
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players").observe(.childAdded) { (snapshot) in
             if let userDetails = snapshot.value as? [String: String] {
-//                print("***** USER DETAILS BELOW *****")
-//                print(userDetails)
+                print("***** USER DETAILS BELOW *****")
+                print(userDetails)
                 let newUser = User(dictionary: userDetails)
                 print("EMOJI: \(newUser.emojiNumber)")
                 print("COLOR: \(newUser.colorNumber)")
                 
                 self.users.append(newUser)
             }
+            
             self.playerListTableView.reloadData()
             self.playerListTableView.scrollToBottom()
         }
