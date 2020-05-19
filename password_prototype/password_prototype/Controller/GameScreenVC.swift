@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseFunctions
 
 class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -15,6 +16,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var ref: DatabaseReference?
     
     var databaseHandle: DatabaseHandle? // the listener
+    lazy var functions = Functions.functions()
     
     var words: [Word] = []
     
@@ -149,6 +151,36 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         // Set the firebase reference
         ref = Database.database().reference()
+        
+        // call function to initiate seed
+//        functions.httpsCallable("joinLobby").call(["lobbyCode" : "\(inputTextField.text!)",
+//            "player": ["displayName" : "\(LOCAL.user.displayName)",
+//                "colorNumber" : LOCAL.user.colorNumber,  "emojiNumber" : LOCAL.user.emojiNumber]]) { (result, error) in
+//            if let error = error as NSError? {
+//                if error.domain == FunctionsErrorDomain {
+//                    //              let code = FunctionsErrorCode(rawValue: error.code)
+//                    let message = error.localizedDescription
+//                    print(message)
+//                    //              let details = error.userInfo[FunctionsErrorDetailsKey]
+//                }
+//                print("error in create lobby request")
+//                // MAKE "ALERT" HERE TO SHOW LOBBY DOES NOT EXIST
+//                let alert = UIAlertController(title: "Lobby \(self.inputTextField.text ?? "nothing") Does Not Exist", message: "Please double check the Lobby code.", preferredStyle: .alert)
+//                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+//                self.present(alert, animated: true)
+//                self.inputTextField.text = ""
+//                
+//                self.enterLobbyButton.isEnabled = true
+//                return
+//            }
+//            if var resultDictionary = result?.data as? [String: String] {
+//                resultDictionary["lobbyCode"] = self.inputTextField.text!
+//                LOCAL.lobby = Lobby(dictionary: resultDictionary)
+//                self.enterLobbyButton.isEnabled = true
+//                self.performSegue(withIdentifier: "segueToLobby", sender: nil)
+//            }
+//        }
+        
 
         // for observing child added
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/wordList").observe(.childAdded) { (snapshot) in

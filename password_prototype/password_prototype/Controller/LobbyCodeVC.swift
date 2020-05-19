@@ -47,6 +47,7 @@ class LobbyCodeVC: UIViewController {
                 resultDictionary["lobbyCode"] = self.inputTextField.text!
                 LOCAL.lobby = Lobby(dictionary: resultDictionary)
                 self.enterLobbyButton.isEnabled = true
+                LOCAL.isHost = false
                 self.performSegue(withIdentifier: "segueToLobby", sender: nil)
             }
         }

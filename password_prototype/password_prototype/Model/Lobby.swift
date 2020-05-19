@@ -8,25 +8,20 @@
 
 import Foundation
 
-struct Lobby: Codable {
-    var hostSecret : String?
+struct Lobby {
     var lobbyId : String
     var lobbyCode : String
-  
+
     
     init(dictionary: [String: String]) {
-        self.hostSecret = dictionary["hostSecret"] ?? ""
         self.lobbyId = dictionary["lobbyId"] ?? ""
         self.lobbyCode = dictionary["lobbyCode"] ?? ""
+        
     }
     
-//    init?(json: Data?) {
-//        print("creating lobby?")
-//        if json != nil, let newLobby = try? JSONDecoder().decode(Lobby.self, from: json!) {
-//            print("assigning lobby?")
-//            self = newLobby
-//        } else {
-//            return nil
-//        }
-//    }
+    func initDirs(dictionary: [String : Any]) {
+        
+    }
+    
+
 }

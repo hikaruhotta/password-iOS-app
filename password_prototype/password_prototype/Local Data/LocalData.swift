@@ -23,6 +23,10 @@ class LocalData {
     
     var lobby: Lobby?
     
+    var lobbyFB: LobbyFB?
+    
+    var isHost: Bool = false
+    
     var codeToTry: String?
     
     var user = User()

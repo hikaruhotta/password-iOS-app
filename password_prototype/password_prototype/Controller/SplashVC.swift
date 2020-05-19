@@ -39,9 +39,12 @@ class SplashVC: UIViewController {
             if let resultDictionary = result?.data as? [String: String] {
                 LOCAL.lobby = Lobby(dictionary: resultDictionary)
                 print("calling segue")
+                LOCAL.isHost = true
                 self.performSegue(withIdentifier: "segueNewGame", sender: nil)
+                print("*** Lobby Details ***")
                 print(LOCAL.lobby ?? "nothing to see here")
             }
+            
         }
     }
     

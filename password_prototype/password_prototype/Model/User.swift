@@ -14,11 +14,11 @@ struct User {
     var emojiNumber: Int
     var score: Int
     
-    init(dictionary: [String: String]){
-        self.displayName = dictionary["displayName"] ?? ""
-        self.colorNumber = Int(dictionary["colorNumber"] ?? "0") ?? 0
-        self.emojiNumber = Int(dictionary["emojiNumber"] ?? "0") ?? 0
-        self.score = Int(dictionary["score"] ?? "0") ?? 0
+    init(dictionary: [String: Any]){
+        self.displayName = dictionary["displayName"] as! String
+        self.colorNumber = dictionary["colorNumber"] as! Int
+        self.emojiNumber = dictionary["emojiNumber"] as! Int
+        self.score = dictionary["score"] as! Int
     }
     
     init(){

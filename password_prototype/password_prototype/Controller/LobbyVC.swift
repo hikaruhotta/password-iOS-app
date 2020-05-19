@@ -13,6 +13,7 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var ref: DatabaseReference?
     
+    @IBOutlet weak var startGameButton: UIButton!
     
     var users = [User]()
     
@@ -33,19 +34,19 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         playerListTableView.dataSource = self
         lobbyCodeLabel.text = LOCAL.lobby?.lobbyCode
         
+        startGameButton.isHidden = !LOCAL.isHost
         
         // Set the firebase reference
         ref = Database.database().reference()
         // for observing child added
+        print("PATH: ")
         print("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players")
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players").observe(.childAdded) { (snapshot) in
-            if let userDetails = snapshot.value as? [String: String] {
-                print("***** USER DETAILS BELOW *****")
+            print("***** BEFORE THE LET IN CHILD READER *****")
+            if let userDetails = snapshot.value as? [String: Any] {
+                print("***** USER DETAILS BELOW (FROM INSIDE CHILD READER) *****")
                 print(userDetails)
                 let newUser = User(dictionary: userDetails)
-                print("EMOJI: \(newUser.emojiNumber)")
-                print("COLOR: \(newUser.colorNumber)")
-                
                 self.users.append(newUser)
             }
             
