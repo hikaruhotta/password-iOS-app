@@ -28,12 +28,14 @@
                 "startWord": "password",
                 "turns" : [
                     {
+                        "created" : 1589236047060,
                         "player" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
                         "submittedWord" : "pizza",
                         "wasCalled": false,
                         "wasSubmittersWord": false
                     },
                     {
+                        "created" : 1589236047060,
                         "player" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
                         "submittedWord" : "brown",
                         "wasCalled": true,
@@ -41,12 +43,14 @@
                         "wasSubmittersWord": true
                     },
                     {
+                        "created" : 1589236047060,
                         "player" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
                         "submittedWord" : "lazy",
                         "wasCalled": false,
                         "wasSubmittersWord": true
                     },
                     {
+                        "created" : 1589236047060,
                         "player" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
                         "submittedWord" : "jump",
                         "wasOthersWord": true,

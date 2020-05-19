@@ -300,9 +300,10 @@ function pushNextTurn(lobby) {
     const playerOrder = lobby.public.playerOrder;
     const numPlayers = playerOrder.length;
     const numTurnsSoFar = lobby.public.turns.length;
-
+    
     const nextPlayer = playerOrder[numTurnsSoFar % numPlayers];
-    lobby.public.turns.push({"player": nextPlayer});
+    const now = admin.database.ServerValue.TIMESTAMP;
+    lobby.public.turns.push({ player: nextPlayer, created: now });
 }
 
 exports.voteOnWord = functions.https.onCall(async (data, context) => {

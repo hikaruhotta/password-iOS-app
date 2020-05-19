@@ -5,6 +5,7 @@ A turn object is appended to the list:
 ```json
 turns: [
     {
+        "created" : 1589236047060,
         "player" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1"
     }
 ]
@@ -19,6 +20,7 @@ This is done through the `submitWord` cloud function.
 ```json
 turns: [
     {
+        "created" : 1589236047060,
         "player" : "$uid",
         "submittedWord" : "other player's target word",
         "wasOthersWord": true,
@@ -33,6 +35,7 @@ The current turn is updated so that submittedWord is no longer `null`:
 ```json
 turns: [
     {
+        "created" : 1589236047060,
         "player" : "$uid",
         "submittedWord" : "pizza"
     }
@@ -48,6 +51,7 @@ Eventually we can implement client-side code that automatically sends `{ "challe
 ```json
 turns: [
     {
+        "created" : 1589236047060,
         "player" : "$uid",
         "submittedWord" : "pizza",
         "wasChallenged": false,
@@ -59,6 +63,7 @@ turns: [
 ```json
 turns: [
     {
+        "created" : 1589236047060,
         "player" : "$uid",
         "submittedWord" : "pizza",
         "wasChallenged": true,
@@ -75,6 +80,7 @@ So in the above example, the game would be "paused" with the state like this unt
 ```json
 turns: [
     {
+        "created" : 1589236047060,
         "player" : "$uid",
         "submittedWord" : "other player's target word",
         "wasOthersWord": true,
