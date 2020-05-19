@@ -8,10 +8,14 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseFunctions
 
 class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var ref: DatabaseReference?
+    
+    var databaseHandle: DatabaseHandle? // the listener
+    lazy var functions = Functions.functions()
     
     @IBOutlet weak var startGameButton: UIButton!
     
@@ -22,6 +26,19 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var playerListTableView: UITableView!
     
     
+    @IBAction func startGamePressed(_ sender: Any) {
+        functions.httpsCallable("startGame").call() { (result, error) in
+            if let error = error as NSError? {
+                if error.domain == FunctionsErrorDomain {
+                    let message = error.localizedDescription
+                    print(message)
+                }
+                print("error in create lobby request")
+            }
+            //self.performSegue(withIdentifier: "segueStartGame", sender: nil)
+        }
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
 //        print("**** DELETE")
@@ -49,11 +66,18 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 let newUser = User(dictionary: userDetails)
                 self.users.append(newUser)
             }
-            
             self.playerListTableView.reloadData()
             self.playerListTableView.scrollToBottom()
         }
+            
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/internal").observe(.childChanged) { (snapshot) in
+            print("*** detected status change ***")
+            self.performSegue(withIdentifier: "segueStartGame", sender: nil)
+            print("*** performed segue ***")
+        }
         
+        //self.playerListTableView.reloadData()
+        //self.playerListTableView.scrollToBottom()
     }
     
     

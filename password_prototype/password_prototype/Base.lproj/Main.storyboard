@@ -258,7 +258,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Start Game"/>
                                 <connections>
-                                    <segue destination="swv-99-rg2" kind="presentation" modalPresentationStyle="fullScreen" id="JsO-Op-FHD"/>
+                                    <action selector="startGamePressed:" destination="SlL-I3-Kev" eventType="touchUpInside" id="rFz-Ag-ZPT"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gj5-Gx-0YQ">
@@ -393,6 +393,7 @@
                         <outlet property="lobbyCodeLabel" destination="shw-EJ-ze0" id="Fvc-sI-uFC"/>
                         <outlet property="playerListTableView" destination="izi-qP-N2T" id="8By-Eu-O8Y"/>
                         <outlet property="startGameButton" destination="OzD-dO-LNB" id="zDa-Mh-5sr"/>
+                        <segue destination="swv-99-rg2" kind="presentation" identifier="segueStartGame" modalPresentationStyle="fullScreen" id="JUC-F7-f2i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qf-56-HZq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
