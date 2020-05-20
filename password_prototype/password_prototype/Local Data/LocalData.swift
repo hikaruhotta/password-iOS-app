@@ -36,6 +36,10 @@ class LocalData {
         self.user.colorNumber = Int.random(in: 0..<colors.count)
     }
     
+    var users = [User]()
+    
+    var inGame = false
+    
 }
 
 var LOCAL = LocalData()

@@ -19,8 +19,6 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var startGameButton: UIButton!
     
-    var users = [User]()
-    
     @IBOutlet weak var lobbyCodeLabel: UILabel!
     
     @IBOutlet weak var playerListTableView: UITableView!
@@ -63,30 +61,34 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             if let userDetails = snapshot.value as? [String: Any] {
                 print("***** USER DETAILS BELOW (FROM INSIDE CHILD READER) *****")
                 print(userDetails)
-                let newUser = User(dictionary: userDetails)
-                self.users.append(newUser)
+                print(snapshot.key)
+                let newUser = User(dictionary: userDetails, userID: snapshot.key)
+                LOCAL.users.append(newUser)
             }
             self.playerListTableView.reloadData()
             self.playerListTableView.scrollToBottom()
         }
-            
+        
+        // Listen to chages in game status -> segue to game screen VC
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/internal").observe(.childChanged) { (snapshot) in
             print("*** detected status change ***")
-            self.performSegue(withIdentifier: "segueStartGame", sender: nil)
+            //print(snapshot[""])
+            if !LOCAL.inGame {
+                LOCAL.inGame = true
+                self.performSegue(withIdentifier: "segueStartGame", sender: nil)
+            }
             print("*** performed segue ***")
         }
         
-        //self.playerListTableView.reloadData()
-        //self.playerListTableView.scrollToBottom()
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return LOCAL.users.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NameListCell") as! NameListCell
-        cell.setUser(user: users[indexPath.row])
+        cell.setUser(user: LOCAL.users[indexPath.row])
 //        cell.changeName(name: sampleData[indexPath.row])
 //        cell.modifyIcon(name: sampleData[indexPath.row])
         return cell
