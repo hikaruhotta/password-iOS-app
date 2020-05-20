@@ -71,13 +71,13 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         // Listen to chages in game status -> segue to game screen VC
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/internal").observe(.childChanged) { (snapshot) in
-            print("*** detected status change ***")
+            //print("*** detected status change ***")
             //print(snapshot[""])
             if !LOCAL.inGame {
                 LOCAL.inGame = true
+                print("*** performed segue ***")
                 self.performSegue(withIdentifier: "segueStartGame", sender: nil)
             }
-            print("*** performed segue ***")
         }
         
     }

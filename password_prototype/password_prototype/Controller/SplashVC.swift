@@ -20,11 +20,18 @@ class SplashVC: UIViewController {
         let field = sender as? UITextField
         LOCAL.user.displayName = field?.text ?? "Anonymous"
     }
+    @IBAction func joinGamePressed(_ sender: Any) {
+        LOCAL.users = []
+        self.performSegue(withIdentifier: "segueToLobbyCodeVC", sender: nil)
+    }
     
     @IBAction func newGameButtonPressed(_ sender: Any) {
         // REGISTER USER
 //        print("EMOJI: \(LOCAL.user.emojiNumber)")
 //        print("COLOR: \(LOCAL.user.colorNumber)")
+        
+        LOCAL.users = []
+        
         functions.httpsCallable("createLobby").call(["player": ["displayName" : "\(LOCAL.user.displayName)",
             "colorNumber" : LOCAL.user.colorNumber, "emojiNumber" : LOCAL.user.emojiNumber] ]) { (result, error) in
             if let error = error as NSError? {

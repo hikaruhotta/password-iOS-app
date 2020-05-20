@@ -8,10 +8,15 @@
 
 import Foundation
 
-struct Word {
+struct Word : Identifiable {
+    
+    var id: Int
+    
     var word: String?
     var created: Int?
     var player: User?
+    var wasChallenged: Bool?
+    var wasSubmittersWord: Bool?
     
 //    init(word: String, user: User, timeStamp: String, score: String) {
 //        self.word = word
@@ -21,21 +26,22 @@ struct Word {
 //    }
 //
     init(dictionary: [String : Any] ) {
-        self.word = dictionary["submittedWord"] as? String
         self.created = dictionary["created"] as? Int
+        self.id = self.created ?? 0
+        
         let id = dictionary["player"] as? String
         self.player = LOCAL.users.getUserFromID(id: id!)
+        
+        self.word = dictionary["submittedWord"] as? String
+        self.wasChallenged = dictionary["wasChallenged"] as? Bool
+        self.wasSubmittersWord = dictionary["wasSubmiiteresWord"] as? Bool
+        
     }
     
-//    func constructDict() -> Dictionary<String, Any> {
-//        let dict  = [
-//            "word" : word!,
-//            "user" : user!.constructDict(),
-//            "timeStamp" : timeStamp!,
-//            "score" : String(score!),
-//        ] as [String : Any]
-//        return dict
-//    }
-    
-    
+}
+
+extension Collection where Element: Identifiable {
+    func firstIndex(matching element: Element) -> Self.Index? {
+        firstIndex(where: { $0.id == element.id })
+    }
 }

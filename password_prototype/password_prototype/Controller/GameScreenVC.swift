@@ -82,7 +82,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(mySegmentedControl.selectedSegmentIndex) {
         case 0:
-            return words.count
+            return words.count + 1
         case 1:
             return messages.count
         default:
@@ -92,19 +92,35 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch(mySegmentedControl.selectedSegmentIndex) {
+            
+            // GAME
         case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
-            cell.modifyIcon(user: words[indexPath.row].player!)
-            cell.updateWord(word: words[indexPath.row].word ?? "")
-            return cell
-        case 1:
+            
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
+                cell.modifyIcon(user: User(), row: indexPath.row)
+                //cell.markAsSeed() // hide icon
+                cell.updateWord(word: "password")
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
+                // if last cell call showVotingButtons
+                if indexPath.row == words.count {
+                    cell.showVotingButtons()
+                } else {
+                    cell.hideVotingButtons()
+                }
+                cell.modifyIcon(user: words[indexPath.row - 1].player!, row: indexPath.row)
+                cell.updateWord(word: words[indexPath.row - 1].word ?? "")
+                return cell
+            }
+            
+            // CHAT
+        default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell") as! ChatCell
             cell.modifyIcon(user: messages[indexPath.row].user!)
             cell.updateChat(message: messages[indexPath.row].message ?? "")
             return cell
-        default:
-            return tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
-            
         }
     }
     
@@ -133,7 +149,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                     }
                     print("error in create lobby request")
                 }
-                //self.performSegue(withIdentifier: "segueStartGame", sender: nil)
+                
             }
             
             
@@ -169,12 +185,44 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/turns").observe(.childAdded) { (snapshot) in
             if let wordDetails = snapshot.value as? [String: Any] {
                 let newWord = Word(dictionary: wordDetails)
+                print("*** adding child ***")
+                //print(newWord)
                 self.words.append(newWord)
+//                if newWord.word == nil {
+//
+//                    self.words.append(newWord)
+//                }
                 
+
             }
-//            self.words.sort { (left, right) -> Bool in
-//                left.timeStamp! < right.timeStamp!
-//            }
+            self.words.sort { (left, right) -> Bool in
+                left.created! < right.created!
+            }
+            self.wordsTableView.reloadData()
+            self.wordsTableView.scrollToBottom()
+        }
+        
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/turns").observe(.childChanged) { (snapshot) in
+            
+            if let wordDetails = snapshot.value as? [String: Any] {
+                let newWord = Word(dictionary: wordDetails)
+                // replace/update the word
+                
+                if let index = self.words.firstIndex(matching: newWord) {
+                    print("*** word replaced ***")
+                    self.words.remove(at: index)
+                    self.words.append(newWord)
+                }
+
+//                print(newWord)
+//                if newWord.wasChallenged == nil, newWord.word != nil {
+//                    self.words.removeLast()
+//                    self.words.append(newWord)
+//                }
+            }
+            self.words.sort { (left, right) -> Bool in
+                left.created! < right.created!
+            }
             self.wordsTableView.reloadData()
             self.wordsTableView.scrollToBottom()
         }
