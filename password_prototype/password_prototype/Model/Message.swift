@@ -20,18 +20,18 @@ struct Message {
     }
     
     init(dictionary: [String : Any] ) {
-        self.user = User(dictionary: (dictionary["user"] as! [String : String]))
+        self.user = User(dictionary: (dictionary["user"] as! [String : String]), userID: "")
         self.message = dictionary["message"] as? String
         self.timeStamp = dictionary["timeStamp"] as? String
     }
     
-    func constructDict() -> Dictionary<String, Any> {
-        let dict  = [
-            "user" : user!.constructDict(),
-            "message": message!,
-            "timeStamp" : timeStamp!,
-        ] as [String : Any]
-        return dict
-    }
+//    func constructDict() -> Dictionary<String, Any> {
+//        let dict  = [
+//            "user" : user!.constructDict(),
+//            "message": message!,
+//            "timeStamp" : timeStamp!,
+//        ] as [String : Any]
+//        return dict
+//    }
     
 }

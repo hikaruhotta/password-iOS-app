@@ -94,7 +94,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         switch(mySegmentedControl.selectedSegmentIndex) {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
-            cell.modifyIcon(user: words[indexPath.row].user!)
+            cell.modifyIcon(user: words[indexPath.row].player!)
             cell.updateWord(word: words[indexPath.row].word ?? "")
             return cell
         case 1:
@@ -125,21 +125,34 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             if inputField.text == nil  || inputField.text?.count == 0 {
                 return
             }
-            let word = Word(word: inputField.text!, user: LOCAL.user,
-                          timeStamp : dateFormatter.string(from: Date()),
-                          score : 0)
+            functions.httpsCallable("submitWord").call(["word": inputField.text]) { (result, error) in
+                if let error = error as NSError? {
+                    if error.domain == FunctionsErrorDomain {
+                        let message = error.localizedDescription
+                        print(message)
+                    }
+                    print("error in create lobby request")
+                }
+                //self.performSegue(withIdentifier: "segueStartGame", sender: nil)
+            }
             
-            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/wordList/word\(words.count)" : word.constructDict()]
-            self.ref?.updateChildValues(myUpdates)
+            
+            
+//            let word = Word(word: inputField.text!, user: LOCAL.user,
+//                          timeStamp : dateFormatter.string(from: Date()),
+//                          score : "0")
+//
+//            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/wordList/word\(words.count)" : word.constructDict()]
+//            self.ref?.updateChildValues(myUpdates)
             inputField.text = ""
         case 1: // chat toggle
-            if inputField.text == nil  || inputField.text?.count == 0 {
-                return
-            }
-            let message = Message(user: LOCAL.user, message: inputField.text!, timeStamp: dateFormatter.string(from: Date()))
-            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/chat/message\(messages.count)" : message.constructDict()]
-            self.ref?.updateChildValues(myUpdates)
-            inputField.text = ""
+//            if inputField.text == nil  || inputField.text?.count == 0 {
+//                return
+//            }
+//            let message = Message(user: LOCAL.user, message: inputField.text!, timeStamp: dateFormatter.string(from: Date()))
+//            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/chat/message\(messages.count)" : message.constructDict()]
+//            self.ref?.updateChildValues(myUpdates)
+//            inputField.text = ""
             return
         default:
             return
@@ -152,45 +165,16 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         // Set the firebase reference
         ref = Database.database().reference()
         
-        // call function to initiate seed
-//        functions.httpsCallable("joinLobby").call(["lobbyCode" : "\(inputTextField.text!)",
-//            "player": ["displayName" : "\(LOCAL.user.displayName)",
-//                "colorNumber" : LOCAL.user.colorNumber,  "emojiNumber" : LOCAL.user.emojiNumber]]) { (result, error) in
-//            if let error = error as NSError? {
-//                if error.domain == FunctionsErrorDomain {
-//                    //              let code = FunctionsErrorCode(rawValue: error.code)
-//                    let message = error.localizedDescription
-//                    print(message)
-//                    //              let details = error.userInfo[FunctionsErrorDetailsKey]
-//                }
-//                print("error in create lobby request")
-//                // MAKE "ALERT" HERE TO SHOW LOBBY DOES NOT EXIST
-//                let alert = UIAlertController(title: "Lobby \(self.inputTextField.text ?? "nothing") Does Not Exist", message: "Please double check the Lobby code.", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
-//                self.present(alert, animated: true)
-//                self.inputTextField.text = ""
-//                
-//                self.enterLobbyButton.isEnabled = true
-//                return
-//            }
-//            if var resultDictionary = result?.data as? [String: String] {
-//                resultDictionary["lobbyCode"] = self.inputTextField.text!
-//                LOCAL.lobby = Lobby(dictionary: resultDictionary)
-//                self.enterLobbyButton.isEnabled = true
-//                self.performSegue(withIdentifier: "segueToLobby", sender: nil)
-//            }
-//        }
-        
-
         // for observing child added
-        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/wordList").observe(.childAdded) { (snapshot) in
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/turns").observe(.childAdded) { (snapshot) in
             if let wordDetails = snapshot.value as? [String: Any] {
                 let newWord = Word(dictionary: wordDetails)
                 self.words.append(newWord)
+                
             }
-            self.words.sort { (left, right) -> Bool in
-                left.timeStamp! < right.timeStamp!
-            }
+//            self.words.sort { (left, right) -> Bool in
+//                left.timeStamp! < right.timeStamp!
+//            }
             self.wordsTableView.reloadData()
             self.wordsTableView.scrollToBottom()
         }
@@ -256,6 +240,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         var playedWord = ""
         switch (sender as AnyObject).tag {
+            // suggested word <- don't deal with it
         case 4:
             if randomWordsIndex == randomWords.count {
                 print("beta version out of random words")
@@ -263,6 +248,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
             playedWord = randomWords[randomWordsIndex]
             randomWordsIndex += 1
+            
         default:
             if wordBankIndex == wordBank.count {
                 print("beta version out of word bank words")
@@ -275,9 +261,9 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let word = Word(word: playedWord, user: LOCAL.user, timeStamp : dateFormatter.string(from: Date()), score : 0)
-        let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/wordList/word\(words.count)" : word.constructDict()]
-        self.ref?.updateChildValues(myUpdates)
+//        let word = Word(word: playedWord, user: LOCAL.user, timeStamp : dateFormatter.string(from: Date()), score : "0")
+//        let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/wordList/word\(words.count)" : word.constructDict()]
+//        self.ref?.updateChildValues(myUpdates)
         }
     
 }
