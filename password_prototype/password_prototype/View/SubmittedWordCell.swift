@@ -74,22 +74,29 @@ class SubmittedWordCell: UITableViewCell {
     
     func markAsSeed() {
         userIcon.isHidden = true
+        nameLabel.isHidden = true
     }
     
+    @IBOutlet weak var nameLabel: UILabel!
     
     func modifyIcon(user: User, row: Int) {
         userIcon.setUserIcon(user: user)
+        nameLabel.text = user.displayName
         
         if row == 0 {
             userIcon.isHidden = true
+            nameLabel.isHidden = true
             hideVotingButtons()
         } else {
             userIcon.isHidden = false
+            nameLabel.isHidden = false
+            
         }
         
         if user.displayName == LOCAL.user.displayName, user.colorNumber == LOCAL.user.colorNumber, user.emojiNumber == LOCAL.user.emojiNumber {
             hideVotingButtons()
         }
+        
         
         
         
