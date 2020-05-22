@@ -10,7 +10,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseFunctions
 
-class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     // Create the reference to the database
     var ref: DatabaseReference?
@@ -133,6 +133,53 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     @IBOutlet weak var inputField: UITextField!
     
+    
+    // KEYBOARD
+    // ========
+    
+    // **NOT MINE** Calls this function when the tap is recognized.
+//    @objc func dismissKeyboard() {
+//        //Causes the view (or one of its embedded text fields) to resign the first responder status.
+//        view.endEditing(true)
+//    }
+    
+    // UITextFieldDelegate Methods
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        hideKeyboard()
+//        return true
+//    }
+    
+    func hideKeyboard() {
+        inputField.resignFirstResponder()
+    }
+    
+    // UITextFieldDelegate Methods
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        hideKeyboard()
+        return true
+    }
+    
+    @objc func keyboardWillChange(notification: Notification) {
+        print("keyboard will show: \(notification.name.rawValue)")
+        guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+                return
+            }
+
+        if (notification.name == UIResponder.keyboardWillShowNotification ||
+            notification.name == UIResponder.keyboardWillChangeFrameNotification) {
+            view.frame.origin.y = -keyboardRect.height + 40 // additional buffer
+        } else {
+            view.frame.origin.y = 0
+        }
+    }
+    
+    // Stop listen for keyboard hide/show events
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
     @IBAction func submitButton(_ sender: Any) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -161,6 +208,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 //            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/wordList/word\(words.count)" : word.constructDict()]
 //            self.ref?.updateChildValues(myUpdates)
             inputField.text = ""
+            hideKeyboard()
         case 1: // chat toggle
 //            if inputField.text == nil  || inputField.text?.count == 0 {
 //                return
@@ -175,8 +223,27 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
     }
     
+    
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        inputField.delegate = self
+        
+//         listen for keyboard events
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+//        
+//        // **NOT MINE** for tapping outside of keyboard
+//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+//        //Uncomment the line below if you want the tap not to interfere and cancel other interactions.
+//        tap.cancelsTouchesInView = false
+//        view.addGestureRecognizer(tap)
+        
+        
         
         // Set the firebase reference
         ref = Database.database().reference()

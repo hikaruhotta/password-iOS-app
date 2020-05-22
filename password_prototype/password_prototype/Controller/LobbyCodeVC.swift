@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseFunctions
 
-class LobbyCodeVC: UIViewController {
+class LobbyCodeVC: UIViewController, UITextFieldDelegate {
 
     
     @IBOutlet weak var inputTextField: UITextField!
@@ -55,9 +55,34 @@ class LobbyCodeVC: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        inputTextField.delegate = self
         // Do any additional setup after loading the view.
+        
+        //         listen for keyboard events
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
+    // UITextFieldDelegate Methods
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        hideKeyboard()
+        return true
+    }
+    
+    func hideKeyboard() {
+        inputTextField.resignFirstResponder()
+    }
+    
+    @objc func keyboardWillChange(notification: Notification) {
+        print("keyboard will show: \(notification.name.rawValue)")
+    }
+    
+    // Stop listen for keyboard hide/show events
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
 
 }
