@@ -1,5 +1,5 @@
 
-firebase.functions().useFunctionsEmulator("http://localhost:5001");
+// firebase.functions().useFunctionsEmulator("http://localhost:5001");
 firebase.auth().signInAnonymously();
 
 var pageLobbyId;
@@ -78,6 +78,13 @@ function createLobbyListener(lobbyId) {
     lobbyPlayers.on('value', function(snapshot) {
         console.log(snapshot.val());
         displayLobby(snapshot.val());
+    });
+
+    var uid = firebase.auth().currentUser.uid;
+    const targetWords = firebase.database().ref('/lobbies/' + lobbyId + '/private/' + uid + '/targetWords');
+    targetWords.on('value', function(snapshot) {
+        console.log(snapshot.val());
+        // displayLobby(snapshot.val());
     });
 }
 

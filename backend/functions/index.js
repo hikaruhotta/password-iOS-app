@@ -4,6 +4,19 @@ const admin = require('firebase-admin');
 // https://firebase.google.com/docs/functions/get-started for examples
 admin.initializeApp();
 
+let tempWordlists = [
+    ['energy','brain','speed','coast','light','department','video','sip','office','sound',],
+    ['jacket','game','block','blood','frame','field','line','nuclear','age','object',],
+    ['magic','book','party','park','city','island','stage','fame','captain','machine',],
+    ['dome','shipment','industry','college','baker','work','radius','movie','color','dance',],
+    ['gallery','shoes','power','bar','water','laser','theater','autumn','badge','weather',],
+    ['sing','court','kingdom','rocket','advance','card','rock','property','editor','motor',],
+    ['blanket','time','protein','opera','stone','lens','radio','motorcycle','appliance','black','camera',],
+    ['permit','customer','shadow','library','chain','world','plant','bird','house','film',],
+    ['floor','picture','score','music','audio','hotel','cart','student','paper','prize',],
+    ['home','life','building','construction','money','culture','drive','triangle','link','island',]
+];
+
 function generateLobbyCode() {
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let code = '';
@@ -241,8 +254,10 @@ exports.startGame = functions.https.onCall(async (data, context) => {
         pushNextTurn(lobby);
 
         lobby.private = {};
-        for (const uid of playerIds) {
-            lobby.private[uid] = { targetWords: ["quick", "brown", "fox", "jump", "dog"] };
+        let offset = Math.floor(Math.random() * 12);
+        for (const [index, uid] of lobby.public.playerOrder.entries()) {
+            let targetWords = tempWordlists[(index + offset) % 12];
+            lobby.private[uid] = { targetWords: targetWords };
         }
 
         lobby.internal.status = "SUBMISSION";
