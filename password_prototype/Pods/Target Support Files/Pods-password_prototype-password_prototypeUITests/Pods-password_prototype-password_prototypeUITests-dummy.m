@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_password_prototype_password_prototypeUITests : NSObject
+@end
+@implementation PodsDummy_Pods_password_prototype_password_prototypeUITests
+@end

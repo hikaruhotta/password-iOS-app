@@ -8,23 +8,23 @@
 
 import UIKit
 
-class JoinGameLobbyViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class JoinLobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return sampleData.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NameListCell") as! NameListCell
         cell.changeName(name: sampleData[indexPath.row])
+        cell.modifyIcon(name: sampleData[indexPath.row])
         return cell
     }
     
-    var sampleData = ["Philip", "Hikaru", "Nick", "Buck", "Philip", "Hikaru", "Nick", "Buck", "Philip", "Hikaru", "Nick", "Buck", "Philip", "Hikaru", "Nick", "Buck", "Philip", "Hikaru", "Nick", "Buck", "Philip", "Hikaru", "Nick", "Buck", "Philip", "Hikaru", "Nick", "Buck", "Philip", "Hikaru", "Nick", "Buck", "Philip", "Hikaru", "Nick", "Buck", "Philip", "Hikaru", "Nick", "Buck"]
+    var sampleData = ["philip", "hikaru", "nick", "buck"]
     
     @IBOutlet weak var playerListTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         playerListTableView.delegate = self
         playerListTableView.dataSource = self
-        
     }
 }
