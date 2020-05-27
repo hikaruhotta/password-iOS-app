@@ -41,7 +41,6 @@ class GradientButton: UIButton {
     }
     
     
-    
     func setGradient(leftGradientColor: UIColor?, rightGradientColor: UIColor?, cornerRadius: CGFloat, shadowOpacity: Float) {
         if let leftGradientColor = leftGradientColor, let rightGradientColor = rightGradientColor {
             //set gradient

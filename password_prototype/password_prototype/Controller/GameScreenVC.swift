@@ -67,17 +67,20 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     @IBOutlet weak var mySegmentedControl: UISegmentedControl!
     
-    
-    // outlets to word buttons
-    @IBOutlet weak var randomButton: GradientButton!
+    @IBOutlet weak var buttonView: UIView!
     
     @IBOutlet weak var wordButton1: GradientButton!
-    
     @IBOutlet weak var wordButton2: GradientButton!
-    
     @IBOutlet weak var wordButton3: GradientButton!
+    @IBOutlet weak var wordButton4: GradientButton!
+    @IBOutlet weak var wordButton5: GradientButton!
+    @IBOutlet weak var wordButton6: GradientButton!
     
-    @IBOutlet weak var buttonView: UIView!
+    
+    
+    @IBOutlet weak var inputMenuView: UIView!
+    @IBOutlet weak var inputField: UITextField!
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(mySegmentedControl.selectedSegmentIndex) {
@@ -130,8 +133,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     var counter: Int = 1
     var chatCounter: Int = 1
-    
-    @IBOutlet weak var inputField: UITextField!
+
     
     
     // KEYBOARD
@@ -167,9 +169,14 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 
         if (notification.name == UIResponder.keyboardWillShowNotification ||
             notification.name == UIResponder.keyboardWillChangeFrameNotification) {
-            view.frame.origin.y = -keyboardRect.height + 40 // additional buffer
+            print( inputMenuView.frame.origin.y)
+            inputMenuView.frame.origin.y = view.frame.size.height - keyboardRect.height - inputMenuView.frame.size.height 
+            wordsTableView.frame.size.height = 494 - 180
+            wordsTableView.scrollToBottom()
         } else {
-            view.frame.origin.y = 0
+            inputMenuView.frame.origin.y = 661.0
+            wordsTableView.frame.size.height = 494
+            wordsTableView.reloadData()
         }
     }
     
@@ -196,7 +203,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                     }
                     print("error in create lobby request")
                 }
-                
             }
             
             
@@ -247,6 +253,32 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         // Set the firebase reference
         ref = Database.database().reference()
+        
+        print("*** user ID stored for non-host")
+        let id = retrieveUserID(users: LOCAL.users, user: LOCAL.user)
+        LOCAL.user.userID = id
+        // observe wordBank creation
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/private/\(LOCAL.user.userID)").observe(.childAdded) { (snapshot) in
+            if let wordBank = snapshot.value as? [String] {
+                LOCAL.user.targetWords = wordBank
+                self.wordButton1.setTitle(LOCAL.user.targetWords![0], for: .normal)
+                self.wordButton2.setTitle(LOCAL.user.targetWords![1], for: .normal)
+                self.wordButton3.setTitle(LOCAL.user.targetWords![2], for: .normal)
+                self.wordButton4.setTitle(LOCAL.user.targetWords![3], for: .normal)
+                self.wordButton5.setTitle(LOCAL.user.targetWords![4], for: .normal)
+                self.wordButton6.setTitle(LOCAL.user.targetWords![5], for: .normal)
+                self.wordButton1.titleLabel?.adjustsFontSizeToFitWidth = true
+                self.wordButton2.titleLabel?.adjustsFontSizeToFitWidth = true
+                self.wordButton3.titleLabel?.adjustsFontSizeToFitWidth = true
+                self.wordButton4.titleLabel?.adjustsFontSizeToFitWidth = true
+                self.wordButton5.titleLabel?.adjustsFontSizeToFitWidth = true
+                self.wordButton6.titleLabel?.adjustsFontSizeToFitWidth = true
+            }
+
+
+        }
+
+        
         
         // for observing child added
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/turns").observe(.childAdded) { (snapshot) in
@@ -306,15 +338,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             self.wordsTableView.reloadData()
             self.wordsTableView.scrollToBottom()
         }
-        
-        wordBank.shuffle()
-        let word1 = wordBank[0]
-        let word2 = wordBank[1]
-        let word3 = wordBank[2]
-        
-        wordButton1.setTitle(word1, for: .normal)
-        wordButton2.setTitle(word2, for: .normal)
-        wordButton3.setTitle(word3, for: .normal)
 
         wordsTableView.dataSource = self
         wordsTableView.delegate = self
@@ -353,25 +376,19 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         guard sender is UIButton else {
             return
         }
-        var playedWord = ""
-        switch (sender as AnyObject).tag {
-            // suggested word <- don't deal with it
-        case 4:
-            if randomWordsIndex == randomWords.count {
-                print("beta version out of random words")
-                return
+        let pressedWord = (sender as AnyObject).title(for: .normal) ?? String()
+        functions.httpsCallable("submitWord").call(["word": pressedWord]) { (result, error) in
+            if let error = error as NSError? {
+                if error.domain == FunctionsErrorDomain {
+                    let message = error.localizedDescription
+                    print(message)
+                }
+            } else{
+                print("submitted: \(pressedWord)")
+                (sender as AnyObject).setTitleColor(UIColor.gray, for: .disabled)
+                (sender as! UIButton).isEnabled = false
             }
-            playedWord = randomWords[randomWordsIndex]
-            randomWordsIndex += 1
             
-        default:
-            if wordBankIndex == wordBank.count {
-                print("beta version out of word bank words")
-                return
-            }
-            playedWord = (sender as AnyObject).title(for: .normal) ?? String()
-            (sender as AnyObject).setTitle(wordBank[wordBankIndex], for: .normal)
-            wordBankIndex += 1
         }
 
         let dateFormatter = DateFormatter()
@@ -403,4 +420,13 @@ extension UITableView {
             self.scrollToRow(at: indexPath, at: .top, animated: false)
         }
     }
+}
+
+func retrieveUserID(users: [User], user: User) -> String {
+    for u in users {
+        if u.displayName == user.displayName && u.emojiNumber == user.emojiNumber && u.colorNumber == user.colorNumber {
+            return u.userID
+        }
+    }
+    return ""
 }

@@ -25,6 +25,7 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     @IBAction func startGamePressed(_ sender: Any) {
+        //LOCAL.user.userID = retrieveUserID(users: LOCAL.users, user: LOCAL.user)
         functions.httpsCallable("startGame").call() { (result, error) in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
@@ -56,18 +57,21 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         // for observing child added
         print("PATH: ")
         print("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players")
+        // call this when it loads
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players").observe(.childAdded) { (snapshot) in
             print("***** BEFORE THE LET IN CHILD READER *****")
             if let userDetails = snapshot.value as? [String: Any] {
                 print("***** USER DETAILS BELOW (FROM INSIDE CHILD READER) *****")
-                print(userDetails)
-                print(snapshot.key)
+                //print(userDetails)
+                //print(snapshot.key)
                 let newUser = User(dictionary: userDetails, userID: snapshot.key)
                 LOCAL.users.append(newUser)
             }
             self.playerListTableView.reloadData()
             self.playerListTableView.scrollToBottom()
         }
+        // cancel it when close
+        
         
         // Listen to chages in game status -> segue to game screen VC
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/internal").observe(.childChanged) { (snapshot) in
@@ -92,6 +96,15 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //        cell.changeName(name: sampleData[indexPath.row])
 //        cell.modifyIcon(name: sampleData[indexPath.row])
         return cell
+    }
+    
+    func retrieveUserID(users: [User], user: User) -> String {
+        for u in users {
+            if u.displayName == user.displayName && u.emojiNumber == user.emojiNumber && u.colorNumber == user.colorNumber {
+                return u.userID
+            }
+        }
+        return ""
     }
     
 }
