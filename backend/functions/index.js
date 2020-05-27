@@ -85,7 +85,7 @@ exports.createLobby = functions.https.onCall(async (data, context) => {
     // lobbyCreation is a "ThenableReference";
     // a promise whose .key property can be accessed immediately
     const lobbyId = lobbyCreation.key;
-    const lobbyCodeCreation = createLobbyCodeMapping(lobbyId, now);
+    const lobbyCodeCreation = lobbyUtils.createLobbyCodeMapping(lobbyId, now);
     const hostAdding = lobbyCreation.then(() => {
         return addPlayerToLobby(lobbyId, player, playerId);
     });
@@ -174,7 +174,7 @@ exports.startGame = functions.https.onCall(async (data, context) => {
         lobby.private = {};
         let offset = Math.floor(Math.random() * 12);
         for (const [index, uid] of lobby.public.playerOrder.entries()) {
-            let targetWords = tempWordlists[(index + offset) % 12];
+            let targetWords = utils.tempWordlists[(index + offset) % 12];
             lobby.private[uid] = { targetWords: targetWords };
         }
 
@@ -211,10 +211,13 @@ exports.submitWord = functions.https.onCall(async (data, context) => {
         currTurn.submittedWord = word;
 
         // check if submitted word is other player's target word
-        for (const uid in lobby.private) {
-            if (lobby.private[uid].targetWords.includes(word)) {
+        for (const otherId in lobby.private) {
+            if (otherId === playerId) {
+                continue;
+            }
+            if (lobby.private[otherId].targetWords.includes(word)) {
                 currTurn.wasOthersWord = true;
-                currTurn.otherId = uid;
+                currTurn.otherId = otherId;
                 scoreTurn(lobby);
                 // TODO: generate new word for Other?
                 // leave status as SUBMISSION because we move straight to next player
