@@ -81,6 +81,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     @IBOutlet weak var inputMenuView: UIView!
     @IBOutlet weak var inputField: UITextField!
 
+    var numberOfVotes = 0
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(mySegmentedControl.selectedSegmentIndex) {
@@ -110,7 +111,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
                 // if last cell call showVotingButtons
                 if indexPath.row == words.count {
-                    cell.showVotingButtons()
+                    cell.showVotingButtons(numberOfVotes: numberOfVotes)
                 } else {
                     cell.hideVotingButtons()
                 }
@@ -324,7 +325,23 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 let score = updatedUser["score"]
                 LOCAL.users[index].score = score as! Int
             }
-            
+        }
+        
+        // listen to number of votes
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/internal").observe(.childAdded) { (snapshot) in
+            print("*** votes changed ***")
+            print("snapshot.key: \(snapshot.key)")
+            if let snapshotValue = snapshot.value as? [String: Any] {
+                //print("*** votes incremented ***")
+                print(snapshotValue)
+                //self.numberOfVotes = votes.count
+            } else {
+                print("*** votes to zero ***")
+                self.numberOfVotes = 0
+            }
+            print("*** reload table ***")
+            self.wordsTableView.reloadData()
+            self.wordsTableView.scrollToBottom()
         }
         
         

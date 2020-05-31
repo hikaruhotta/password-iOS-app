@@ -14,6 +14,8 @@ class SubmittedWordCell: UITableViewCell {
 
     lazy var functions = Functions.functions()
     
+    @IBOutlet weak var progressBar: UIProgressView!
+    
     @IBOutlet weak var acceptButton: UIButton!
     
     @IBOutlet weak var challengeButton: UIButton!
@@ -106,14 +108,18 @@ class SubmittedWordCell: UITableViewCell {
         
     }
     
-    func showVotingButtons(){
+    func showVotingButtons(numberOfVotes: Int){
         acceptButton.isHidden = false
         challengeButton.isHidden = false
+        progressBar.isHidden = false
+        progressBar.setProgress( Float(numberOfVotes / (LOCAL.users.count)), animated: true)
+        
     }
     
     func hideVotingButtons() {
         acceptButton.isHidden = true
         challengeButton.isHidden = true
+        //progressBar.isHidden = true
     }
     
     func updateUserScore(user: User){
