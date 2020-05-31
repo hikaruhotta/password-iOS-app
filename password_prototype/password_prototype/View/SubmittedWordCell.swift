@@ -18,6 +18,8 @@ class SubmittedWordCell: UITableViewCell {
     
     @IBOutlet weak var challengeButton: UIButton!
     
+    @IBOutlet weak var scoreLabel: UILabel!
+    
     @IBAction func acceptWord(_ sender: Any) {
         functions.httpsCallable("voteOnWord")
             .call(["challenge": false]) { (result, error) in
@@ -70,6 +72,7 @@ class SubmittedWordCell: UITableViewCell {
             challengeButton.isEnabled = false
             wordLabel.text = "..."
         }
+        
     }
     
     func markAsSeed() {
@@ -86,19 +89,20 @@ class SubmittedWordCell: UITableViewCell {
         if row == 0 {
             userIcon.isHidden = true
             nameLabel.isHidden = true
+            scoreLabel.isHidden = true
             hideVotingButtons()
         } else {
             userIcon.isHidden = false
             nameLabel.isHidden = false
-            
+            scoreLabel.isHidden = false
         }
         
         if user.displayName == LOCAL.user.displayName, user.colorNumber == LOCAL.user.colorNumber, user.emojiNumber == LOCAL.user.emojiNumber {
             hideVotingButtons()
+            
         }
-        
-        
-        
+        let index = retrieveUserIndex(users: LOCAL.users, userID: user.userID)
+        scoreLabel.text = String(LOCAL.users[index].score)
         
     }
     
@@ -111,5 +115,10 @@ class SubmittedWordCell: UITableViewCell {
         acceptButton.isHidden = true
         challengeButton.isHidden = true
     }
+    
+    func updateUserScore(user: User){
+        scoreLabel.text = String(user.score)
+    }
+    
 
 }

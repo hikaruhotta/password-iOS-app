@@ -104,6 +104,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 cell.modifyIcon(user: User(), row: indexPath.row)
                 //cell.markAsSeed() // hide icon
                 cell.updateWord(word: "password")
+                
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
@@ -254,7 +255,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         // Set the firebase reference
         ref = Database.database().reference()
         
-        print("*** user ID stored for non-host")
         let id = retrieveUserID(users: LOCAL.users, user: LOCAL.user)
         LOCAL.user.userID = id
         // observe wordBank creation
@@ -274,8 +274,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 self.wordButton5.titleLabel?.adjustsFontSizeToFitWidth = true
                 self.wordButton6.titleLabel?.adjustsFontSizeToFitWidth = true
             }
-
-
         }
 
         
@@ -284,14 +282,12 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/turns").observe(.childAdded) { (snapshot) in
             if let wordDetails = snapshot.value as? [String: Any] {
                 let newWord = Word(dictionary: wordDetails)
-                print("*** adding child ***")
                 //print(newWord)
                 self.words.append(newWord)
 //                if newWord.word == nil {
 //
 //                    self.words.append(newWord)
 //                }
-                
 
             }
             self.words.sort { (left, right) -> Bool in
@@ -308,16 +304,10 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 // replace/update the word
                 
                 if let index = self.words.firstIndex(matching: newWord) {
-                    print("*** word replaced ***")
                     self.words.remove(at: index)
                     self.words.append(newWord)
                 }
 
-//                print(newWord)
-//                if newWord.wasChallenged == nil, newWord.word != nil {
-//                    self.words.removeLast()
-//                    self.words.append(newWord)
-//                }
             }
             self.words.sort { (left, right) -> Bool in
                 left.created! < right.created!
@@ -325,6 +315,19 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             self.wordsTableView.reloadData()
             self.wordsTableView.scrollToBottom()
         }
+        
+        // listen to player
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players").observe(.childChanged) { (snapshot) in
+            if let updatedUser = snapshot.value as? [String: Any] {
+                let userID = snapshot.key
+                let index = retrieveUserIndex(users: LOCAL.users, userID: userID)
+                let score = updatedUser["score"]
+                LOCAL.users[index].score = score as! Int
+            }
+            
+        }
+        
+        
         
         // for observing message child added
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/chat").observe(.childAdded) { (snapshot) in
@@ -393,9 +396,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//        let word = Word(word: playedWord, user: LOCAL.user, timeStamp : dateFormatter.string(from: Date()), score : "0")
-//        let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/wordList/word\(words.count)" : word.constructDict()]
-//        self.ref?.updateChildValues(myUpdates)
+
         }
     
 }
@@ -430,3 +431,18 @@ func retrieveUserID(users: [User], user: User) -> String {
     }
     return ""
 }
+
+func retrieveUserIndex(users: [User], userID: String) -> Int {
+    var counter = 0
+    for u in users {
+        if u.userID == userID  {
+            return counter
+        }
+        counter += 1
+    }
+    return 0
+}
+
+
+
+
