@@ -1,82 +1,95 @@
 {
-    "lobbies" : {
-        "-M74qOnArTZvKHVwpLrK" : {
-            "internal": {
-                "created" : 1589236047060,
-                "hostId" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
-                "status" : "SUBMISSION"
+  "lobbies" : {
+    "-M74qOnArTZvKHVwpLrK" : {
+        "internal" : {
+          "created" : 1590986701346,
+          "hostId" : "v83dF4ga8hPyTnNXy0DR3SEfwox2"
+        },
+        "private" : {
+          "VMOkwgVS1wTY1LBPDTrLFtX0MQD3" : {
+            "targetWords" : [ "sing", "court", "kingdom", "rocket", "advance", "card", "rock", "property", "editor", "motor" ]
+          },
+          "dReD6MZmApUcduuaQugpAJTu6Gd2" : {
+            "targetWords" : [ "dome", "shipment", "industry", "college", "baker", "work", "radius", "movie", "color", "dance" ]
+          },
+          "v83dF4ga8hPyTnNXy0DR3SEfwox2" : {
+            "targetWords" : [ "gallery", "shoes", "power", "bar", "water", "laser", "theater", "autumn", "badge", "weather" ]
+          }
+        },
+        "public" : {
+          "playerOrder" : [ "dReD6MZmApUcduuaQugpAJTu6Gd2", "v83dF4ga8hPyTnNXy0DR3SEfwox2", "VMOkwgVS1wTY1LBPDTrLFtX0MQD3" ],
+          "players" : {
+            "VMOkwgVS1wTY1LBPDTrLFtX0MQD3" : {
+              "colorNumber" : 3,
+              "displayName" : "darq",
+              "emojiNumber" : 4,
+              "score" : 2
             },
-            "public" : {
-                "players" : {
-                    "sNbbJ6hAdQbINVVeJLG9nW6irLv1": {
-                        "displayName" : "hikaru",
-                        "colorNumber": 4,
-                        "emojiNumber" : 10,
-                        "score": 2
-                    },
-                    "IRVnDKYU5JdYUnfIKOW7qJDpwxt1": {
-                        "displayName" : "nick",
-                        "colorNumber": 3,
-                        "emojiNumber" : 6,
-                        "score": 3
-                    }
-                },
-                "playerOrder": [
-                    "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
-                    "IRVnDKYU5JdYUnfIKOW7qJDpwxt1"
-                ],
-                "startWord": "password",
-                "turns" : [
-                    {
-                        "created" : 1589236047060,
-                        "player" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
-                        "submittedWord" : "pizza",
-                        "wasCalled": false,
-                        "wasSubmittersWord": false
-                    },
-                    {
-                        "created" : 1589236047060,
-                        "player" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
-                        "submittedWord" : "brown",
-                        "wasCalled": true,
-                        "callerId": "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
-                        "wasSubmittersWord": true
-                    },
-                    {
-                        "created" : 1589236047060,
-                        "player" : "sNbbJ6hAdQbINVVeJLG9nW6irLv1",
-                        "submittedWord" : "lazy",
-                        "wasCalled": false,
-                        "wasSubmittersWord": true
-                    },
-                    {
-                        "created" : 1589236047060,
-                        "player" : "IRVnDKYU5JdYUnfIKOW7qJDpwxt1",
-                        "submittedWord" : "jump",
-                        "wasOthersWord": true,
-                        "otherId": "sNbbJ6hAdQbINVVeJLG9nW6irLv1"
-                    }
-                ]
+            "dReD6MZmApUcduuaQugpAJTu6Gd2" : {
+              "colorNumber" : 3,
+              "displayName" : "firef",
+              "emojiNumber" : 4,
+              "score" : 1
             },
-            "private" : {
-                "IRVnDKYU5JdYUnfIKOW7qJDpwxt1" : {
-                    "targetWords" : [ "quick", "brown", "fox" ]
-                },
-                "sNbbJ6hAdQbINVVeJLG9nW6irLv1" : {
-                    "targetWords" : [ "jump", "lazy", "dog" ]
-                }
+            "v83dF4ga8hPyTnNXy0DR3SEfwox2" : {
+              "colorNumber" : 3,
+              "displayName" : "light",
+              "emojiNumber" : 4,
+              "score" : 2
             }
+          },
+          "startWord" : "password",
+          "status" : "SUBMISSION",
+          "turns" : [ {
+            "created" : 1590986719532,
+            "player" : "dReD6MZmApUcduuaQugpAJTu6Gd2",
+            "submittedWord" : "nothing",
+            "votes" : {
+              "VMOkwgVS1wTY1LBPDTrLFtX0MQD3" : false,
+              "v83dF4ga8hPyTnNXy0DR3SEfwox2" : false
+            },
+            "wasSubmittersWord" : false
+          }, {
+            "created" : 1590986784249,
+            "player" : "v83dF4ga8hPyTnNXy0DR3SEfwox2",
+            "submittedWord" : "gallery",
+            "votes" : {
+              "VMOkwgVS1wTY1LBPDTrLFtX0MQD3" : false,
+              "dReD6MZmApUcduuaQugpAJTu6Gd2" : false
+            },
+            "wasSubmittersWord" : true
+          }, {
+            "created" : 1590986808169,
+            "otherId" : "dReD6MZmApUcduuaQugpAJTu6Gd2",
+            "player" : "VMOkwgVS1wTY1LBPDTrLFtX0MQD3",
+            "submittedWord" : "dome",
+            "wasOthersWord" : true
+          }, {
+            "created" : 1590986848893,
+            "player" : "dReD6MZmApUcduuaQugpAJTu6Gd2",
+            "submittedWord" : "industry",
+            "votes" : {
+              "VMOkwgVS1wTY1LBPDTrLFtX0MQD3" : true,
+              "v83dF4ga8hPyTnNXy0DR3SEfwox2" : false
+            },
+            "wasSubmittersWord" : true
+          }, {
+            "created" : 1590986878949,
+            "player" : "v83dF4ga8hPyTnNXy0DR3SEfwox2"
+          } ],
+          "votesTallied" : 2
         }
+      }      
+  },
+  "lobbyCodeMap" : {
+    "AXKX" : {
+    "created" : 1589236047243,
+    "lobbyId" : "-M74qOnArTZvKHVwpLrK"
     },
-    "lobbyCodeMap" : {
-      "AXKX" : {
-        "created" : 1589236047243,
-        "lobbyId" : "-M74qOnArTZvKHVwpLrK"
-      },
-      "mostRecent" : "AXKX"
-    },
-    "playerLobbyMap": {
-        "6hr2jZh6GqS0kQxyfWcyQtghYRL2" : "-M7a5N4pgG8MP_hcCDpj",
-        "LnqzOMhVEYNzSPrwLJuVxUDPBPG3" : "-M7a5N4pgG8MP_hcCDpj"
-    }      
+    "mostRecent" : "AXKX"
+  },
+  "playerLobbyMap": {
+    "6hr2jZh6GqS0kQxyfWcyQtghYRL2" : "-M7a5N4pgG8MP_hcCDpj",
+    "LnqzOMhVEYNzSPrwLJuVxUDPBPG3" : "-M7a5N4pgG8MP_hcCDpj"
+  }    
 }

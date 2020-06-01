@@ -42,33 +42,25 @@ turns: [
 ]
 ```
 
-# Voting begins:
+# Voting:
 The client displays the submitted word and gives the player the option to challenge it, with a countdown timer.  
-Each client sends a `{ "challenge": true or false }` response to the `voteOnWord` endpoint, and the server waits until **one** player challenges or **all** players pass.  
+Each client sends a `{ "challenge": true or false }` response to the `voteOnWord` endpoint, and the server waits until all players have voted.  
 Eventually we can implement client-side code that automatically sends `{ "challenge": false }` after 5 seconds as a timer on voting.
 
-## No players challenged:
+## After all votes received:
+Whether the word was the submitter's word or not is revealed and the votes are revealed.  
+The backend automatically updates each player's score in `/public/players/$uid/score`.
 ```json
 turns: [
     {
         "created" : 1589236047060,
         "player" : "$uid",
         "submittedWord" : "pizza",
-        "wasChallenged": false,
-        "wasSubmittersWord": true or false
-    }
-]
-```
-## A player challenged:
-```json
-turns: [
-    {
-        "created" : 1589236047060,
-        "player" : "$uid",
-        "submittedWord" : "pizza",
-        "wasChallenged": true,
-        "challengerId": "$challengerId",
-        "wasSubmittersWord": true or false
+        "wasSubmittersWord": true or false,
+        "votes": [
+            "$voterId1": true or false,
+            ...
+        ]
     }
 ]
 ```
