@@ -100,6 +100,15 @@ This does the following:
 ```json
 null
 ```
+Optionally, include game settings:
+```json
+{
+    "gameSettings": {
+        "numRounds": 2
+    }
+}
+```
+More settings TBD.
 ### Returned Data:
 ```json
 null
@@ -107,6 +116,7 @@ null
 ### Possible Errors:
 `failed-precondition`: if lobby status is not open  
 `permission-denied`: if you aren't the firebase user that created the lobby  
+`invalid-argument`: if you included gameSettings but messed up one of the fields  
 ___
 
 ## submitWord

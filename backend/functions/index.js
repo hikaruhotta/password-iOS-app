@@ -107,18 +107,21 @@ exports.joinLobby = functions.https.onCall(async (data, context) => {
     return { lobbyId: lobbyId };
 });
 
-/**
- * Helper function that modifies the passed in lobby object in-place.
- * Figures out whose turn it is and adds an in-progress turn to the turn list.
- */
-function pushNextTurn(lobby) {
-    const playerOrder = lobby.public.playerOrder;
-    const numPlayers = playerOrder.length;
-    const numTurnsSoFar = lobby.public.turns.length;
-    
-    const nextPlayer = playerOrder[numTurnsSoFar % numPlayers];
-    const now = admin.database.ServerValue.TIMESTAMP;
-    lobby.public.turns.push({ player: nextPlayer, created: now });
+function startNextTurnOrEndGame(lobby) {
+    const numTurnsTaken = lobby.public.turns.length;
+    const numPlayers = lobby.public.playerOrder.length;
+    const numRounds = lobby.public.settings.numRounds;
+
+    const gameIsFinished = (numTurnsTaken === numRounds * numPlayers);
+    if (gameIsFinished) {
+        lobby.public.status = "DONE";
+    } else {
+        // start next turn
+        const nextPlayer = lobby.public.playerOrder[numTurnsTaken % numPlayers];
+        const now = admin.database.ServerValue.TIMESTAMP;
+        lobby.public.turns.push({ player: nextPlayer, created: now });
+        lobby.public.status = "SUBMISSION";
+    }
 }
 
 function scoreTurn(lobby) {
@@ -159,6 +162,7 @@ function scoreTurn(lobby) {
 
 exports.startGame = functions.https.onCall(async (data, context) => {
     const playerId = validation.getUid(context);
+    const gameSettings = validation.getGameSettings(data);
     const lobbyId = await lobbyUtils.findLobbyIdFromUID(playerId);
 
     const validateLobbyFn = lobby => {
@@ -174,9 +178,10 @@ exports.startGame = functions.https.onCall(async (data, context) => {
     };
     
     const updateLobbyFn = lobby => {
+        lobby.public.settings = gameSettings;
         const playerIds = Object.keys(lobby.public.players);
         lobby.public.playerOrder = utils.shuffleArray(playerIds);
-        lobby.public.startWord = "password";
+        lobby.public.startWord = "password"; // TODO random word
         lobby.public.turns = [];
         
         lobby.private = {};
@@ -186,8 +191,7 @@ exports.startGame = functions.https.onCall(async (data, context) => {
             lobby.private[uid] = { targetWords: targetWords };
         }
         
-        lobby.public.status = "SUBMISSION";
-        pushNextTurn(lobby);
+        startNextTurnOrEndGame(lobby);
     };
 
     return updateLobby(lobbyId, validateLobbyFn, updateLobbyFn);
@@ -230,8 +234,7 @@ exports.submitWord = functions.https.onCall(async (data, context) => {
                 currTurn.otherId = otherId;
                 scoreTurn(lobby);
                 // TODO: generate new word for Other?
-                lobby.public.status = "SUBMISSION";
-                pushNextTurn(lobby);
+                startNextTurnOrEndGame(lobby);
                 return;
             }
         }
@@ -285,8 +288,7 @@ exports.voteOnWord = functions.https.onCall(async (data, context) => {
             scoreTurn(lobby);
 
             lobby.internal.votes = {};
-            lobby.public.status = 'SUBMISSION';
-            pushNextTurn(lobby);
+            startNextTurnOrEndGame(lobby);
         }
     };
 

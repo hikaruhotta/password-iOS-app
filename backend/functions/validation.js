@@ -62,3 +62,22 @@ exports.getLobbyCode = function (data) {
     }
     return lobbyCode;
 }
+
+exports.getGameSettings = function (data) {
+    if (!data || !data.settings) {
+        // default values
+        return { numRounds: 8 };
+    }
+    const settings = data.settings;
+    const numRounds = settings.numRounds;
+    if (!numRounds) {
+        throw new functions.https.HttpsError("invalid-argument",
+            `Missing numRounds in submitted settings.`);
+    }
+    if (!Number.isInteger(numRounds) || numRounds < 1 ) {
+        throw new functions.https.HttpsError("invalid-argument",
+            `numRounds should be a positive integer.`);
+    }
+    
+    return settings;
+}
