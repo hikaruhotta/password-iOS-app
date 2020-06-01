@@ -122,7 +122,7 @@ function pushNextTurn(lobby) {
 function scoreTurn(lobby) {
     const numTurnsSoFar = lobby.public.turns.length;
     const doneTurn = lobby.public.turns[numTurnsSoFar - 1];
-    const player = lobby.public.players[doneTurn.player]
+    const player = lobby.public.players[doneTurn.player];
 
     if (doneTurn.wasOthersWord) {
         const other = lobby.public.players[doneTurn.otherId];
@@ -130,16 +130,23 @@ function scoreTurn(lobby) {
         return;
     }
 
-    if (doneTurn.wasChallenged) {
-        const challenger = lobby.public.players[doneTurn.challengerId];
-        if (doneTurn.wasSubmittersWord) {
-            challenger.score += 2;
-            player.score -= 1;
-        } else {
-            challenger.score -= 1;
-            player.score -= 1;
+    let wasChallenged = false;
+    for (const uid in doneTurn.votes) {
+        const votedChallenge = doneTurn.votes[uid];
+        if (votedChallenge) {
+            wasChallenged = true;
+            const challenger = lobby.public.players[uid];
+            if (doneTurn.wasSubmittersWord) {
+                challenger.score += 2;
+                player.score -= 1;
+            } else {
+                challenger.score -= 1;
+                player.score -= 1;
+            }
         }
-    } else {
+    }
+
+    if (!wasChallenged) {
         if (doneTurn.wasSubmittersWord) {
             player.score += 2;
         } else {
@@ -235,7 +242,7 @@ exports.submitWord = functions.https.onCall(async (data, context) => {
 
 exports.voteOnWord = functions.https.onCall(async (data, context) => {
     let playerId = validation.getUid(context);
-    let challenge = validation.getChallenge(data);
+    let vote = validation.getVote(data);
     let lobbyId = await lobbyUtils.findLobbyIdFromUID(playerId);
 
     let validateLobbyFn = lobby => {
@@ -259,27 +266,20 @@ exports.voteOnWord = functions.https.onCall(async (data, context) => {
     };
 
     const updateLobbyFn = lobby => {
+        if (!lobby.internal.votes) {
+            lobby.internal.votes = {};
+        }
+        lobby.internal.votes[playerId] = vote;
+
         const currTurn = lobby.public.turns[lobby.public.turns.length - 1];
-        
-        let endVoting = false;
-        if (challenge) {
+        if (vote) {
             currTurn.wasChallenged = true;
-            currTurn.challengerId = playerId;
-            endVoting = true;
-        } else {
-            if (!lobby.internal.votes) {
-                lobby.internal.votes = {};
-            }
-            lobby.internal.votes[playerId] = false;
-            const numVotes = Object.keys(lobby.internal.votes).length;    
-            const numPlayers = lobby.public.playerOrder.length;
-            if (numVotes === numPlayers - 1) {
-                currTurn.wasChallenged = false;
-                endVoting = true;
-            }
         }
 
-        if (endVoting) {
+        const numVotes = Object.keys(lobby.internal.votes).length;
+        const numPlayers = lobby.public.playerOrder.length;
+        if (numVotes === numPlayers - 1) {
+            currTurn.votes = lobby.internal.votes;
             const targetWords = lobby.private[currTurn.player].targetWords;
             currTurn.wasSubmittersWord = targetWords.includes(currTurn.submittedWord);
             scoreTurn(lobby);
