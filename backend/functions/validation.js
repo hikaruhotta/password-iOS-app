@@ -45,13 +45,13 @@ exports.getWord = function (data) {
     return word;
 }
 
-exports.getChallenge = function (data) {
-    const challenge = data.challenge;
-    if (challenge === undefined) {
+exports.getVote = function (data) {
+    const vote = data.challenge;
+    if (vote === undefined) {
         throw new functions.https.HttpsError('invalid-argument',
             `Missing vote in voteOnWord request.`);
         }
-    return challenge;
+    return vote;
 }
 
 exports.getLobbyCode = function (data) {

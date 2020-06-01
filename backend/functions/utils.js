@@ -18,7 +18,7 @@ exports.tempWordlists = [
     ['dome','shipment','industry','college','baker','work','radius','movie','color','dance',],
     ['gallery','shoes','power','bar','water','laser','theater','autumn','badge','weather',],
     ['sing','court','kingdom','rocket','advance','card','rock','property','editor','motor',],
-    ['blanket','time','protein','opera','stone','lens','radio','motorcycle','appliance','black','camera',],
+    ['blanket','time', 'opera','stone','lens','radio','motorcycle','appliance','black','camera',],
     ['permit','customer','shadow','library','chain','world','plant','bird','house','film',],
     ['floor','picture','score','music','audio','hotel','cart','student','paper','prize',],
     ['home','life','building','construction','money','culture','drive','triangle','link','island',]

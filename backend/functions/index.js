@@ -50,7 +50,7 @@ async function updateLobby(lobbyId, validateLobbyFn, updateLobbyFn) {
  */
 async function addPlayerToLobby(lobbyId, player, playerId) {
     const validateLobbyFn = lobby => {
-        if (lobby.internal.status !== 'LOBBY') {
+        if (lobby.public.status !== 'LOBBY') {
             return new functions.https.HttpsError("failed-precondition",
                 `Lobby with id ${lobbyId} is no longer open to join.`);
         }
@@ -58,8 +58,8 @@ async function addPlayerToLobby(lobbyId, player, playerId) {
     };
 
     const updateLobbyFn = lobby => {
-        if (!lobby.public) {
-            lobby.public = { players: {} };
+        if (!lobby.public.players) {
+            lobby.public.players = {};
         }
         player.score = 0;
         lobby.public.players[playerId] = player;
@@ -77,9 +77,11 @@ exports.createLobby = functions.https.onCall(async (data, context) => {
     
     const lobbyCreation = admin.database().ref('/lobbies/').push({
         internal: {
-            status: "LOBBY",
             created: now,
             hostId: playerId
+        },
+        public: {
+            status: "LOBBY",
         }
     });
     // lobbyCreation is a "ThenableReference";
@@ -122,7 +124,7 @@ function pushNextTurn(lobby) {
 function scoreTurn(lobby) {
     const numTurnsSoFar = lobby.public.turns.length;
     const doneTurn = lobby.public.turns[numTurnsSoFar - 1];
-    const player = lobby.public.players[doneTurn.player]
+    const player = lobby.public.players[doneTurn.player];
 
     if (doneTurn.wasOthersWord) {
         const other = lobby.public.players[doneTurn.otherId];
@@ -130,16 +132,23 @@ function scoreTurn(lobby) {
         return;
     }
 
-    if (doneTurn.wasChallenged) {
-        const challenger = lobby.public.players[doneTurn.challengerId];
-        if (doneTurn.wasSubmittersWord) {
-            challenger.score += 2;
-            player.score -= 1;
-        } else {
-            challenger.score -= 1;
-            player.score -= 1;
+    let wasChallenged = false;
+    for (const uid in doneTurn.votes) {
+        const votedChallenge = doneTurn.votes[uid];
+        if (votedChallenge) {
+            wasChallenged = true;
+            const challenger = lobby.public.players[uid];
+            if (doneTurn.wasSubmittersWord) {
+                challenger.score += 2;
+                player.score -= 1;
+            } else {
+                challenger.score -= 1;
+                player.score -= 1;
+            }
         }
-    } else {
+    }
+
+    if (!wasChallenged) {
         if (doneTurn.wasSubmittersWord) {
             player.score += 2;
         } else {
@@ -157,7 +166,7 @@ exports.startGame = functions.https.onCall(async (data, context) => {
             return new functions.https.HttpsError("permission-denied",
                 `You are not the host of the lobby with id ${lobbyId}.`);
         }
-        if (lobby.internal.status !== 'LOBBY') {
+        if (lobby.public.status !== 'LOBBY') {
             return new functions.https.HttpsError("failed-precondition",
                 `Lobby with id ${lobbyId} already started.`);
         }
@@ -169,16 +178,16 @@ exports.startGame = functions.https.onCall(async (data, context) => {
         lobby.public.playerOrder = utils.shuffleArray(playerIds);
         lobby.public.startWord = "password";
         lobby.public.turns = [];
-        pushNextTurn(lobby);
-
+        
         lobby.private = {};
         let offset = Math.floor(Math.random() * 12);
         for (const [index, uid] of lobby.public.playerOrder.entries()) {
             let targetWords = utils.tempWordlists[(index + offset) % 12];
             lobby.private[uid] = { targetWords: targetWords };
         }
-
-        lobby.internal.status = "SUBMISSION";
+        
+        lobby.public.status = "SUBMISSION";
+        pushNextTurn(lobby);
     };
 
     return updateLobby(lobbyId, validateLobbyFn, updateLobbyFn);
@@ -190,7 +199,7 @@ exports.submitWord = functions.https.onCall(async (data, context) => {
     let lobbyId = await lobbyUtils.findLobbyIdFromUID(playerId);
 
     const validateLobbyFn = lobby => {
-        if (lobby.internal.status !== 'SUBMISSION') {
+        if (lobby.public.status !== 'SUBMISSION') {
             return new functions.https.HttpsError("failed-precondition",
                 `Lobby with id ${lobbyId} not awaiting word submission.`);
         }
@@ -209,7 +218,8 @@ exports.submitWord = functions.https.onCall(async (data, context) => {
     const updateLobbyFn = lobby => {
         const currTurn = lobby.public.turns[lobby.public.turns.length - 1];
         currTurn.submittedWord = word;
-
+        lobby.public.votesTallied = 0;
+        
         // check if submitted word is other player's target word
         for (const otherId in lobby.private) {
             if (otherId === playerId) {
@@ -220,13 +230,13 @@ exports.submitWord = functions.https.onCall(async (data, context) => {
                 currTurn.otherId = otherId;
                 scoreTurn(lobby);
                 // TODO: generate new word for Other?
-                // leave status as SUBMISSION because we move straight to next player
+                lobby.public.status = "SUBMISSION";
                 pushNextTurn(lobby);
                 return;
             }
         }
-
-        lobby.internal.status = "VOTING";
+        
+        lobby.public.status = "VOTING";
         return;
     };
 
@@ -235,11 +245,11 @@ exports.submitWord = functions.https.onCall(async (data, context) => {
 
 exports.voteOnWord = functions.https.onCall(async (data, context) => {
     let playerId = validation.getUid(context);
-    let challenge = validation.getChallenge(data);
+    let vote = validation.getVote(data);
     let lobbyId = await lobbyUtils.findLobbyIdFromUID(playerId);
 
     let validateLobbyFn = lobby => {
-        if (lobby.internal.status !== 'VOTING') {
+        if (lobby.public.status !== 'VOTING') {
             return new functions.https.HttpsError("failed-precondition",
                 `Lobby with id ${lobbyId} not in voting stage.`);
         }
@@ -259,33 +269,23 @@ exports.voteOnWord = functions.https.onCall(async (data, context) => {
     };
 
     const updateLobbyFn = lobby => {
-        const currTurn = lobby.public.turns[lobby.public.turns.length - 1];
-        
-        let endVoting = false;
-        if (challenge) {
-            currTurn.wasChallenged = true;
-            currTurn.challengerId = playerId;
-            endVoting = true;
-        } else {
-            if (!lobby.internal.votes) {
-                lobby.internal.votes = {};
-            }
-            lobby.internal.votes[playerId] = false;
-            const numVotes = Object.keys(lobby.internal.votes).length;    
-            const numPlayers = lobby.public.playerOrder.length;
-            if (numVotes === numPlayers - 1) {
-                currTurn.wasChallenged = false;
-                endVoting = true;
-            }
+        if (!lobby.internal.votes) {
+            lobby.internal.votes = {};
         }
+        lobby.internal.votes[playerId] = vote;
+        lobby.public.votesTallied++;
 
-        if (endVoting) {
+        const numVotes = Object.keys(lobby.internal.votes).length;
+        const numPlayers = lobby.public.playerOrder.length;
+        if (numVotes === numPlayers - 1) {
+            const currTurn = lobby.public.turns[lobby.public.turns.length - 1];
+            currTurn.votes = lobby.internal.votes;
             const targetWords = lobby.private[currTurn.player].targetWords;
             currTurn.wasSubmittersWord = targetWords.includes(currTurn.submittedWord);
             scoreTurn(lobby);
 
             lobby.internal.votes = {};
-            lobby.internal.status = 'SUBMISSION';
+            lobby.public.status = 'SUBMISSION';
             pushNextTurn(lobby);
         }
     };
