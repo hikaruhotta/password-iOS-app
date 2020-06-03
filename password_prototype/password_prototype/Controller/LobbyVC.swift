@@ -14,6 +14,12 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var ref: DatabaseReference?
     
+    var gameStatusHandle: UInt!
+    
+    var playerAddedHandle: UInt!
+    
+    
+    
     var databaseHandle: DatabaseHandle? // the listener
     lazy var functions = Functions.functions()
     
@@ -54,16 +60,9 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         // Set the firebase reference
         ref = Database.database().reference()
-        // for observing child added
-        print("PATH: ")
-        print("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players")
         // call this when it loads
-        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players").observe(.childAdded) { (snapshot) in
-            print("***** BEFORE THE LET IN CHILD READER *****")
+        playerAddedHandle = ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players").observe(.childAdded) { (snapshot) in
             if let userDetails = snapshot.value as? [String: Any] {
-                print("***** USER DETAILS BELOW (FROM INSIDE CHILD READER) *****")
-                //print(userDetails)
-                //print(snapshot.key)
                 let newUser = User(dictionary: userDetails, userID: snapshot.key)
                 LOCAL.users.append(newUser)
             }
@@ -74,14 +73,15 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         
         // Listen to chages in game status -> segue to game screen VC
-        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/internal").observe(.childChanged) { (snapshot) in
-            //print("*** detected status change ***")
-            //print(snapshot[""])
-            if !LOCAL.inGame {
-                LOCAL.inGame = true
-                print("*** performed segue ***")
-                self.performSegue(withIdentifier: "segueStartGame", sender: nil)
+        gameStatusHandle = ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public").observe(.childChanged) { (snapshot) in
+            if let snap = snapshot.value as? String {
+                if snap == "SUBMISSION" {
+                    self.performSegue(withIdentifier: "segueStartGame", sender: nil)
+                    self.ref?.removeObserver(withHandle: self.gameStatusHandle)
+                    self.ref?.removeObserver(withHandle: self.playerAddedHandle)
+                }
             }
+
         }
         
     }

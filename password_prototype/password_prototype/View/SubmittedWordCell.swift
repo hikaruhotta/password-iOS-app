@@ -111,19 +111,23 @@ class SubmittedWordCell: UITableViewCell {
     func showVotingButtons(numberOfVotes: Int){
         acceptButton.isHidden = false
         challengeButton.isHidden = false
-        progressBar.isHidden = false
-        progressBar.setProgress( Float(numberOfVotes / (LOCAL.users.count)), animated: true)
+        
         
     }
     
     func hideVotingButtons() {
         acceptButton.isHidden = true
         challengeButton.isHidden = true
-        //progressBar.isHidden = true
+        progressBar.isHidden = true
     }
     
     func updateUserScore(user: User){
         scoreLabel.text = String(user.score)
+    }
+    
+    func updateProgressBar(numberOfVotes: Int) {
+        progressBar.isHidden = false
+        progressBar.setProgress(Float(numberOfVotes) / Float(LOCAL.users.count - 1), animated: true)
     }
     
 

@@ -21,47 +21,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var words: [Word] = []
     
     var messages: [Message] = []
-    
-    // will be self expanding list of words
-    var wordBank: [String] = [
-        "alarm",
-        "scorch",
-        "leap",
-        "paltry",
-        "refer",
-        "cloth",
-        "allow",
-        "garrulous",
-        "dizzy",
-        "treatment",
-        "important",
-        "salty",
-        "noiseless",
-        "suggest",
-        "paste"
-    ]
-    
-    var randomWords: [String] = [
-        "frame",
-        "furtive",
-        "harm",
-        "derive",
-        "degree",
-        "act",
-        "creature",
-        "shoot",
-        "nation",
-        "bear",
-        "fall",
-        "relax",
-        "retain",
-        "saddle",
-        "subscribe"
-    ]
-    
-    var wordBankIndex = 3
-    
-    var randomWordsIndex = 0
+
     
     @IBOutlet weak var wordsTableView: UITableView!
     
@@ -75,7 +35,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     @IBOutlet weak var wordButton4: GradientButton!
     @IBOutlet weak var wordButton5: GradientButton!
     @IBOutlet weak var wordButton6: GradientButton!
-    
     
     
     @IBOutlet weak var inputMenuView: UIView!
@@ -96,10 +55,9 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch(mySegmentedControl.selectedSegmentIndex) {
-            
             // GAME
         case 0:
-            
+            print("in tableView")
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
                 cell.modifyIcon(user: User(), row: indexPath.row)
@@ -111,12 +69,14 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
                 // if last cell call showVotingButtons
                 if indexPath.row == words.count {
-                    cell.showVotingButtons(numberOfVotes: numberOfVotes)
+                    cell.showVotingButtons(numberOfVotes: self.numberOfVotes)
                 } else {
                     cell.hideVotingButtons()
                 }
                 cell.modifyIcon(user: words[indexPath.row - 1].player!, row: indexPath.row)
                 cell.updateWord(word: words[indexPath.row - 1].word ?? "")
+                print("*** reload data called and printing numberOfVotes: \(numberOfVotes)")
+                cell.updateProgressBar(numberOfVotes: numberOfVotes)
                 return cell
             }
             
@@ -283,7 +243,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/turns").observe(.childAdded) { (snapshot) in
             if let wordDetails = snapshot.value as? [String: Any] {
                 let newWord = Word(dictionary: wordDetails)
-                //print(newWord)
                 self.words.append(newWord)
 //                if newWord.word == nil {
 //
@@ -328,18 +287,19 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         
         // listen to number of votes
-        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/internal").observe(.childAdded) { (snapshot) in
-            print("*** votes changed ***")
-            print("snapshot.key: \(snapshot.key)")
-            if let snapshotValue = snapshot.value as? [String: Any] {
-                //print("*** votes incremented ***")
-                print(snapshotValue)
-                //self.numberOfVotes = votes.count
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public").observe(.childChanged) { (snapshot) in
+
+            if snapshot.key == "votesTallied" {
+                self.numberOfVotes = snapshot.value as! Int
+                print("votes increased to \(self.numberOfVotes) -> observed by listener")
+                
+                if self.numberOfVotes == LOCAL.users.count - 1 {
+                    self.numberOfVotes = 0
+                }
             } else {
-                print("*** votes to zero ***")
                 self.numberOfVotes = 0
             }
-            print("*** reload table ***")
+            print("*** calling table view reload data ***")
             self.wordsTableView.reloadData()
             self.wordsTableView.scrollToBottom()
         }
