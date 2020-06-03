@@ -81,7 +81,6 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                     self.ref?.removeObserver(withHandle: self.playerAddedHandle)
                 }
             }
-
         }
         
     }

@@ -12,6 +12,11 @@ import FirebaseFunctions
 
 class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
+    @IBAction func unwindButtonPressed(_ sender: Any) {
+        print("DATA IS NOW RESET")
+        LOCAL = LocalData()
+    }
+    
     // Create the reference to the database
     var ref: DatabaseReference?
     
@@ -19,7 +24,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     lazy var functions = Functions.functions()
     
     var words: [Word] = []
-    
+    var boolArray = [Bool]()
     var messages: [Message] = []
 
     
@@ -42,6 +47,8 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
 
     var numberOfVotes = 0
     
+
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(mySegmentedControl.selectedSegmentIndex) {
         case 0:
@@ -57,18 +64,16 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         switch(mySegmentedControl.selectedSegmentIndex) {
             // GAME
         case 0:
-            print("in tableView")
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
                 cell.modifyIcon(user: User(), row: indexPath.row)
                 //cell.markAsSeed() // hide icon
                 cell.updateWord(word: "password")
-                
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
                 // if last cell call showVotingButtons
-                if indexPath.row == words.count {
+                if indexPath.row == words.count, !LOCAL.hasVoted {
                     cell.showVotingButtons(numberOfVotes: self.numberOfVotes)
                 } else {
                     cell.hideVotingButtons()
@@ -77,8 +82,16 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 cell.updateWord(word: words[indexPath.row - 1].word ?? "")
                 print("*** reload data called and printing numberOfVotes: \(numberOfVotes)")
                 cell.updateProgressBar(numberOfVotes: numberOfVotes)
+                
+                if indexPath.row < words.count {
+                    cell.hideProgressBar()
+                } else {
+                    cell.showProgressBar()
+                }
+                
                 return cell
             }
+            
             
             // CHAT
         default:
@@ -148,6 +161,9 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
+    
+    // Listen to chages in game status -> segue to game screen VC
+    
     
     @IBAction func submitButton(_ sender: Any) {
         let dateFormatter = DateFormatter()
@@ -244,10 +260,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             if let wordDetails = snapshot.value as? [String: Any] {
                 let newWord = Word(dictionary: wordDetails)
                 self.words.append(newWord)
-//                if newWord.word == nil {
-//
-//                    self.words.append(newWord)
-//                }
 
             }
             self.words.sort { (left, right) -> Bool in
@@ -317,6 +329,15 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
             self.wordsTableView.reloadData()
             self.wordsTableView.scrollToBottom()
+        }
+        
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public").observe(.childChanged) { (snapshot) in
+            if let snap = snapshot.value as? String {
+                if snap == "SUBMISSION" {
+                    print("==== Game Status Changed ===")
+                    LOCAL.hasVoted = false
+                }
+            }
         }
 
         wordsTableView.dataSource = self

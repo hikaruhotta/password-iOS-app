@@ -34,6 +34,7 @@ class SubmittedWordCell: UITableViewCell {
             }
                 print("*** voted accept ***")
         }
+        LOCAL.hasVoted = true
     }
 
     @IBAction func challengeWord(_ sender: Any) {
@@ -48,6 +49,7 @@ class SubmittedWordCell: UITableViewCell {
             }
                 print("*** voted accept ***")
         }
+        LOCAL.hasVoted = true
     }
     
     @IBOutlet weak var userIcon: UserSmallIconButton!
@@ -111,8 +113,6 @@ class SubmittedWordCell: UITableViewCell {
     func showVotingButtons(numberOfVotes: Int){
         acceptButton.isHidden = false
         challengeButton.isHidden = false
-        
-        
     }
     
     func hideVotingButtons() {
@@ -130,5 +130,11 @@ class SubmittedWordCell: UITableViewCell {
         progressBar.setProgress(Float(numberOfVotes) / Float(LOCAL.users.count - 1), animated: true)
     }
     
+    func hideProgressBar() {
+        progressBar.isHidden = true
+    }
 
+    func showProgressBar() {
+        progressBar.isHidden = false
+    }
 }
