@@ -34,16 +34,6 @@ struct User {
         self.targetWords = []
     }
     
-//    func constructDict() -> Dictionary<String, Any> {
-//        let dict  = [
-//            "displayName" : self.displayName,
-//            "colorNumber" : String(colorNumber),
-//            "emojiNumber" : String(emojiNumber),
-//            "score" : String(score),
-//        ] as [String : Any]
-//        return dict
-//    }
-    
 }
 
 extension Array where Element == User {

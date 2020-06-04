@@ -9,7 +9,7 @@
 import UIKit
 
 class UserSmallIconButton: UIButton {
-
+    
     func setUserIcon(user: User) {
         self.layer.cornerRadius = (self.frame.size.width ) / 2
         self.clipsToBounds = true

@@ -25,13 +25,4 @@ struct Message {
         self.timeStamp = dictionary["timeStamp"] as? String
     }
     
-//    func constructDict() -> Dictionary<String, Any> {
-//        let dict  = [
-//            "user" : user!.constructDict(),
-//            "message": message!,
-//            "timeStamp" : timeStamp!,
-//        ] as [String : Any]
-//        return dict
-//    }
-    
 }

@@ -10,14 +10,14 @@ import UIKit
 
 @IBDesignable
 class WelcomeScreenButton: UIButton {
-
+    
     /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+     // Only override draw() if you perform custom drawing.
+     // An empty implementation adversely affects performance during animation.
+     override func draw(_ rect: CGRect) {
+     // Drawing code
+     }
+     */
     @IBInspectable
     var cornerRadius: CGFloat = 0 {
         didSet{
@@ -25,12 +25,10 @@ class WelcomeScreenButton: UIButton {
         }
     }
     
-    //var sampleData = ["philip", "hikaru", "nick", "buck"]
-    
     func setButton(cornerRadius: CGFloat) {
         layer.cornerRadius = cornerRadius
     }
     
     
-
+    
 }

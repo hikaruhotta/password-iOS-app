@@ -11,7 +11,7 @@ import UIKit
 
 @IBDesignable
 class RoundedButton: UIButton {
-
+    
     @IBInspectable
     var cornerRadius: CGFloat = 0 {
         didSet{
@@ -25,5 +25,5 @@ class RoundedButton: UIButton {
         }
         layer.cornerRadius = cornerRadius
     }
-
+    
 }

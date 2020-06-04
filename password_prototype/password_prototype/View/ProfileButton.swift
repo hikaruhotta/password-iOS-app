@@ -10,7 +10,7 @@ import UIKit
 
 @IBDesignable
 class ProfileButton: UIButton {
-
+    
     
     @IBInspectable
     var borderWidth: CGFloat = 5.0 {
