@@ -9,7 +9,7 @@
 import UIKit
 
 class NameListCell: UITableViewCell {
-
+    
     @IBInspectable
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -29,5 +29,5 @@ class NameListCell: UITableViewCell {
         nameLabel.text = user.displayName
         userIcon.setUserIcon(user: user)
     }
-
+    
 }

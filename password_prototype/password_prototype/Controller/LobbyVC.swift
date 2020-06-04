@@ -18,9 +18,8 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var playerAddedHandle: UInt!
     
-    
-    
     var databaseHandle: DatabaseHandle? // the listener
+    
     lazy var functions = Functions.functions()
     
     @IBOutlet weak var startGameButton: UIButton!
@@ -30,8 +29,8 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var playerListTableView: UITableView!
     
     
+    // Configures actions for start game when start game button is pressed
     @IBAction func startGamePressed(_ sender: Any) {
-        //LOCAL.user.userID = retrieveUserID(users: LOCAL.users, user: LOCAL.user)
         functions.httpsCallable("startGame").call() { (result, error) in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
@@ -40,22 +39,18 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
                 print("error in create lobby request")
             }
-            //self.performSegue(withIdentifier: "segueStartGame", sender: nil)
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        print("**** DELETE")
-//        users = []
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         playerListTableView.delegate = self
         playerListTableView.dataSource = self
         lobbyCodeLabel.text = LOCAL.lobby?.lobbyCode
-        
         startGameButton.isHidden = !LOCAL.isHost
         
         // Set the firebase reference
@@ -69,8 +64,6 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.playerListTableView.reloadData()
             self.playerListTableView.scrollToBottom()
         }
-        // cancel it when close
-        
         
         // Listen to chages in game status -> segue to game screen VC
         gameStatusHandle = ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public").observe(.childChanged) { (snapshot) in
@@ -82,18 +75,16 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-        
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return LOCAL.users.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NameListCell") as! NameListCell
         cell.setUser(user: LOCAL.users[indexPath.row])
-//        cell.changeName(name: sampleData[indexPath.row])
-//        cell.modifyIcon(name: sampleData[indexPath.row])
         return cell
     }
     
@@ -107,5 +98,3 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
 }
-
-

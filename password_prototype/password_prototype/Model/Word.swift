@@ -11,20 +11,12 @@ import Foundation
 struct Word : Identifiable {
     
     var id: Int
-    
     var word: String?
     var created: Int?
     var player: User?
     var wasChallenged: Bool?
     var wasSubmittersWord: Bool?
     
-//    init(word: String, user: User, timeStamp: String, score: String) {
-//        self.word = word
-//        self.user = user
-//        self.timeStamp = timeStamp
-//        self.score = score
-//    }
-//
     init(dictionary: [String : Any] ) {
         self.created = dictionary["created"] as? Int
         self.id = self.created ?? 0
@@ -35,7 +27,6 @@ struct Word : Identifiable {
         self.word = dictionary["submittedWord"] as? String
         self.wasChallenged = dictionary["wasChallenged"] as? Bool
         self.wasSubmittersWord = dictionary["wasSubmiiteresWord"] as? Bool
-        
     }
     
 }

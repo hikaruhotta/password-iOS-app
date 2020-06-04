@@ -11,7 +11,7 @@ import FirebaseDatabase
 import FirebaseFunctions
 
 class SubmittedWordCell: UITableViewCell {
-
+    
     lazy var functions = Functions.functions()
     
     @IBOutlet weak var progressBar: UIProgressView!
@@ -25,28 +25,28 @@ class SubmittedWordCell: UITableViewCell {
     @IBAction func acceptWord(_ sender: Any) {
         functions.httpsCallable("voteOnWord")
             .call(["challenge": false]) { (result, error) in
-            if let error = error as NSError? {
-                if error.domain == FunctionsErrorDomain {
-                    let message = error.localizedDescription
-                    print(message)
+                if let error = error as NSError? {
+                    if error.domain == FunctionsErrorDomain {
+                        let message = error.localizedDescription
+                        print(message)
+                    }
+                    print("error in voting request")
                 }
-                print("error in voting request")
-            }
                 print("*** voted accept ***")
         }
         LOCAL.hasVoted = true
     }
-
+    
     @IBAction func challengeWord(_ sender: Any) {
         functions.httpsCallable("voteOnWord")
             .call(["challenge": true]) { (result, error) in
-            if let error = error as NSError? {
-                if error.domain == FunctionsErrorDomain {
-                    let message = error.localizedDescription
-                    print(message)
+                if let error = error as NSError? {
+                    if error.domain == FunctionsErrorDomain {
+                        let message = error.localizedDescription
+                        print(message)
+                    }
+                    print("error in voting request")
                 }
-                print("error in voting request")
-            }
                 print("*** voted accept ***")
         }
         LOCAL.hasVoted = true
@@ -60,7 +60,7 @@ class SubmittedWordCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     func updateWord(word: String) {
         wordLabel.text = word
         
@@ -133,7 +133,7 @@ class SubmittedWordCell: UITableViewCell {
     func hideProgressBar() {
         progressBar.isHidden = true
     }
-
+    
     func showProgressBar() {
         progressBar.isHidden = false
     }

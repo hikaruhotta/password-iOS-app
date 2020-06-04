@@ -9,8 +9,6 @@
 import Foundation
 import UIKit
 
-
-
 class LocalData {
     
     var hasVoted = false
@@ -20,7 +18,6 @@ class LocalData {
     var colors = [UIColor.gray.cgColor, UIColor.red.cgColor, UIColor.orange.cgColor, UIColor.yellow.cgColor, UIColor.green.cgColor, UIColor.blue.cgColor, UIColor.purple.cgColor]
     
     var emojis = ["💃🏻", "🦁", "🤓", "🌲", "🐮", "🧨", "🎱", "🍔", "🐶", "🍺", "🍕"]
-    
     
     var lobby: Lobby?
     
