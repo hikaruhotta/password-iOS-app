@@ -11,15 +11,16 @@ exports.shuffleArray = function (inputArray) {
     return array;
 }
 
-exports.tempWordlists = [
-    ['energy','brain','speed','coast','light','department','video','sip','office','sound',],
-    ['jacket','game','block','blood','frame','field','line','nuclear','age','object',],
-    ['magic','book','party','park','city','island','stage','fame','captain','machine',],
-    ['dome','shipment','industry','college','baker','work','radius','movie','color','dance',],
-    ['gallery','shoes','power','bar','water','laser','theater','autumn','badge','weather',],
-    ['sing','court','kingdom','rocket','advance','card','rock','property','editor','motor',],
-    ['blanket','time', 'opera','stone','lens','radio','motorcycle','appliance','black','camera',],
-    ['permit','customer','shadow','library','chain','world','plant','bird','house','film',],
-    ['floor','picture','score','music','audio','hotel','cart','student','paper','prize',],
-    ['home','life','building','construction','money','culture','drive','triangle','link','island',]
-];
+// courtesy of https://medium.com/@Dragonza/four-ways-to-chunk-an-array-e19c889eac4
+exports.chunkArray = function (array, size) {
+    const chunked_arr = [];
+    for (let i = 0; i < array.length; i++) {
+      const last = chunked_arr[chunked_arr.length - 1];
+      if (!last || last.length === size) {
+        chunked_arr.push([array[i]]);
+      } else {
+        last.push(array[i]);
+      }
+    }
+    return chunked_arr;
+}

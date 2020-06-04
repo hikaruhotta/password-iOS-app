@@ -85,29 +85,26 @@ Adds the requesting user into an existing lobby if it is still accepting new pla
 ___
 
 
-## startGame (WIP)
+## startGame
 This does the following:
 * Generates word lists for players in their `lobbies/$lobbyId/private/$uid` directory.  
-(*These are currently dummy hardcoded lists.*)
 * Generates a random starting word and places it at `lobbies/$lobbyId/public/startWord`.  
-(*This is currently hardcoded to `"password"`.*)
 * Chooses a random player order and adds the first turn object to the turn list for the first player.
 * Sets the lobby's internal status to `"SUBMISSION"`. 
 
-**Additional functionality TBD**, such as creating real word lists, assigning the starting player, perhaps generating a start word.
-
+Because of the way these properties are set, this function should be suitable to start a new game with the same players in an existing lobby in the `DONE` state. But right now it throws an error if you try to start a game in any state other than `LOBBY`.
 ### Input Data:
-```json
-null
-```
-Optionally, include game settings:
+
+Game settings:
 ```json
 {
     "gameSettings": {
-        "numRounds": 2
+        "numRounds": 8,
+        "wordBankSize": 6
     }
 }
 ```
+**If you don't include any data in your request, defaults will be used.** The above example submission represents those defaults.  
 More settings TBD.
 ### Returned Data:
 ```json
@@ -153,3 +150,16 @@ null
 * if the lobby status is not `VOTING`
 * if you try to vote on your own word
 * if you already voted
+___
+
+## requestNewWords
+### Input Data:
+```json
+null
+```
+### Returned Data:
+```json
+null
+```
+### Possible Errors:
+`failed-precondition`: if you're not allowed to request new words right now. For example game hasn't started yet, or you've submitted a word and you're waiting for votes to come in. We don't want the player to reroll words then, seems weird to be able to do that.

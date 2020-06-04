@@ -2,9 +2,10 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
 
-const lobbyUtils = require('./lobby-utils');
 const validation = require('./validation');
 const utils = require('./utils');
+const lobbyUtils = require('./lobby-utils');
+const wordUtils = require('./word-utils');
 
 /**
  * Performs a transaction on a lobby object.
@@ -181,15 +182,19 @@ exports.startGame = functions.https.onCall(async (data, context) => {
         lobby.public.settings = gameSettings;
         const playerIds = Object.keys(lobby.public.players);
         lobby.public.playerOrder = utils.shuffleArray(playerIds);
-        lobby.public.startWord = "password"; // TODO random word
         lobby.public.turns = [];
         
+        const numPlayers = playerIds.length;
+        const gameWords = wordUtils.getGameWords(numPlayers, gameSettings.wordBankSize);
+        lobby.public.startWord = gameWords.startWord;
+        
         lobby.private = {};
-        let offset = Math.floor(Math.random() * 12);
-        for (const [index, uid] of lobby.public.playerOrder.entries()) {
-            let targetWords = utils.tempWordlists[(index + offset) % 12];
-            lobby.private[uid] = { targetWords: targetWords };
+        for (let i = 0; i < numPlayers; i++) {
+            const playerId = playerIds[i];
+            lobby.private[playerId] = { targetWords: gameWords.playerWordLists[i] };
         }
+
+        lobby.internal.availableWords = gameWords.availableWords;
         
         startNextTurnOrEndGame(lobby);
     };
@@ -246,10 +251,44 @@ exports.submitWord = functions.https.onCall(async (data, context) => {
     return updateLobby(lobbyId, validateLobbyFn, updateLobbyFn);
 });
 
+exports.requestNewWords = functions.https.onCall(async (data, context) => {
+    const playerId = validation.getUid(context);
+    const lobbyId = await lobbyUtils.findLobbyIdFromUID(playerId);
+
+    let validateLobbyFn = lobby => {
+        if (lobby.public.status === 'VOTING') {
+            const currTurn = lobby.public.turns[lobby.public.turns.length - 1];
+            if (currTurn.player === playerId) {
+                return new functions.https.HttpsError("failed-precondition",
+                    `Cannot request new words during voting for your turn.`);
+            }
+            // if it's not your turn you can request new words during voting, so no error.
+        } else if (lobby.public.status !== 'SUBMISSION') {
+            return new functions.https.HttpsError("failed-precondition",
+                `Cannot request new words in lobby ${lobbyId} at this time.`);
+        }
+
+        return null;
+    };
+
+    const updateLobbyFn = lobby => {
+        const wordBankSize = lobby.public.settings.wordBankSize;
+        const ditchedWords = lobby.private[playerId].targetWords;
+        const freshWords = lobby.internal.availableWords.splice(0, wordBankSize);
+
+        lobby.private[playerId].targetWords = freshWords;
+        lobby.internal.availableWords = utils.shuffleArray(lobby.internal.availableWords.concat(ditchedWords));
+        
+        lobby.public.players[playerId].score -= 1;
+    };
+
+    return updateLobby(lobbyId, validateLobbyFn, updateLobbyFn);
+});
+
 exports.voteOnWord = functions.https.onCall(async (data, context) => {
-    let playerId = validation.getUid(context);
-    let vote = validation.getVote(data);
-    let lobbyId = await lobbyUtils.findLobbyIdFromUID(playerId);
+    const playerId = validation.getUid(context);
+    const vote = validation.getVote(data);
+    const lobbyId = await lobbyUtils.findLobbyIdFromUID(playerId);
 
     let validateLobbyFn = lobby => {
         if (lobby.public.status !== 'VOTING') {

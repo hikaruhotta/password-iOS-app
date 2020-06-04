@@ -66,7 +66,7 @@ exports.getLobbyCode = function (data) {
 exports.getGameSettings = function (data) {
     if (!data || !data.settings) {
         // default values
-        return { numRounds: 8 };
+        return { numRounds: 8, wordBankSize: 6 };
     }
     const settings = data.settings;
     const numRounds = settings.numRounds;
@@ -78,6 +78,17 @@ exports.getGameSettings = function (data) {
         throw new functions.https.HttpsError("invalid-argument",
             `numRounds should be a positive integer.`);
     }
+
+    const wordBankSize = settings.wordBankSize;
+    if (!wordBankSize) {
+        throw new functions.https.HttpsError("invalid-argument",
+            `Missing wordBankSize in submitted settings.`);
+    }
+    if (!Number.isInteger(wordBankSize) || wordBankSize < 1 ) {
+        throw new functions.https.HttpsError("invalid-argument",
+            `wordBankSize should be a positive integer.`);
+    }
+
     
     return settings;
 }

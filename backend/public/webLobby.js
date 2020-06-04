@@ -43,6 +43,13 @@ document.getElementById("startGame").onclick = function() {
     });
 }
 
+document.getElementById("requestNewWords").onclick = function() {    
+    let requestNewWords = firebase.functions().httpsCallable('requestNewWords');
+    requestNewWords().then(result => {
+        console.log(result);
+    });
+}
+
 document.getElementById("voteChallenge").onclick = function() {    
     vote(true);
 }

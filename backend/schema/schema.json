@@ -3,7 +3,8 @@
     "-M74qOnArTZvKHVwpLrK" : {
         "internal" : {
           "created" : 1590986701346,
-          "hostId" : "v83dF4ga8hPyTnNXy0DR3SEfwox2"
+          "hostId" : "v83dF4ga8hPyTnNXy0DR3SEfwox2",
+          "availableWords" : ["some", "extra", "random", "words"]
         },
         "private" : {
           "VMOkwgVS1wTY1LBPDTrLFtX0MQD3" : {
@@ -37,6 +38,10 @@
               "emojiNumber" : 4,
               "score" : 2
             }
+          },
+          "settings" : {
+            "numRounds": 8,
+            "wordBankSize": 6
           },
           "startWord" : "password",
           "status" : "SUBMISSION",
