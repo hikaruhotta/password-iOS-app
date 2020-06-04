@@ -105,7 +105,10 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         // CHAT
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell") as! ChatCell
-            cell.modifyIcon(user: messages[indexPath.row].user!)
+            print(messages)
+            let userID = messages[indexPath.row].userID!
+            let user = retrieveUserFromID(userID: userID, users: LOCAL.users)
+            cell.modifyIcon(user: user)
             cell.updateChat(message: messages[indexPath.row].message ?? "")
             return cell
         }
@@ -191,13 +194,13 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             inputField.text = ""
             hideKeyboard()
         case 1: // chat toggle
-            //            if inputField.text == nil  || inputField.text?.count == 0 {
-            //                return
-            //            }
-            //            let message = Message(user: LOCAL.user, message: inputField.text!, timeStamp: dateFormatter.string(from: Date()))
-            //            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/chat/message\(messages.count)" : message.constructDict()]
-            //            self.ref?.updateChildValues(myUpdates)
-            //            inputField.text = ""
+            if inputField.text == nil  || inputField.text?.count == 0 {
+                return
+            }
+            print("userID is \(LOCAL.user.userID)")
+            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/public/chat/message\(messages.count)" : ["userID": LOCAL.user.userID, "message": inputField.text!, "timeStamp": dateFormatter.string(from: Date())]]
+            self.ref?.updateChildValues(myUpdates)
+            inputField.text = ""
             return
         default:
             return
@@ -298,7 +301,8 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         }
         
         // for observing message child added
-        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/chat").observe(.childAdded) { (snapshot) in
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/chat").observe(.childAdded) { (snapshot) in
+            print("*** CHAT ADDED ***")
             if let messageDetails = snapshot.value as? [String: Any] {
                 let newMessage = Message(dictionary: messageDetails)
                 self.messages.append(newMessage)
@@ -443,4 +447,13 @@ func retrieveUserIndex(users: [User], userID: String) -> Int {
         counter += 1
     }
     return 0
+}
+
+func retrieveUserFromID(userID: String, users: [User]) -> User {
+    for u in users {
+        if u.userID == userID {
+            return u
+        }
+    }
+    return User()
 }
