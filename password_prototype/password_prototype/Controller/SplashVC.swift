@@ -67,13 +67,19 @@ class SplashVC: UIViewController, UITextFieldDelegate {
         
         // Do any additional setup after loading the view.
         usernameTextField.delegate = self
-        
+        LOCAL.randomizeIcon()
+        profileButton.reloadButton()
         
         //         listen for keyboard events
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        LOCAL.randomizeIcon()
+        profileButton.reloadButton()
     }
 
     @IBOutlet weak var profileButton: ProfileButton!

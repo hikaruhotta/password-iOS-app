@@ -17,7 +17,7 @@ class LocalData {
     
     var imageNames = ["bear.png", "frog.png", "buck.png", "nick.png", "hikaru.png", "philip.png"]
 
-    var colors = [UIColor.gray.cgColor, UIColor.red.cgColor, UIColor.orange.cgColor, UIColor.yellow.cgColor, UIColor.green.cgColor, UIColor.blue.cgColor, UIColor.purple.cgColor]
+    var colors = [UIColor.orange.cgColor, UIColor.red.cgColor, UIColor.gray.cgColor, UIColor.yellow.cgColor, UIColor.green.cgColor, UIColor.blue.cgColor, UIColor.purple.cgColor]
     
     var emojis = ["💃🏻", "🦁", "🤓", "🌲", "🐮", "🧨", "🎱", "🍔", "🐶", "🍺", "🍕"]
     

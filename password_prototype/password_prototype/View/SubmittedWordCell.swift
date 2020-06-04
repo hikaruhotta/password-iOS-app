@@ -59,6 +59,7 @@ class SubmittedWordCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        progressBar.tintColor = #colorLiteral(red: 0.9680274129, green: 0.7209940553, blue: 0.3159677684, alpha: 1)
     }
 
     func updateWord(word: String) {

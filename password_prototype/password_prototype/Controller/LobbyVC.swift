@@ -18,6 +18,10 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var playerAddedHandle: UInt!
     
+    @IBAction func unwindToSplashPressed(_ sender: Any) {
+        print("DATA IS NOW RESET")
+        LOCAL = LocalData()
+    }
     
     
     var databaseHandle: DatabaseHandle? // the listener

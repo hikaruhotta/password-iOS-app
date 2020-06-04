@@ -19,6 +19,20 @@ class ProfileButton: UIButton {
         }
     }
     
+    @IBInspectable
+    var shadowOpacity: Float = 0 {
+        didSet{
+            setShadow()
+        }
+    }
+    
+    func setShadow() {
+        self.layer.shadowColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
+        self.layer.shadowRadius = 4
+        self.layer.shadowOpacity = shadowOpacity
+        self.layer.shadowOffset = CGSize(width: 3, height: 3)
+    }
+    
     func setBorderWidth(borderWidth: CGFloat) {
         self.layer.cornerRadius = self.frame.size.width / 2
         self.clipsToBounds = true
@@ -34,6 +48,7 @@ class ProfileButton: UIButton {
         super.awakeFromNib()
         self.titleLabel?.font = UIFont.systemFont(ofSize: self.frame.height * 0.75)
         reloadButton()
+        
     }
     
     
