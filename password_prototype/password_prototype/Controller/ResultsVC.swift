@@ -10,10 +10,11 @@ import UIKit
 
 class ResultsVC: UIViewController {
 
-    @IBAction func exitResultScreenButtonPressed(_ sender: Any) {
-        print("DATA IS NOW RESET")
-        LOCAL = LocalData()
+    
+    @IBAction func unwindToGameScreen(_ sender: UIStoryboardSegue) {
     }
+    
+
     
     
     @IBOutlet weak var secondPlaceLabel: UILabel!

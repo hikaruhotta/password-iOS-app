@@ -11,6 +11,10 @@ import FirebaseDatabase
 import FirebaseFunctions
 
 class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+    @IBAction func exitResultScreenButtonPressed(_ sender: Any) {
+    //        print("DATA IS NOW RESET")
+    //        LOCAL = LocalData()
+        }
     
     @IBAction func unwindButtonPressed(_ sender: Any) {
         print("DATA IS NOW RESET")
