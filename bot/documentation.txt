@@ -1,0 +1,14 @@
+
+The Bot's basic functionality is the same as a player's: to play a word, given the last played word, 
+and to vote to accept or reject each other player's played words.  
+To play a word, with a certain probability the bot chooses on of the words on its list.  
+Otherwise, the bot chooses the word with the closest cosine distance to the last played word + a randomly chosen 
+target word on its list.
+
+For voting, the bot rejects the word if it is not in the reject_threshold closest words by cosine distance to 
+the last played word.
+
+The Bot makes use of glove.6B.50d word embeddings.  
+
+The Bot also stores all played words for potential future data analysis.
+
