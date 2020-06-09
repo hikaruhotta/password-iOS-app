@@ -37,6 +37,14 @@ class SubmittedWordCell: UITableViewCell {
         LOCAL.hasVoted = true
     }
     
+    func hideScoreLabel() {
+        scoreLabel.isHidden = true
+    }
+    
+    func showScoreLabel() {
+        scoreLabel.isHidden = false
+    }
+    
     @IBAction func challengeWord(_ sender: Any) {
         functions.httpsCallable("voteOnWord")
             .call(["challenge": true]) { (result, error) in

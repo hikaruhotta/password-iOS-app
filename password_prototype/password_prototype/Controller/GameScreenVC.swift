@@ -80,6 +80,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 cell.modifyIcon(user: User(), row: indexPath.row)
                 //cell.markAsSeed() // hide icon
                 cell.updateWord(word: "password")
+                cell.hideScoreLabel()
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
@@ -98,6 +99,12 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                     cell.hideProgressBar()
                 } else {
                     cell.showProgressBar()
+                }
+                
+                if indexPath.row > words.count - LOCAL.users.count {
+                    cell.showScoreLabel()
+                } else {
+                    cell.hideScoreLabel()
                 }
                 
                 return cell
@@ -121,21 +128,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var counter: Int = 1
     var chatCounter: Int = 1
     
-    
-    // KEYBOARD
-    // ========
-    
-    // **NOT MINE** Calls this function when the tap is recognized.
-    //    @objc func dismissKeyboard() {
-    //        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-    //        view.endEditing(true)
-    //    }
-    
-    // UITextFieldDelegate Methods
-    //    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-    //        hideKeyboard()
-    //        return true
-    //    }
     
     func hideKeyboard() {
         inputField.resignFirstResponder()
@@ -219,12 +211,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-        //
-        //        // **NOT MINE** for tapping outside of keyboard
-        //        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        //        //Uncomment the line below if you want the tap not to interfere and cancel other interactions.
-        //        tap.cancelsTouchesInView = false
-        //        view.addGestureRecognizer(tap)
         
         // Set the firebase reference
         ref = Database.database().reference()
