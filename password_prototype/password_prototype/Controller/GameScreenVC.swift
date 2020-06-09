@@ -182,6 +182,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             if inputField.text == nil  || inputField.text?.count == 0 {
                 return
             }
+                        
             functions.httpsCallable("submitWord").call(["word": inputField.text]) { (result, error) in
                 if let error = error as NSError? {
                     if error.domain == FunctionsErrorDomain {
@@ -197,8 +198,10 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             if inputField.text == nil  || inputField.text?.count == 0 {
                 return
             }
+            let textPrefix = inputField.text!.prefix(100)
+
             print("userID is \(LOCAL.user.userID)")
-            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/public/chat/message\(messages.count)" : ["userID": LOCAL.user.userID, "message": inputField.text!, "timeStamp": dateFormatter.string(from: Date())]]
+            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/public/chat/message\(messages.count)" : ["userID": LOCAL.user.userID, "message": textPrefix, "timeStamp": dateFormatter.string(from: Date())]]
             self.ref?.updateChildValues(myUpdates)
             inputField.text = ""
             return
