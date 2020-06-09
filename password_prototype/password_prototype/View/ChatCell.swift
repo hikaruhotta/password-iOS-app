@@ -22,20 +22,19 @@ class ChatCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
     func updateChat(message: String) {
-            chatMessage.text = message
+        chatMessage.text = message
     }
-        
-        
+    
     func modifyIcon(user: User) {
         userIcon.setUserIcon(user: user)
     }
-
+    
 }

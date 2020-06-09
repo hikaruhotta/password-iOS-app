@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import Foundation
+
 
 @IBDesignable
 class GradientButton: UIButton {
     let gradientLayer = CAGradientLayer()
+    
+    
     
     @IBInspectable
     var leftGradientColor: UIColor? {
@@ -34,12 +38,32 @@ class GradientButton: UIButton {
     }
     
     @IBInspectable
+    var borderWidth: CGFloat = 0 {
+        didSet {
+            setBorder()
+        }
+    }
+    
+    @IBInspectable
+    var borderColor: CGColor? {
+        didSet {
+            setBorder()
+        }
+    }
+    
+    @IBInspectable
     var shadowOpacity: Float = 0 {
         didSet{
             setGradient(leftGradientColor: leftGradientColor, rightGradientColor: rightGradientColor, cornerRadius: cornerRadius, shadowOpacity: shadowOpacity)
         }
     }
     
+    func setBorder() {
+        gradientLayer.borderWidth = borderWidth
+        if let color = borderColor {
+            gradientLayer.borderColor = color
+        }
+    }
     
     
     func setGradient(leftGradientColor: UIColor?, rightGradientColor: UIColor?, cornerRadius: CGFloat, shadowOpacity: Float) {

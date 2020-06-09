@@ -11,7 +11,6 @@ import Foundation
 struct Lobby {
     var lobbyId : String
     var lobbyCode : String
-
     
     init(dictionary: [String: String]) {
         self.lobbyId = dictionary["lobbyId"] ?? ""
@@ -20,8 +19,6 @@ struct Lobby {
     }
     
     func initDirs(dictionary: [String : Any]) {
-        
     }
     
-
 }

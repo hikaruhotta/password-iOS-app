@@ -27,6 +27,7 @@
 		6E77C6692461DFE000766BFE /* ProfileButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77C6682461DFE000766BFE /* ProfileButton.swift */; };
 		6E77C66C2461E3E600766BFE /* LocalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77C66B2461E3E600766BFE /* LocalData.swift */; };
 		6E77C66E2461E7CA00766BFE /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E77C66D2461E7CA00766BFE /* Profile.swift */; };
+		6E8130F4248F56CE0029E609 /* ResultsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E8130F3248F56CE0029E609 /* ResultsVC.swift */; };
 		6EB1EADF2467E960000F3203 /* Lobby.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB1EADE2467E95F000F3203 /* Lobby.swift */; };
 		6EB1EAE124680599000F3203 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EB1EAE024680599000F3203 /* User.swift */; };
 		6ED9A1A624748A19000A2956 /* LobbyFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED9A1A524748A19000A2956 /* LobbyFB.swift */; };
@@ -90,6 +91,7 @@
 		6E77C6682461DFE000766BFE /* ProfileButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileButton.swift; sourceTree = "<group>"; };
 		6E77C66B2461E3E600766BFE /* LocalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalData.swift; sourceTree = "<group>"; };
 		6E77C66D2461E7CA00766BFE /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		6E8130F3248F56CE0029E609 /* ResultsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsVC.swift; sourceTree = "<group>"; };
 		6EB1EADE2467E95F000F3203 /* Lobby.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lobby.swift; sourceTree = "<group>"; };
 		6EB1EAE024680599000F3203 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		6ED9A1A524748A19000A2956 /* LobbyFB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LobbyFB.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 				D7275C53245FCC46009C0B84 /* LobbyCodeVC.swift */,
 				D7275C44245E120C009C0B84 /* LobbyVC.swift */,
 				6E77C6512461141200766BFE /* GameScreenVC.swift */,
+				6E8130F3248F56CE0029E609 /* ResultsVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -569,6 +572,7 @@
 				6E77C6462460DC2E00766BFE /* SubmittedWordCell.swift in Sources */,
 				6E77C66C2461E3E600766BFE /* LocalData.swift in Sources */,
 				6ED9A1A624748A19000A2956 /* LobbyFB.swift in Sources */,
+				6E8130F4248F56CE0029E609 /* ResultsVC.swift in Sources */,
 				6EB1EAE124680599000F3203 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

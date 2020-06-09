@@ -11,39 +11,53 @@ import FirebaseDatabase
 import FirebaseFunctions
 
 class SubmittedWordCell: UITableViewCell {
-
+    
     lazy var functions = Functions.functions()
+    
+    @IBOutlet weak var progressBar: UIProgressView!
     
     @IBOutlet weak var acceptButton: UIButton!
     
     @IBOutlet weak var challengeButton: UIButton!
     
+    @IBOutlet weak var scoreLabel: UILabel!
+    
     @IBAction func acceptWord(_ sender: Any) {
         functions.httpsCallable("voteOnWord")
             .call(["challenge": false]) { (result, error) in
-            if let error = error as NSError? {
-                if error.domain == FunctionsErrorDomain {
-                    let message = error.localizedDescription
-                    print(message)
+                if let error = error as NSError? {
+                    if error.domain == FunctionsErrorDomain {
+                        let message = error.localizedDescription
+                        print(message)
+                    }
+                    print("error in voting request")
                 }
-                print("error in voting request")
-            }
                 print("*** voted accept ***")
         }
+        LOCAL.hasVoted = true
     }
-
+    
+    func hideScoreLabel() {
+        scoreLabel.isHidden = true
+    }
+    
+    func showScoreLabel() {
+        scoreLabel.isHidden = false
+    }
+    
     @IBAction func challengeWord(_ sender: Any) {
         functions.httpsCallable("voteOnWord")
             .call(["challenge": true]) { (result, error) in
-            if let error = error as NSError? {
-                if error.domain == FunctionsErrorDomain {
-                    let message = error.localizedDescription
-                    print(message)
+                if let error = error as NSError? {
+                    if error.domain == FunctionsErrorDomain {
+                        let message = error.localizedDescription
+                        print(message)
+                    }
+                    print("error in voting request")
                 }
-                print("error in voting request")
-            }
                 print("*** voted accept ***")
         }
+        LOCAL.hasVoted = true
     }
     
     @IBOutlet weak var userIcon: UserSmallIconButton!
@@ -53,8 +67,9 @@ class SubmittedWordCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        progressBar.tintColor = #colorLiteral(red: 0.9680274129, green: 0.7209940553, blue: 0.3159677684, alpha: 1)
     }
-
+    
     func updateWord(word: String) {
         wordLabel.text = word
         
@@ -70,6 +85,7 @@ class SubmittedWordCell: UITableViewCell {
             challengeButton.isEnabled = false
             wordLabel.text = "..."
         }
+        
     }
     
     func markAsSeed() {
@@ -86,23 +102,24 @@ class SubmittedWordCell: UITableViewCell {
         if row == 0 {
             userIcon.isHidden = true
             nameLabel.isHidden = true
+            scoreLabel.isHidden = true
             hideVotingButtons()
         } else {
             userIcon.isHidden = false
             nameLabel.isHidden = false
-            
+            scoreLabel.isHidden = false
         }
         
         if user.displayName == LOCAL.user.displayName, user.colorNumber == LOCAL.user.colorNumber, user.emojiNumber == LOCAL.user.emojiNumber {
             hideVotingButtons()
+            
         }
-        
-        
-        
+        let index = retrieveUserIndex(users: LOCAL.users, userID: user.userID)
+        scoreLabel.text = String(LOCAL.users[index].score)
         
     }
     
-    func showVotingButtons(){
+    func showVotingButtons(numberOfVotes: Int){
         acceptButton.isHidden = false
         challengeButton.isHidden = false
     }
@@ -110,6 +127,23 @@ class SubmittedWordCell: UITableViewCell {
     func hideVotingButtons() {
         acceptButton.isHidden = true
         challengeButton.isHidden = true
+        progressBar.isHidden = true
     }
-
+    
+    func updateUserScore(user: User){
+        scoreLabel.text = String(user.score)
+    }
+    
+    func updateProgressBar(numberOfVotes: Int) {
+        progressBar.isHidden = false
+        progressBar.setProgress(Float(numberOfVotes) / Float(LOCAL.users.count - 1), animated: true)
+    }
+    
+    func hideProgressBar() {
+        progressBar.isHidden = true
+    }
+    
+    func showProgressBar() {
+        progressBar.isHidden = false
+    }
 }

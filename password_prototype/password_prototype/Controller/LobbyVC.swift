@@ -14,7 +14,17 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var ref: DatabaseReference?
     
+    var gameStatusHandle: UInt!
+    
+    var playerAddedHandle: UInt!
+    
+    @IBAction func unwindToSplashPressed(_ sender: Any) {
+        print("DATA IS NOW RESET")
+        LOCAL = LocalData()
+    }
+
     var databaseHandle: DatabaseHandle? // the listener
+    
     lazy var functions = Functions.functions()
     
     @IBOutlet weak var startGameButton: UIButton!
@@ -24,6 +34,7 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var playerListTableView: UITableView!
     
     
+    // Configures actions for start game when start game button is pressed
     @IBAction func startGamePressed(_ sender: Any) {
         functions.httpsCallable("startGame").call() { (result, error) in
             if let error = error as NSError? {
@@ -33,35 +44,25 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 }
                 print("error in create lobby request")
             }
-            //self.performSegue(withIdentifier: "segueStartGame", sender: nil)
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        print("**** DELETE")
-//        users = []
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         playerListTableView.delegate = self
         playerListTableView.dataSource = self
         lobbyCodeLabel.text = LOCAL.lobby?.lobbyCode
-        
         startGameButton.isHidden = !LOCAL.isHost
         
         // Set the firebase reference
         ref = Database.database().reference()
-        // for observing child added
-        print("PATH: ")
-        print("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players")
-        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players").observe(.childAdded) { (snapshot) in
-            print("***** BEFORE THE LET IN CHILD READER *****")
+        // call this when it loads
+        playerAddedHandle = ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players").observe(.childAdded) { (snapshot) in
             if let userDetails = snapshot.value as? [String: Any] {
-                print("***** USER DETAILS BELOW (FROM INSIDE CHILD READER) *****")
-                print(userDetails)
-                print(snapshot.key)
                 let newUser = User(dictionary: userDetails, userID: snapshot.key)
                 LOCAL.users.append(newUser)
             }
@@ -70,30 +71,35 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         
         // Listen to chages in game status -> segue to game screen VC
-        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/internal").observe(.childChanged) { (snapshot) in
-            //print("*** detected status change ***")
-            //print(snapshot[""])
-            if !LOCAL.inGame {
-                LOCAL.inGame = true
-                print("*** performed segue ***")
-                self.performSegue(withIdentifier: "segueStartGame", sender: nil)
+        gameStatusHandle = ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public").observe(.childChanged) { (snapshot) in
+            if let snap = snapshot.value as? String {
+                if snap == "SUBMISSION" {
+                    self.performSegue(withIdentifier: "segueStartGame", sender: nil)
+                    self.ref?.removeObserver(withHandle: self.gameStatusHandle)
+                    self.ref?.removeObserver(withHandle: self.playerAddedHandle)
+                }
             }
         }
-        
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return LOCAL.users.count
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NameListCell") as! NameListCell
         cell.setUser(user: LOCAL.users[indexPath.row])
-//        cell.changeName(name: sampleData[indexPath.row])
-//        cell.modifyIcon(name: sampleData[indexPath.row])
         return cell
     }
     
+    func retrieveUserID(users: [User], user: User) -> String {
+        for u in users {
+            if u.displayName == user.displayName && u.emojiNumber == user.emojiNumber && u.colorNumber == user.colorNumber {
+                return u.userID
+            }
+        }
+        return ""
+    }
+    
 }
-
-

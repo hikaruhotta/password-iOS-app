@@ -13,5 +13,4 @@ class Profile {
     func assignProfile(profileButton: ProfileButton) {
         myProfile = profileButton
     }
-    
 }

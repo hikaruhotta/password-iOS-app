@@ -9,29 +9,27 @@
 import Foundation
 
 struct Message {
-    var user: User?
+    var userID: String?
     var message: String?
     var timeStamp: String?
     
-    init(user: User, message: String, timeStamp: String) {
-        self.user = user
+    init(userID: String, message: String, timeStamp: String) {
+        self.userID = userID
         self.message = message
         self.timeStamp = timeStamp
     }
     
     init(dictionary: [String : Any] ) {
-        self.user = User(dictionary: (dictionary["user"] as! [String : String]), userID: "")
+        self.userID = dictionary["userID"] as? String
         self.message = dictionary["message"] as? String
         self.timeStamp = dictionary["timeStamp"] as? String
     }
     
-//    func constructDict() -> Dictionary<String, Any> {
-//        let dict  = [
-//            "user" : user!.constructDict(),
-//            "message": message!,
-//            "timeStamp" : timeStamp!,
-//        ] as [String : Any]
-//        return dict
-//    }
+    func toDictionary(){
+        var dict = [String:Any]()
+        dict["user"] = self.userID
+        dict["message"] = self.message
+        dict["timeStamp"] = self.timeStamp
+    }
     
 }

@@ -11,6 +11,15 @@ import FirebaseDatabase
 import FirebaseFunctions
 
 class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+    @IBAction func exitResultScreenButtonPressed(_ sender: Any) {
+    //        print("DATA IS NOW RESET")
+    //        LOCAL = LocalData()
+        }
+    
+    @IBAction func unwindButtonPressed(_ sender: Any) {
+        print("DATA IS NOW RESET")
+        LOCAL = LocalData()
+    }
     
     // Create the reference to the database
     var ref: DatabaseReference?
@@ -19,65 +28,41 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     lazy var functions = Functions.functions()
     
     var words: [Word] = []
-    
+    var boolArray = [Bool]()
     var messages: [Message] = []
     
-    // will be self expanding list of words
-    var wordBank: [String] = [
-        "alarm",
-        "scorch",
-        "leap",
-        "paltry",
-        "refer",
-        "cloth",
-        "allow",
-        "garrulous",
-        "dizzy",
-        "treatment",
-        "important",
-        "salty",
-        "noiseless",
-        "suggest",
-        "paste"
-    ]
-    
-    var randomWords: [String] = [
-        "frame",
-        "furtive",
-        "harm",
-        "derive",
-        "degree",
-        "act",
-        "creature",
-        "shoot",
-        "nation",
-        "bear",
-        "fall",
-        "relax",
-        "retain",
-        "saddle",
-        "subscribe"
-    ]
-    
-    var wordBankIndex = 3
-    
-    var randomWordsIndex = 0
     
     @IBOutlet weak var wordsTableView: UITableView!
     
     @IBOutlet weak var mySegmentedControl: UISegmentedControl!
     
-    
-    // outlets to word buttons
-    @IBOutlet weak var randomButton: GradientButton!
+    @IBOutlet weak var buttonView: UIView!
     
     @IBOutlet weak var wordButton1: GradientButton!
-    
     @IBOutlet weak var wordButton2: GradientButton!
-    
     @IBOutlet weak var wordButton3: GradientButton!
+    @IBOutlet weak var wordButton4: GradientButton!
+    @IBOutlet weak var wordButton5: GradientButton!
+    @IBOutlet weak var wordButton6: GradientButton!
     
-    @IBOutlet weak var buttonView: UIView!
+    @IBOutlet weak var inputMenuView: UIView!
+    @IBOutlet weak var inputField: UITextField!
+    
+    var numberOfVotes = 0
+    
+    @IBAction func resetWordBank(_ sender: Any) {
+        functions.httpsCallable("requestNewWords").call() { (result, error) in
+            if let error = error as NSError? {
+                if error.domain == FunctionsErrorDomain {
+                    let message = error.localizedDescription
+                    print(message)
+                }
+            } else {
+                print("reseting word bank")
+            }
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch(mySegmentedControl.selectedSegmentIndex) {
@@ -92,33 +77,49 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch(mySegmentedControl.selectedSegmentIndex) {
-            
-            // GAME
+        // GAME
         case 0:
-            
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
                 cell.modifyIcon(user: User(), row: indexPath.row)
                 //cell.markAsSeed() // hide icon
                 cell.updateWord(word: "password")
+                cell.hideScoreLabel()
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
                 // if last cell call showVotingButtons
-                if indexPath.row == words.count {
-                    cell.showVotingButtons()
+                if indexPath.row == words.count, !LOCAL.hasVoted {
+                    cell.showVotingButtons(numberOfVotes: self.numberOfVotes)
                 } else {
                     cell.hideVotingButtons()
                 }
                 cell.modifyIcon(user: words[indexPath.row - 1].player!, row: indexPath.row)
                 cell.updateWord(word: words[indexPath.row - 1].word ?? "")
+                print("*** reload data called and printing numberOfVotes: \(numberOfVotes)")
+                cell.updateProgressBar(numberOfVotes: numberOfVotes)
+                
+                if indexPath.row < words.count {
+                    cell.hideProgressBar()
+                } else {
+                    cell.showProgressBar()
+                }
+                
+                if indexPath.row > words.count - LOCAL.users.count {
+                    cell.showScoreLabel()
+                } else {
+                    cell.hideScoreLabel()
+                }
+                
                 return cell
             }
-            
-            // CHAT
+        // CHAT
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell") as! ChatCell
-            cell.modifyIcon(user: messages[indexPath.row].user!)
+            print(messages)
+            let userID = messages[indexPath.row].userID!
+            let user = retrieveUserFromID(userID: userID, users: LOCAL.users)
+            cell.modifyIcon(user: user)
             cell.updateChat(message: messages[indexPath.row].message ?? "")
             return cell
         }
@@ -131,23 +132,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var counter: Int = 1
     var chatCounter: Int = 1
     
-    @IBOutlet weak var inputField: UITextField!
-    
-    
-    // KEYBOARD
-    // ========
-    
-    // **NOT MINE** Calls this function when the tap is recognized.
-//    @objc func dismissKeyboard() {
-//        //Causes the view (or one of its embedded text fields) to resign the first responder status.
-//        view.endEditing(true)
-//    }
-    
-    // UITextFieldDelegate Methods
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        hideKeyboard()
-//        return true
-//    }
     
     func hideKeyboard() {
         inputField.resignFirstResponder()
@@ -159,27 +143,33 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         return true
     }
     
+    
     @objc func keyboardWillChange(notification: Notification) {
         print("keyboard will show: \(notification.name.rawValue)")
         guard let keyboardRect = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-                return
-            }
-
+            return
+        }
         if (notification.name == UIResponder.keyboardWillShowNotification ||
             notification.name == UIResponder.keyboardWillChangeFrameNotification) {
-            view.frame.origin.y = -keyboardRect.height + 40 // additional buffer
+            print( inputMenuView.frame.origin.y)
+            inputMenuView.frame.origin.y = view.frame.size.height - keyboardRect.height - inputMenuView.frame.size.height 
+            wordsTableView.frame.size.height = 494 - 180
+            wordsTableView.scrollToBottom()
         } else {
-            view.frame.origin.y = 0
+            inputMenuView.frame.origin.y = 661.0
+            wordsTableView.frame.size.height = 494
+            wordsTableView.reloadData()
         }
     }
     
-    // Stop listen for keyboard hide/show events
+    // Stop listening for keyboard hide/show events
     deinit {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
+    // Configure Actions for Submit Button
     @IBAction func submitButton(_ sender: Any) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -188,6 +178,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             if inputField.text == nil  || inputField.text?.count == 0 {
                 return
             }
+                        
             functions.httpsCallable("submitWord").call(["word": inputField.text]) { (result, error) in
                 if let error = error as NSError? {
                     if error.domain == FunctionsErrorDomain {
@@ -196,71 +187,63 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                     }
                     print("error in create lobby request")
                 }
-                
             }
-            
-            
-            
-//            let word = Word(word: inputField.text!, user: LOCAL.user,
-//                          timeStamp : dateFormatter.string(from: Date()),
-//                          score : "0")
-//
-//            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/wordList/word\(words.count)" : word.constructDict()]
-//            self.ref?.updateChildValues(myUpdates)
             inputField.text = ""
             hideKeyboard()
         case 1: // chat toggle
-//            if inputField.text == nil  || inputField.text?.count == 0 {
-//                return
-//            }
-//            let message = Message(user: LOCAL.user, message: inputField.text!, timeStamp: dateFormatter.string(from: Date()))
-//            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/chat/message\(messages.count)" : message.constructDict()]
-//            self.ref?.updateChildValues(myUpdates)
-//            inputField.text = ""
+            if inputField.text == nil  || inputField.text?.count == 0 {
+                return
+            }
+            let textPrefix = inputField.text!.prefix(100)
+
+            print("userID is \(LOCAL.user.userID)")
+            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/public/chat/message\(messages.count)" : ["userID": LOCAL.user.userID, "message": textPrefix, "timeStamp": dateFormatter.string(from: Date())]]
+            self.ref?.updateChildValues(myUpdates)
+            inputField.text = ""
             return
         default:
             return
         }
     }
     
-    
-
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         inputField.delegate = self
         
-//         listen for keyboard events
+        //         listen for keyboard events
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-//        
-//        // **NOT MINE** for tapping outside of keyboard
-//        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-//        //Uncomment the line below if you want the tap not to interfere and cancel other interactions.
-//        tap.cancelsTouchesInView = false
-//        view.addGestureRecognizer(tap)
-        
-        
         
         // Set the firebase reference
         ref = Database.database().reference()
         
-        // for observing child added
+        let id = retrieveUserID(users: LOCAL.users, user: LOCAL.user)
+        LOCAL.user.userID = id
+        
+        // observe wordBank creation
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/private/\(LOCAL.user.userID)").observe(.childAdded) { (snapshot) in
+            if let wordBank = snapshot.value as? [String] {
+                LOCAL.user.targetWords = wordBank
+                self.setWordBankText()
+            }
+        }
+        
+        // observe changes in the wordbank when it is reset
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/private/\(LOCAL.user.userID)").observe(.childChanged) { (snapshot) in
+            if let wordBank = snapshot.value as? [String] {
+                LOCAL.user.targetWords = wordBank
+                self.setWordBankText()
+                print("wordbank reset")
+            }
+        }
+        
+        // observe words played
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/turns").observe(.childAdded) { (snapshot) in
             if let wordDetails = snapshot.value as? [String: Any] {
                 let newWord = Word(dictionary: wordDetails)
-                print("*** adding child ***")
-                //print(newWord)
                 self.words.append(newWord)
-//                if newWord.word == nil {
-//
-//                    self.words.append(newWord)
-//                }
-                
-
             }
             self.words.sort { (left, right) -> Bool in
                 left.created! < right.created!
@@ -269,33 +252,50 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             self.wordsTableView.scrollToBottom()
         }
         
+        // WHAT IS THE DIFFERENCE WITH THE ABOVE FUNCTION???
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/turns").observe(.childChanged) { (snapshot) in
-            
             if let wordDetails = snapshot.value as? [String: Any] {
                 let newWord = Word(dictionary: wordDetails)
-                // replace/update the word
-                
                 if let index = self.words.firstIndex(matching: newWord) {
-                    print("*** word replaced ***")
                     self.words.remove(at: index)
                     self.words.append(newWord)
                 }
-
-//                print(newWord)
-//                if newWord.wasChallenged == nil, newWord.word != nil {
-//                    self.words.removeLast()
-//                    self.words.append(newWord)
-//                }
+                
             }
             self.words.sort { (left, right) -> Bool in
                 left.created! < right.created!
+            }
+            self.wordsTableView.reloadData()
+            self.wordsTableView.scrollToBottom()
+        }
+        
+        // Observe changes to user score
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/players").observe(.childChanged) { (snapshot) in
+            if let updatedUser = snapshot.value as? [String: Any] {
+                let userID = snapshot.key
+                let index = retrieveUserIndex(users: LOCAL.users, userID: userID)
+                let score = updatedUser["score"]
+                LOCAL.users[index].score = score as! Int
+            }
+        }
+        
+        // Observe changes in the number of votes
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public").observe(.childChanged) { (snapshot) in
+            if snapshot.key == "votesTallied" {
+                self.numberOfVotes = snapshot.value as! Int
+                if self.numberOfVotes == LOCAL.users.count - 1 {
+                    self.numberOfVotes = 0
+                }
+            } else {
+                self.numberOfVotes = 0
             }
             self.wordsTableView.reloadData()
             self.wordsTableView.scrollToBottom()
         }
         
         // for observing message child added
-        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/chat").observe(.childAdded) { (snapshot) in
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public/chat").observe(.childAdded) { (snapshot) in
+            print("*** CHAT ADDED ***")
             if let messageDetails = snapshot.value as? [String: Any] {
                 let newMessage = Message(dictionary: messageDetails)
                 self.messages.append(newMessage)
@@ -307,15 +307,16 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             self.wordsTableView.scrollToBottom()
         }
         
-        wordBank.shuffle()
-        let word1 = wordBank[0]
-        let word2 = wordBank[1]
-        let word3 = wordBank[2]
+        // Observe changes of game status to "SUBMISSION"
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public").observe(.childChanged) { (snapshot) in
+            if let snap = snapshot.value as? String {
+                if snap == "SUBMISSION" {
+                    print("==== Game Status Changed ===")
+                    LOCAL.hasVoted = false
+                }
+            }
+        }
         
-        wordButton1.setTitle(word1, for: .normal)
-        wordButton2.setTitle(word2, for: .normal)
-        wordButton3.setTitle(word3, for: .normal)
-
         wordsTableView.dataSource = self
         wordsTableView.delegate = self
         
@@ -327,7 +328,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         
     }
     
-    
+    // Toggled between game and chat screens
     @IBAction func segmentControlToggled(_ sender: Any) {
         switch mySegmentedControl.selectedSegmentIndex
         {
@@ -336,57 +337,69 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             let frame = CGRect(x: 0, y: 176, width: self.view.frame.width - 10, height: 495)
             wordsTableView.frame = frame
             wordsTableView.scrollToBottom()
-            //show popular view
         case 1:
             buttonView.isHidden = true
             let frame = CGRect(x: 0, y: 176, width: self.view.frame.width - 10, height: 600)
             wordsTableView.frame = frame
             wordsTableView.scrollToBottom()
-            //show history view
         default:
             break;
         }
         self.wordsTableView.reloadData()
     }
     
+    
+        // Configure actions when a button in the word bank is pressed
     @IBAction func wordButtonPressed(_ sender: Any) {
         guard sender is UIButton else {
             return
         }
-        var playedWord = ""
-        switch (sender as AnyObject).tag {
-            // suggested word <- don't deal with it
-        case 4:
-            if randomWordsIndex == randomWords.count {
-                print("beta version out of random words")
-                return
+        let pressedWord = (sender as AnyObject).title(for: .normal) ?? String()
+        functions.httpsCallable("submitWord").call(["word": pressedWord]) { (result, error) in
+            if let error = error as NSError? {
+                if error.domain == FunctionsErrorDomain {
+                    let message = error.localizedDescription
+                    print(message)
+                }
+            } else{
+                print("submitted: \(pressedWord)")
+                (sender as AnyObject).setTitleColor(UIColor.gray, for: .disabled)
+                (sender as! UIButton).isEnabled = false
             }
-            playedWord = randomWords[randomWordsIndex]
-            randomWordsIndex += 1
             
-        default:
-            if wordBankIndex == wordBank.count {
-                print("beta version out of word bank words")
-                return
-            }
-            playedWord = (sender as AnyObject).title(for: .normal) ?? String()
-            (sender as AnyObject).setTitle(wordBank[wordBankIndex], for: .normal)
-            wordBankIndex += 1
         }
-
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-//        let word = Word(word: playedWord, user: LOCAL.user, timeStamp : dateFormatter.string(from: Date()), score : "0")
-//        let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/wordList/word\(words.count)" : word.constructDict()]
-//        self.ref?.updateChildValues(myUpdates)
-        }
+    }
+    
+    // Function to set the word bank button text
+    func setWordBankText() {
+        self.wordButton1.setTitle(LOCAL.user.targetWords![0], for: .normal)
+        self.wordButton2.setTitle(LOCAL.user.targetWords![1], for: .normal)
+        self.wordButton3.setTitle(LOCAL.user.targetWords![2], for: .normal)
+        self.wordButton4.setTitle(LOCAL.user.targetWords![3], for: .normal)
+        self.wordButton5.setTitle(LOCAL.user.targetWords![4], for: .normal)
+        self.wordButton6.setTitle(LOCAL.user.targetWords![5], for: .normal)
+        self.wordButton1.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.wordButton2.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.wordButton3.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.wordButton4.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.wordButton5.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.wordButton6.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.wordButton1.isEnabled = true
+        self.wordButton2.isEnabled = true
+        self.wordButton3.isEnabled = true
+        self.wordButton4.isEnabled = true
+        self.wordButton5.isEnabled = true
+        self.wordButton6.isEnabled = true
+    }
     
 }
 
 extension UITableView {
-
+    
+    // Scrolls a TableView to the bottom
     func scrollToBottom(){
-        
         DispatchQueue.main.async {
             let indexPath = IndexPath(
                 row: self.numberOfRows(inSection:  self.numberOfSections-1) - 1,
@@ -396,11 +409,44 @@ extension UITableView {
             }
         }
     }
-
+    
+    // Scrolls a TableView to the bottom
     func scrollToTop() {
         DispatchQueue.main.async {
             let indexPath = IndexPath(row: 0, section: 0)
             self.scrollToRow(at: indexPath, at: .top, animated: false)
         }
     }
+    
+}
+
+// Retrieves userID from User object
+func retrieveUserID(users: [User], user: User) -> String {
+    for u in users {
+        if u.displayName == user.displayName && u.emojiNumber == user.emojiNumber && u.colorNumber == user.colorNumber {
+            return u.userID
+        }
+    }
+    return ""
+}
+
+// Retrieves index of user in list given a User object
+func retrieveUserIndex(users: [User], userID: String) -> Int {
+    var counter = 0
+    for u in users {
+        if u.userID == userID  {
+            return counter
+        }
+        counter += 1
+    }
+    return 0
+}
+
+func retrieveUserFromID(userID: String, users: [User]) -> User {
+    for u in users {
+        if u.userID == userID {
+            return u
+        }
+    }
+    return User()
 }

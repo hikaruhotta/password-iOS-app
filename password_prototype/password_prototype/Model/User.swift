@@ -14,6 +14,7 @@ struct User {
     var emojiNumber: Int
     var score: Int
     var userID: String
+    var targetWords: [String]?
     
     init(dictionary: [String: Any], userID: String){
         self.displayName = dictionary["displayName"] as! String
@@ -21,6 +22,7 @@ struct User {
         self.emojiNumber = dictionary["emojiNumber"] as! Int
         self.score = dictionary["score"] as! Int
         self.userID = userID
+        self.targetWords = []
     }
     
     init(){
@@ -29,17 +31,8 @@ struct User {
         self.emojiNumber = 0
         self.score = 0
         self.userID = ""
+        self.targetWords = []
     }
-    
-//    func constructDict() -> Dictionary<String, Any> {
-//        let dict  = [
-//            "displayName" : self.displayName,
-//            "colorNumber" : String(colorNumber),
-//            "emojiNumber" : String(emojiNumber),
-//            "score" : String(score),
-//        ] as [String : Any]
-//        return dict
-//    }
     
 }
 
