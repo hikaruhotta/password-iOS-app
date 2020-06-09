@@ -1,0 +1,7 @@
+In example 1, we see player 2 score a point by causing player 1 to guess a word on player 2's target list.  Here, player 2 played "lending", which is very close to "credit", steering player 1 in that direction and scoring a point.
+
+In example 2, we see that the word embedding combinations make some intuitive sense, as "hearing" for a crime is reasonable for the combination of "speech" and "autopsy".
+
+In example 3, we see that player 2 steered the game towards the idea of "credit" while maintaining reasonable distance from the lat played word, "pipe", by playing "cut".
+
+In example 4, we see the word embeddings make intuitive sense as player 1's word "musical" connects both compositions and theater, the last played word and the target. 
