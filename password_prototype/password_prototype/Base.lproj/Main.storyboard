@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="raP-Gq-XMw">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -99,7 +99,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="leftGradientColor">
-                                        <color key="value" red="0.99942404029999998" green="0.73632339059999996" blue="0.020217384139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="value" red="0.95640510320000005" green="0.7472933531" blue="0.2586424947" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="rightGradientColor">
                                         <color key="value" red="0.96802741290000005" green="0.72099405530000005" blue="0.31596776840000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -309,57 +309,194 @@
             </objects>
             <point key="canvasLocation" x="-3278" y="290"/>
         </scene>
-        <!--View Controller-->
+        <!--TutorialVC-->
         <scene sceneID="6yF-Ga-2zV">
             <objects>
-                <viewController id="raP-Gq-XMw" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TutorialVC" title="TutorialVC" id="raP-Gq-XMw" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bc-YB-AcC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="1500"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="3000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yea-vP-WyA">
-                                <rect key="frame" x="0.0" y="60" width="414" height="1395"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yea-vP-WyA">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="3000"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pgz-MT-Uhw" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1395"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pgz-MT-Uhw" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="3000"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password Rule Book" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3j-bg-nOs">
-                                                <rect key="frame" x="129.5" y="22" width="155" height="21"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wordBank.png" translatesAutoresizingMaskIntoConstraints="NO" id="h1B-6f-2qb">
+                                                <rect key="frame" x="43" y="948" width="328" height="98"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="328" id="dm8-1T-UGE"/>
+                                                    <constraint firstAttribute="height" constant="98" id="miK-H6-A1J"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is your word bank. To play words in your word bank, press one of the word buttons." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWJ-tZ-XkO">
+                                                <rect key="frame" x="27" y="1053" width="360" height="105"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="360" id="M7d-df-JEX"/>
+                                                    <constraint firstAttribute="height" constant="105" id="Tri-HS-5fj"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dW4-Vo-akX">
-                                                <rect key="frame" x="87" y="500" width="240" height="128"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="textMenu.png" translatesAutoresizingMaskIntoConstraints="NO" id="mZR-3Y-CWG">
+                                                <rect key="frame" x="41" y="1238" width="332" height="97"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="128" id="Pvz-Pq-L3H"/>
+                                                    <constraint firstAttribute="width" constant="332" id="PCG-kd-5jS"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h1B-6f-2qb">
-                                                <rect key="frame" x="87" y="1138" width="240" height="128"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TV.png" translatesAutoresizingMaskIntoConstraints="NO" id="7be-qT-9om">
+                                                <rect key="frame" x="27" y="1513" width="360" height="295"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="295" id="jGk-3Z-Efu"/>
+                                                    <constraint firstAttribute="width" constant="360" id="ziy-98-kzf"/>
+                                                </constraints>
                                             </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pU-Xp-9HR">
+                                                <rect key="frame" x="27" y="1352" width="360" height="107"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="107" id="9u6-UK-uGu"/>
+                                                    <constraint firstAttribute="width" constant="360" id="bNI-8D-8yz"/>
+                                                </constraints>
+                                                <string key="text">To play words that are not in your word bank, type it in the text field and press the submit (airplane) button. To reset your word bank, press the circular button with the arrow. You will lose a point though.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cv-zO-GtF">
+                                                <rect key="frame" x="27" y="1836" width="360" height="164"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="164" id="fv3-O3-eJB"/>
+                                                    <constraint firstAttribute="width" constant="360" id="ggA-0c-gQm"/>
+                                                </constraints>
+                                                <string key="text">The game begins with a randomly generated word. You can see all the words that are played here! When it’s your turn you can either play a word from your wordbook or type a word into the input bar. Once your word is submitted, your friends will vote on whether your word is similar enough to the previous word.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="score.png" translatesAutoresizingMaskIntoConstraints="NO" id="E6i-0j-PhY">
+                                                <rect key="frame" x="16" y="2093" width="382" height="176"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="382" id="Lg5-ON-60z"/>
+                                                    <constraint firstAttribute="height" constant="176" id="vgw-rc-fe3"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOX-It-3um">
+                                                <rect key="frame" x="27" y="2276" width="360" height="164"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="360" id="UvC-Hj-1kj"/>
+                                                    <constraint firstAttribute="height" constant="164" id="gue-7m-NbZ"/>
+                                                </constraints>
+                                                <string key="text">The number of points you score depends on whether the submitted word is in a player's wordbank and whether the word was accepted (by all users) or challenged (by any single user). This means you can't keep spamming the challenge button!</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scoreBoard.png" translatesAutoresizingMaskIntoConstraints="NO" id="UrT-s6-dZw">
+                                                <rect key="frame" x="27" y="2533" width="360" height="336"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="360" id="AOu-9W-TYy"/>
+                                                    <constraint firstAttribute="height" constant="336" id="VaY-1c-eZB"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Here is the scoreboard. The game will end after the number of rounds specified by the game host. Thanks for playing Password!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAp-BK-W96">
+                                                <rect key="frame" x="21.5" y="2885" width="371" height="83"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="83" id="63o-L3-aO6"/>
+                                                    <constraint firstAttribute="width" constant="371" id="R72-8y-Fhd"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTk-p1-7CN" customClass="GradientButton" customModule="password_prototype" customModuleProvider="target">
+                                                <rect key="frame" x="-10" y="0.0" width="434" height="79"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="79" id="cvJ-tn-A56"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="leftGradientColor">
+                                                        <color key="value" red="0.99942404029999998" green="0.73632339059999996" blue="0.020217384139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="rightGradientColor">
+                                                        <color key="value" red="0.96802741290000005" green="0.72099405530000005" blue="0.31596776840000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                        <real key="value" value="0.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="game screen 3.png" translatesAutoresizingMaskIntoConstraints="NO" id="dW4-Vo-akX">
+                                                <rect key="frame" x="52" y="124" width="310" height="556.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="310" id="WgQ-Y9-3Ie"/>
+                                                    <constraint firstAttribute="height" constant="556.5" id="adw-er-vUn"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password Tutorial" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Md-Kj-gEh">
+                                                <rect key="frame" x="101" y="24" width="214" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cp6-1j-cGd">
+                                                <rect key="frame" x="27" y="700.5" width="360" height="173"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="360" id="ayH-gS-yK7"/>
+                                                    <constraint firstAttribute="height" constant="173" id="xQW-tW-FGz"/>
+                                                </constraints>
+                                                <string key="text">Each player takes turns submitting words that are similar in meaning to the previous word. Once a word is played, players will vote on whether the word is close enough to the previous word. The objective is to sneak past words in your word bank without your friends noticing to gain points.  </string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstItem="dW4-Vo-akX" firstAttribute="leading" secondItem="pgz-MT-Uhw" secondAttribute="leading" constant="87" id="9uo-Ln-5dI"/>
-                                            <constraint firstAttribute="bottom" secondItem="h1B-6f-2qb" secondAttribute="bottom" constant="129" id="LFN-dl-3S9"/>
-                                            <constraint firstItem="j3j-bg-nOs" firstAttribute="top" secondItem="pgz-MT-Uhw" secondAttribute="top" constant="22" id="Naw-m2-dTM"/>
-                                            <constraint firstItem="dW4-Vo-akX" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="VyW-H8-vNZ"/>
-                                            <constraint firstItem="j3j-bg-nOs" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="rgg-yS-50K"/>
-                                            <constraint firstItem="h1B-6f-2qb" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="tca-H2-qUe"/>
-                                            <constraint firstItem="h1B-6f-2qb" firstAttribute="top" secondItem="dW4-Vo-akX" secondAttribute="bottom" constant="510" id="wBg-H6-Udp"/>
-                                            <constraint firstItem="dW4-Vo-akX" firstAttribute="leading" secondItem="h1B-6f-2qb" secondAttribute="leading" id="y5B-jy-O3l"/>
-                                            <constraint firstItem="dW4-Vo-akX" firstAttribute="top" secondItem="j3j-bg-nOs" secondAttribute="bottom" constant="457" id="ztn-st-L8w"/>
+                                            <constraint firstItem="E6i-0j-PhY" firstAttribute="top" secondItem="8cv-zO-GtF" secondAttribute="bottom" constant="93" id="2jM-8O-i0z"/>
+                                            <constraint firstItem="mZR-3Y-CWG" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="2ty-qI-Jxx"/>
+                                            <constraint firstItem="7be-qT-9om" firstAttribute="top" secondItem="1pU-Xp-9HR" secondAttribute="bottom" constant="100" id="48d-bs-aSe"/>
+                                            <constraint firstItem="Cp6-1j-cGd" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="4Tk-q3-n5R"/>
+                                            <constraint firstItem="mZR-3Y-CWG" firstAttribute="top" secondItem="AWJ-tZ-XkO" secondAttribute="bottom" constant="80" id="56A-FY-qFC"/>
+                                            <constraint firstItem="KAp-BK-W96" firstAttribute="top" secondItem="UrT-s6-dZw" secondAttribute="bottom" constant="16" id="7Ux-2G-mYK"/>
+                                            <constraint firstItem="xTk-p1-7CN" firstAttribute="centerX" secondItem="dW4-Vo-akX" secondAttribute="centerX" id="8VZ-uh-xb2"/>
+                                            <constraint firstItem="AWJ-tZ-XkO" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="8qh-dR-7DT"/>
+                                            <constraint firstItem="8cv-zO-GtF" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="E2Y-Sn-VOI"/>
+                                            <constraint firstItem="E6i-0j-PhY" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="EQk-fZ-hJ6"/>
+                                            <constraint firstItem="KOX-It-3um" firstAttribute="top" secondItem="E6i-0j-PhY" secondAttribute="bottom" constant="7" id="NO8-nK-Lfi"/>
+                                            <constraint firstItem="1pU-Xp-9HR" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="Q5Z-OK-WAF"/>
+                                            <constraint firstItem="h1B-6f-2qb" firstAttribute="top" secondItem="Cp6-1j-cGd" secondAttribute="bottom" constant="74.5" id="Qfq-ZP-Zxm"/>
+                                            <constraint firstAttribute="bottom" secondItem="KAp-BK-W96" secondAttribute="bottom" constant="232" id="S3y-tW-qtk"/>
+                                            <constraint firstItem="1pU-Xp-9HR" firstAttribute="top" secondItem="mZR-3Y-CWG" secondAttribute="bottom" constant="17" id="XcR-Z4-hHz"/>
+                                            <constraint firstItem="KOX-It-3um" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="akD-mm-wWB"/>
+                                            <constraint firstItem="UrT-s6-dZw" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="b5C-XC-NsL"/>
+                                            <constraint firstItem="7be-qT-9om" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="h1Z-53-L33"/>
+                                            <constraint firstItem="h1B-6f-2qb" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="j33-Fj-0y1"/>
+                                            <constraint firstItem="dW4-Vo-akX" firstAttribute="top" secondItem="xTk-p1-7CN" secondAttribute="bottom" constant="45" id="kU3-Oa-fee"/>
+                                            <constraint firstItem="Cp6-1j-cGd" firstAttribute="top" secondItem="dW4-Vo-akX" secondAttribute="bottom" constant="20" id="mDR-Bf-2ke"/>
+                                            <constraint firstItem="UrT-s6-dZw" firstAttribute="top" secondItem="KOX-It-3um" secondAttribute="bottom" constant="93" id="tBw-dz-b9K"/>
+                                            <constraint firstItem="KAp-BK-W96" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="tCL-or-ivb"/>
+                                            <constraint firstItem="dW4-Vo-akX" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="uYZ-5Y-bdf"/>
+                                            <constraint firstItem="xTk-p1-7CN" firstAttribute="top" secondItem="pgz-MT-Uhw" secondAttribute="top" id="vQq-pf-A15"/>
+                                            <constraint firstItem="AWJ-tZ-XkO" firstAttribute="top" secondItem="h1B-6f-2qb" secondAttribute="bottom" constant="7" id="vUY-x1-h2x"/>
+                                            <constraint firstItem="8cv-zO-GtF" firstAttribute="top" secondItem="7be-qT-9om" secondAttribute="bottom" constant="28" id="vYQ-le-Kqk"/>
+                                            <constraint firstItem="xTk-p1-7CN" firstAttribute="leading" secondItem="pgz-MT-Uhw" secondAttribute="leading" constant="-10" id="wS9-ct-6gO"/>
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" red="0.96812754869999995" green="0.72747427229999995" blue="0.26649984719999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstItem="pgz-MT-Uhw" firstAttribute="width" secondItem="Yea-vP-WyA" secondAttribute="width" id="0kA-np-xUA"/>
-                                    <constraint firstAttribute="trailing" secondItem="pgz-MT-Uhw" secondAttribute="trailing" id="1ZT-LZ-yDq"/>
-                                    <constraint firstItem="pgz-MT-Uhw" firstAttribute="height" secondItem="Yea-vP-WyA" secondAttribute="height" priority="250" id="BXm-CO-9Ec"/>
-                                    <constraint firstItem="pgz-MT-Uhw" firstAttribute="top" secondItem="Yea-vP-WyA" secondAttribute="top" id="FGu-fV-CDP"/>
-                                    <constraint firstItem="pgz-MT-Uhw" firstAttribute="leading" secondItem="Yea-vP-WyA" secondAttribute="leading" id="sdm-Km-pHz"/>
-                                    <constraint firstAttribute="bottom" secondItem="pgz-MT-Uhw" secondAttribute="bottom" id="xal-kN-ag7"/>
+                                    <constraint firstItem="pgz-MT-Uhw" firstAttribute="leading" secondItem="Yea-vP-WyA" secondAttribute="leading" id="Ac5-r3-ApR"/>
+                                    <constraint firstItem="pgz-MT-Uhw" firstAttribute="height" secondItem="Yea-vP-WyA" secondAttribute="height" priority="250" id="RHf-Il-xpO"/>
+                                    <constraint firstItem="pgz-MT-Uhw" firstAttribute="width" secondItem="Yea-vP-WyA" secondAttribute="width" id="X83-Js-hya"/>
+                                    <constraint firstAttribute="bottom" secondItem="pgz-MT-Uhw" secondAttribute="bottom" constant="160" id="g50-KV-kHR"/>
+                                    <constraint firstAttribute="trailing" secondItem="pgz-MT-Uhw" secondAttribute="trailing" id="hiw-wS-Yx7"/>
+                                    <constraint firstItem="pgz-MT-Uhw" firstAttribute="top" secondItem="Yea-vP-WyA" secondAttribute="top" id="wSS-rv-hcf"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="q67-Mr-IZg"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="Gwd-uG-lST"/>
@@ -367,14 +504,14 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="NWx-un-mpz" firstAttribute="trailing" secondItem="Yea-vP-WyA" secondAttribute="trailing" id="0m4-zS-3Ut"/>
-                            <constraint firstItem="NWx-un-mpz" firstAttribute="bottom" secondItem="Yea-vP-WyA" secondAttribute="bottom" constant="11" id="gJL-VC-qPQ"/>
-                            <constraint firstItem="Yea-vP-WyA" firstAttribute="leading" secondItem="NWx-un-mpz" secondAttribute="leading" id="n29-Ax-AhW"/>
-                            <constraint firstItem="Yea-vP-WyA" firstAttribute="top" secondItem="NWx-un-mpz" secondAttribute="top" constant="16" id="nEV-fN-Fvk"/>
+                            <constraint firstItem="Yea-vP-WyA" firstAttribute="leading" secondItem="NWx-un-mpz" secondAttribute="leading" id="1T0-Qf-pGs"/>
+                            <constraint firstItem="NWx-un-mpz" firstAttribute="top" secondItem="Yea-vP-WyA" secondAttribute="top" constant="44" id="4ji-pS-Fmv"/>
+                            <constraint firstItem="NWx-un-mpz" firstAttribute="trailing" secondItem="Yea-vP-WyA" secondAttribute="trailing" id="6rN-A7-gqs"/>
+                            <constraint firstItem="Yea-vP-WyA" firstAttribute="bottom" secondItem="NWx-un-mpz" secondAttribute="bottom" constant="94" id="fTV-kn-AOe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="NWx-un-mpz"/>
                     </view>
-                    <size key="freeformSize" width="414" height="1500"/>
+                    <size key="freeformSize" width="414" height="3000"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="evZ-Kx-Vro" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1275,15 +1412,21 @@
         <segue reference="oWQ-no-On1"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="TV.png" width="323" height="193"/>
         <image name="arrow.counterclockwise.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.left" catalog="system" width="128" height="98"/>
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
+        <image name="game screen 3.png" width="389" height="778"/>
         <image name="hikaru.png" width="285" height="380"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="info.circle.fill" catalog="system" width="128" height="121"/>
         <image name="nick.png" width="504" height="504"/>
         <image name="paperplane.fill" catalog="system" width="128" height="121"/>
+        <image name="score.png" width="403" height="114"/>
+        <image name="scoreBoard.png" width="338" height="455"/>
+        <image name="textMenu.png" width="332" height="51"/>
         <image name="wand.and.stars.inverse" catalog="system" width="128" height="113"/>
+        <image name="wordBank.png" width="326" height="98"/>
         <image name="xmark.circle" catalog="system" width="128" height="121"/>
     </resources>
 </document>
