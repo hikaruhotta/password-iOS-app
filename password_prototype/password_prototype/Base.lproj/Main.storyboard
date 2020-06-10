@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="raP-Gq-XMw">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -117,6 +117,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.96802741290000005" green="0.72099405530000005" blue="0.31596776840000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" backgroundImage="info.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="informationButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ESx-Dv-rWH"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Miq-wn-RBz" customClass="GradientButton" customModule="password_prototype" customModuleProvider="target">
                                 <rect key="frame" x="298" y="411.5" width="28" height="28"/>
@@ -143,6 +146,7 @@
                         <outlet property="usernameTextField" destination="PS0-6t-Ioi" id="erN-cC-Od7"/>
                         <segue destination="SlL-I3-Kev" kind="presentation" identifier="segueNewGame" modalPresentationStyle="fullScreen" id="oWQ-no-On1"/>
                         <segue destination="kNL-T8-HjL" kind="presentation" identifier="segueToLobbyCodeVC" modalPresentationStyle="fullScreen" id="9eF-ND-gV1"/>
+                        <segue destination="raP-Gq-XMw" kind="presentation" identifier="information1" id="Cax-x5-Fkc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -314,24 +318,24 @@
             <objects>
                 <viewController storyboardIdentifier="TutorialVC" title="TutorialVC" id="raP-Gq-XMw" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bc-YB-AcC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="3000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="2946"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yea-vP-WyA">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="3000"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yea-vP-WyA">
+                                <rect key="frame" x="0.0" y="-44" width="414" height="3050"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pgz-MT-Uhw" userLabel="ContentView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="3000"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pgz-MT-Uhw" userLabel="ContentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="3050"/>
                                         <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wordBank.png" translatesAutoresizingMaskIntoConstraints="NO" id="h1B-6f-2qb">
-                                                <rect key="frame" x="43" y="948" width="328" height="98"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="wordBank.png" translatesAutoresizingMaskIntoConstraints="NO" id="h1B-6f-2qb">
+                                                <rect key="frame" x="41" y="1080" width="328" height="98"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="328" id="dm8-1T-UGE"/>
                                                     <constraint firstAttribute="height" constant="98" id="miK-H6-A1J"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This is your word bank. To play words in your word bank, press one of the word buttons." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWJ-tZ-XkO">
-                                                <rect key="frame" x="27" y="1053" width="360" height="105"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="This is your word bank. To play words in your word bank, press one of the word buttons." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWJ-tZ-XkO">
+                                                <rect key="frame" x="27" y="1133" width="360" height="105"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="360" id="M7d-df-JEX"/>
                                                     <constraint firstAttribute="height" constant="105" id="Tri-HS-5fj"/>
@@ -340,32 +344,22 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="textMenu.png" translatesAutoresizingMaskIntoConstraints="NO" id="mZR-3Y-CWG">
-                                                <rect key="frame" x="41" y="1238" width="332" height="97"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="textMenu.png" translatesAutoresizingMaskIntoConstraints="NO" id="mZR-3Y-CWG">
+                                                <rect key="frame" x="39" y="1369" width="332" height="97"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="332" id="PCG-kd-5jS"/>
+                                                    <constraint firstAttribute="width" secondItem="mZR-3Y-CWG" secondAttribute="height" multiplier="332:97" id="SKg-an-msT"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TV.png" translatesAutoresizingMaskIntoConstraints="NO" id="7be-qT-9om">
-                                                <rect key="frame" x="27" y="1513" width="360" height="295"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="TV.png" translatesAutoresizingMaskIntoConstraints="NO" id="7be-qT-9om">
+                                                <rect key="frame" x="27" y="1628" width="360" height="295"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="295" id="jGk-3Z-Efu"/>
                                                     <constraint firstAttribute="width" constant="360" id="ziy-98-kzf"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pU-Xp-9HR">
-                                                <rect key="frame" x="27" y="1352" width="360" height="107"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="107" id="9u6-UK-uGu"/>
-                                                    <constraint firstAttribute="width" constant="360" id="bNI-8D-8yz"/>
-                                                </constraints>
-                                                <string key="text">To play words that are not in your word bank, type it in the text field and press the submit (airplane) button. To reset your word bank, press the circular button with the arrow. You will lose a point though.</string>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cv-zO-GtF">
-                                                <rect key="frame" x="27" y="1836" width="360" height="164"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cv-zO-GtF">
+                                                <rect key="frame" x="27" y="1933" width="360" height="164"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="164" id="fv3-O3-eJB"/>
                                                     <constraint firstAttribute="width" constant="360" id="ggA-0c-gQm"/>
@@ -375,15 +369,15 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="score.png" translatesAutoresizingMaskIntoConstraints="NO" id="E6i-0j-PhY">
-                                                <rect key="frame" x="16" y="2093" width="382" height="176"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="score.png" translatesAutoresizingMaskIntoConstraints="NO" id="E6i-0j-PhY">
+                                                <rect key="frame" x="16" y="2157" width="382" height="176"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="382" id="Lg5-ON-60z"/>
                                                     <constraint firstAttribute="height" constant="176" id="vgw-rc-fe3"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOX-It-3um">
-                                                <rect key="frame" x="27" y="2276" width="360" height="164"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOX-It-3um">
+                                                <rect key="frame" x="27" y="2340" width="360" height="164"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="360" id="UvC-Hj-1kj"/>
                                                     <constraint firstAttribute="height" constant="164" id="gue-7m-NbZ"/>
@@ -393,15 +387,15 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scoreBoard.png" translatesAutoresizingMaskIntoConstraints="NO" id="UrT-s6-dZw">
-                                                <rect key="frame" x="27" y="2533" width="360" height="336"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="scoreBoard.png" translatesAutoresizingMaskIntoConstraints="NO" id="UrT-s6-dZw">
+                                                <rect key="frame" x="27" y="2564" width="360" height="336"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="360" id="AOu-9W-TYy"/>
                                                     <constraint firstAttribute="height" constant="336" id="VaY-1c-eZB"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Here is the scoreboard. The game will end after the number of rounds specified by the game host. Thanks for playing Password!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAp-BK-W96">
-                                                <rect key="frame" x="21.5" y="2885" width="371" height="83"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Here is the scoreboard. The game will end after the number of rounds specified by the game host. Thanks for playing Password!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KAp-BK-W96">
+                                                <rect key="frame" x="21.5" y="2910" width="371" height="83"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="83" id="63o-L3-aO6"/>
                                                     <constraint firstAttribute="width" constant="371" id="R72-8y-Fhd"/>
@@ -410,14 +404,40 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTk-p1-7CN" customClass="GradientButton" customModule="password_prototype" customModuleProvider="target">
-                                                <rect key="frame" x="-10" y="0.0" width="434" height="79"/>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="game screen 3.png" translatesAutoresizingMaskIntoConstraints="NO" id="dW4-Vo-akX">
+                                                <rect key="frame" x="57" y="243" width="310" height="556.5"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="79" id="cvJ-tn-A56"/>
+                                                    <constraint firstAttribute="width" constant="310" id="WgQ-Y9-3Ie"/>
+                                                    <constraint firstAttribute="height" constant="556.5" id="adw-er-vUn"/>
                                                 </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cp6-1j-cGd">
+                                                <rect key="frame" x="32" y="808" width="360" height="173"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="360" id="ayH-gS-yK7"/>
+                                                    <constraint firstAttribute="height" constant="173" id="xQW-tW-FGz"/>
+                                                </constraints>
+                                                <string key="text">Each player takes turns submitting words that are similar in meaning to the previous word. Once a word is played, players will vote on whether the word is close enough to the previous word. The objective is to sneak past words in your word bank without your friends noticing to gain points.  </string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pU-Xp-9HR">
+                                                <rect key="frame" x="32" y="1474" width="360" height="107"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="107" id="9u6-UK-uGu"/>
+                                                    <constraint firstAttribute="width" constant="360" id="bNI-8D-8yz"/>
+                                                </constraints>
+                                                <string key="text">To play words that are not in your word bank, type it in the text field and press the submit (airplane) button. To reset your word bank, press the circular button with the arrow. You will lose a point though.</string>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ysq-6t-sU2" customClass="GradientButton" customModule="password_prototype" customModuleProvider="target">
+                                                <rect key="frame" x="-20" y="0.0" width="434" height="30"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="leftGradientColor">
-                                                        <color key="value" red="0.99942404029999998" green="0.73632339059999996" blue="0.020217384139999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="value" red="0.95640510320000005" green="0.7472933531" blue="0.2586424947" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     </userDefinedRuntimeAttribute>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="rightGradientColor">
                                                         <color key="value" red="0.96802741290000005" green="0.72099405530000005" blue="0.31596776840000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -430,62 +450,60 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </button>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="game screen 3.png" translatesAutoresizingMaskIntoConstraints="NO" id="dW4-Vo-akX">
-                                                <rect key="frame" x="52" y="124" width="310" height="556.5"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="310" id="WgQ-Y9-3Ie"/>
-                                                    <constraint firstAttribute="height" constant="556.5" id="adw-er-vUn"/>
-                                                </constraints>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password Tutorial" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Md-Kj-gEh">
-                                                <rect key="frame" x="101" y="24" width="214" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8UZ-Q1-960" customClass="GradientButton" customModule="password_prototype" customModuleProvider="target">
+                                                <rect key="frame" x="-5" y="38" width="434" height="104"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="leftGradientColor">
+                                                        <color key="value" red="0.95640510320000005" green="0.7472933531" blue="0.2586424947" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="rightGradientColor">
+                                                        <color key="value" red="0.96802741290000005" green="0.72099405530000005" blue="0.31596776840000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="0.0"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                                        <real key="value" value="0.5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Password Tutorial" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Fd-Rq-Pj7">
+                                                <rect key="frame" x="101" y="75" width="214" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cp6-1j-cGd">
-                                                <rect key="frame" x="27" y="700.5" width="360" height="173"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="360" id="ayH-gS-yK7"/>
-                                                    <constraint firstAttribute="height" constant="173" id="xQW-tW-FGz"/>
-                                                </constraints>
-                                                <string key="text">Each player takes turns submitting words that are similar in meaning to the previous word. Once a word is played, players will vote on whether the word is close enough to the previous word. The objective is to sneak past words in your word bank without your friends noticing to gain points.  </string>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstItem="E6i-0j-PhY" firstAttribute="top" secondItem="8cv-zO-GtF" secondAttribute="bottom" constant="93" id="2jM-8O-i0z"/>
+                                            <constraint firstItem="E6i-0j-PhY" firstAttribute="top" secondItem="8cv-zO-GtF" secondAttribute="bottom" constant="60" id="2jM-8O-i0z"/>
                                             <constraint firstItem="mZR-3Y-CWG" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="2ty-qI-Jxx"/>
-                                            <constraint firstItem="7be-qT-9om" firstAttribute="top" secondItem="1pU-Xp-9HR" secondAttribute="bottom" constant="100" id="48d-bs-aSe"/>
                                             <constraint firstItem="Cp6-1j-cGd" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="4Tk-q3-n5R"/>
-                                            <constraint firstItem="mZR-3Y-CWG" firstAttribute="top" secondItem="AWJ-tZ-XkO" secondAttribute="bottom" constant="80" id="56A-FY-qFC"/>
-                                            <constraint firstItem="KAp-BK-W96" firstAttribute="top" secondItem="UrT-s6-dZw" secondAttribute="bottom" constant="16" id="7Ux-2G-mYK"/>
-                                            <constraint firstItem="xTk-p1-7CN" firstAttribute="centerX" secondItem="dW4-Vo-akX" secondAttribute="centerX" id="8VZ-uh-xb2"/>
+                                            <constraint firstItem="8UZ-Q1-960" firstAttribute="top" secondItem="pgz-MT-Uhw" secondAttribute="top" constant="38" id="52v-ca-29W"/>
+                                            <constraint firstItem="KAp-BK-W96" firstAttribute="top" secondItem="UrT-s6-dZw" secondAttribute="bottom" constant="10" id="7Ux-2G-mYK"/>
                                             <constraint firstItem="AWJ-tZ-XkO" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="8qh-dR-7DT"/>
+                                            <constraint firstItem="mZR-3Y-CWG" firstAttribute="top" secondItem="AWJ-tZ-XkO" secondAttribute="bottom" constant="78" id="DTh-d5-dxc"/>
                                             <constraint firstItem="8cv-zO-GtF" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="E2Y-Sn-VOI"/>
+                                            <constraint firstItem="1pU-Xp-9HR" firstAttribute="top" secondItem="mZR-3Y-CWG" secondAttribute="bottom" constant="8" id="EFk-or-Og9"/>
                                             <constraint firstItem="E6i-0j-PhY" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="EQk-fZ-hJ6"/>
                                             <constraint firstItem="KOX-It-3um" firstAttribute="top" secondItem="E6i-0j-PhY" secondAttribute="bottom" constant="7" id="NO8-nK-Lfi"/>
                                             <constraint firstItem="1pU-Xp-9HR" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="Q5Z-OK-WAF"/>
                                             <constraint firstItem="h1B-6f-2qb" firstAttribute="top" secondItem="Cp6-1j-cGd" secondAttribute="bottom" constant="74.5" id="Qfq-ZP-Zxm"/>
-                                            <constraint firstAttribute="bottom" secondItem="KAp-BK-W96" secondAttribute="bottom" constant="232" id="S3y-tW-qtk"/>
-                                            <constraint firstItem="1pU-Xp-9HR" firstAttribute="top" secondItem="mZR-3Y-CWG" secondAttribute="bottom" constant="17" id="XcR-Z4-hHz"/>
+                                            <constraint firstItem="dW4-Vo-akX" firstAttribute="top" secondItem="8UZ-Q1-960" secondAttribute="bottom" constant="101" id="ZRc-dd-5GY"/>
                                             <constraint firstItem="KOX-It-3um" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="akD-mm-wWB"/>
                                             <constraint firstItem="UrT-s6-dZw" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="b5C-XC-NsL"/>
+                                            <constraint firstItem="Ysq-6t-sU2" firstAttribute="top" secondItem="pgz-MT-Uhw" secondAttribute="top" id="cHc-46-t3C"/>
                                             <constraint firstItem="7be-qT-9om" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="h1Z-53-L33"/>
+                                            <constraint firstItem="7be-qT-9om" firstAttribute="top" secondItem="1pU-Xp-9HR" secondAttribute="bottom" constant="100" id="irz-Fl-6Nh"/>
                                             <constraint firstItem="h1B-6f-2qb" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="j33-Fj-0y1"/>
-                                            <constraint firstItem="dW4-Vo-akX" firstAttribute="top" secondItem="xTk-p1-7CN" secondAttribute="bottom" constant="45" id="kU3-Oa-fee"/>
                                             <constraint firstItem="Cp6-1j-cGd" firstAttribute="top" secondItem="dW4-Vo-akX" secondAttribute="bottom" constant="20" id="mDR-Bf-2ke"/>
-                                            <constraint firstItem="UrT-s6-dZw" firstAttribute="top" secondItem="KOX-It-3um" secondAttribute="bottom" constant="93" id="tBw-dz-b9K"/>
+                                            <constraint firstItem="UrT-s6-dZw" firstAttribute="top" secondItem="KOX-It-3um" secondAttribute="bottom" constant="60" id="tBw-dz-b9K"/>
                                             <constraint firstItem="KAp-BK-W96" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="tCL-or-ivb"/>
+                                            <constraint firstAttribute="bottom" secondItem="KAp-BK-W96" secondAttribute="bottom" constant="57" id="u9c-O2-twl"/>
                                             <constraint firstItem="dW4-Vo-akX" firstAttribute="centerX" secondItem="pgz-MT-Uhw" secondAttribute="centerX" id="uYZ-5Y-bdf"/>
-                                            <constraint firstItem="xTk-p1-7CN" firstAttribute="top" secondItem="pgz-MT-Uhw" secondAttribute="top" id="vQq-pf-A15"/>
                                             <constraint firstItem="AWJ-tZ-XkO" firstAttribute="top" secondItem="h1B-6f-2qb" secondAttribute="bottom" constant="7" id="vUY-x1-h2x"/>
-                                            <constraint firstItem="8cv-zO-GtF" firstAttribute="top" secondItem="7be-qT-9om" secondAttribute="bottom" constant="28" id="vYQ-le-Kqk"/>
-                                            <constraint firstItem="xTk-p1-7CN" firstAttribute="leading" secondItem="pgz-MT-Uhw" secondAttribute="leading" constant="-10" id="wS9-ct-6gO"/>
+                                            <constraint firstItem="8cv-zO-GtF" firstAttribute="top" secondItem="7be-qT-9om" secondAttribute="bottom" constant="10" id="vYQ-le-Kqk"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -1059,6 +1077,9 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.93594980240000003" green="0.47855035309999999" blue="0.085766232979999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" backgroundImage="info.circle.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="informationButtonPressed:" destination="swv-99-rg2" eventType="touchUpInside" id="fhd-9b-97E"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -1087,6 +1108,7 @@
                         <outlet property="wordButton5" destination="jTF-2C-lkd" id="Ult-9e-g08"/>
                         <outlet property="wordButton6" destination="Ruv-QN-xGJ" id="17C-tV-VO1"/>
                         <outlet property="wordsTableView" destination="Q1d-CN-sId" id="nNZ-66-mFo"/>
+                        <segue destination="raP-Gq-XMw" kind="presentation" identifier="information2" id="kLi-En-aQw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0kV-vM-Gl0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1410,6 +1432,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="oWQ-no-On1"/>
+        <segue reference="kLi-En-aQw"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="TV.png" width="323" height="193"/>

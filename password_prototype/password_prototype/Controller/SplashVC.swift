@@ -57,6 +57,11 @@ class SplashVC: UIViewController, UITextFieldDelegate {
         profileButton.reloadButton()
     }
     
+    
+    @IBAction func informationButtonPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: "information1", sender: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -48,6 +48,11 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     @IBOutlet weak var inputMenuView: UIView!
     @IBOutlet weak var inputField: UITextField!
     
+    
+    @IBAction func informationButtonPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: "information2", sender: nil)
+    }
+    
     var numberOfVotes = 0
     
     @IBAction func resetWordBank(_ sender: Any) {
