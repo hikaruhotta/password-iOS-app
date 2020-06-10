@@ -56,6 +56,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var numberOfVotes = 0
     
     @IBAction func resetWordBank(_ sender: Any) {
+        self.disableWordBank()
         functions.httpsCallable("requestNewWords").call() { (result, error) in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
@@ -64,6 +65,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 }
             } else {
                 print("reseting word bank")
+                
             }
         }
     }
@@ -87,7 +89,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
                 cell.modifyIcon(user: User(), row: indexPath.row)
-                //cell.markAsSeed() // hide icon
                 cell.updateWord(word: "password")
                 cell.hideScoreLabel()
                 return cell
@@ -188,9 +189,12 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 if let error = error as NSError? {
                     if error.domain == FunctionsErrorDomain {
                         let message = error.localizedDescription
+                        let alert = UIAlertController(title: "Submitted word contains disallowed characters.", message: "Please only include alphabetical characters.", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        self.present(alert, animated: true)
+                        self.inputField.text = ""
                         print(message)
                     }
-                    print("error in create lobby request")
                 }
             }
             inputField.text = ""
@@ -199,12 +203,17 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             if inputField.text == nil  || inputField.text?.count == 0 {
                 return
             }
-            let textPrefix = inputField.text!.prefix(100)
-
-            print("userID is \(LOCAL.user.userID)")
-            let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/public/chat/message\(messages.count)" : ["userID": LOCAL.user.userID, "message": textPrefix, "timeStamp": dateFormatter.string(from: Date())]]
-            self.ref?.updateChildValues(myUpdates)
-            inputField.text = ""
+            if inputField.text?.count ?? 0 > 100 {
+                let alert = UIAlertController(title: "Message contains \( inputField.text?.count ?? 101) characters.", message: "Please limit your message to 100 characters.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            } else {
+                let textPrefix = inputField.text!.prefix(100)
+                print("userID is \(LOCAL.user.userID)")
+                let myUpdates = ["/lobbies/\(LOCAL.lobby!.lobbyId)/public/chat/message\(messages.count)" : ["userID": LOCAL.user.userID, "message": textPrefix, "timeStamp": dateFormatter.string(from: Date())]]
+                self.ref?.updateChildValues(myUpdates)
+                inputField.text = ""
+            }
             return
         default:
             return
@@ -354,7 +363,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     }
     
     
-        // Configure actions when a button in the word bank is pressed
+    // Configure actions when a button in the word bank is pressed
     @IBAction func wordButtonPressed(_ sender: Any) {
         guard sender is UIButton else {
             return
@@ -391,6 +400,24 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.wordButton4.titleLabel?.adjustsFontSizeToFitWidth = true
         self.wordButton5.titleLabel?.adjustsFontSizeToFitWidth = true
         self.wordButton6.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.wordButton1.isEnabled = true
+        self.wordButton2.isEnabled = true
+        self.wordButton3.isEnabled = true
+        self.wordButton4.isEnabled = true
+        self.wordButton5.isEnabled = true
+        self.wordButton6.isEnabled = true
+    }
+    
+    func disableWordBank() {
+        self.wordButton1.isEnabled = false
+        self.wordButton2.isEnabled = false
+        self.wordButton3.isEnabled = false
+        self.wordButton4.isEnabled = false
+        self.wordButton5.isEnabled = false
+        self.wordButton6.isEnabled = false
+    }
+    
+    func enableWordBank() {
         self.wordButton1.isEnabled = true
         self.wordButton2.isEnabled = true
         self.wordButton3.isEnabled = true

@@ -18,6 +18,16 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var playerAddedHandle: UInt!
     
+    @IBOutlet weak var numberOfRoundsLabel: UILabel!
+    
+    @IBOutlet weak var roundsSlider: UISlider!
+    
+    @IBAction func sliderValueChanged(_ sender: Any) {
+        let currentValue = Int(roundsSlider.value)
+        numberOfRoundsLabel.text = "Number of Rounds: \(currentValue)"
+    }
+    
+    
     @IBAction func unwindToSplashPressed(_ sender: Any) {
         print("DATA IS NOW RESET")
         LOCAL = LocalData()
@@ -36,7 +46,8 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // Configures actions for start game when start game button is pressed
     @IBAction func startGamePressed(_ sender: Any) {
-        functions.httpsCallable("startGame").call() { (result, error) in
+        print(Int(roundsSlider.value))
+        functions.httpsCallable("startGame").call(["settings": ["numRounds": Int(roundsSlider.value), "wordBankSize": 6]]) { (result, error) in
             if let error = error as NSError? {
                 if error.domain == FunctionsErrorDomain {
                     let message = error.localizedDescription

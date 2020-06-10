@@ -562,7 +562,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OzD-dO-LNB" customClass="GradientButton" customModule="password_prototype" customModuleProvider="target">
-                                <rect key="frame" x="88" y="731" width="238" height="70"/>
+                                <rect key="frame" x="88" y="777" width="238" height="70"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <state key="normal" title="Start Game">
@@ -607,7 +607,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="izi-qP-N2T">
-                                <rect key="frame" x="0.0" y="176" width="414" height="429"/>
+                                <rect key="frame" x="0.0" y="176" width="414" height="405"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.92814086294416243" green="0.92814086294416243" blue="0.92814086294416243" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
@@ -681,7 +681,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VIw-DM-9O6" customClass="GradientButton" customModule="password_prototype" customModuleProvider="target">
-                                <rect key="frame" x="-10" y="605" width="424" height="80"/>
+                                <rect key="frame" x="-10" y="578" width="424" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="leftGradientColor">
@@ -699,14 +699,28 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="KcX-53-Ikw">
-                                <rect key="frame" x="100" y="637" width="20" height="20"/>
+                                <rect key="frame" x="100" y="611" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Waiting for players..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mg9-RQ-Lrn">
-                                <rect key="frame" x="128" y="634" width="186" height="23"/>
+                                <rect key="frame" x="128" y="609" width="186" height="23"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="25" minValue="0.0" maxValue="50" translatesAutoresizingMaskIntoConstraints="NO" id="efu-Ya-6qO">
+                                <rect key="frame" x="64" y="719" width="276" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="sliderValueChanged:" destination="SlL-I3-Kev" eventType="valueChanged" id="1ti-6u-38X"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Number of Rounds: 25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pMx-Ok-r94">
+                                <rect key="frame" x="100" y="681" width="216" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -715,7 +729,9 @@
                     </view>
                     <connections>
                         <outlet property="lobbyCodeLabel" destination="shw-EJ-ze0" id="Fvc-sI-uFC"/>
+                        <outlet property="numberOfRoundsLabel" destination="pMx-Ok-r94" id="SKj-aX-lPg"/>
                         <outlet property="playerListTableView" destination="izi-qP-N2T" id="8By-Eu-O8Y"/>
+                        <outlet property="roundsSlider" destination="efu-Ya-6qO" id="fdm-A8-ihC"/>
                         <outlet property="startGameButton" destination="OzD-dO-LNB" id="zDa-Mh-5sr"/>
                         <segue destination="swv-99-rg2" kind="presentation" identifier="segueStartGame" modalPresentationStyle="fullScreen" id="JUC-F7-f2i"/>
                     </connections>
