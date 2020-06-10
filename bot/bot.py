@@ -10,10 +10,11 @@ def hasNumbers(inputString):
 def hasPunctuation(inputString):
     return any(char in string.punctuation for char in inputString)
 
-class Bot:
+class PasswordBot:
     def __init__(self, target_dist_threshold=6.0, challenge_threshold=7.0):
         self.ps = PorterStemmer()
-        # load word embeddings
+
+        print("Loading word embeddings for bot...")
         self.embeddings = {}
         with open("data/glove.6B.50d.txt", 'r', encoding="utf-8") as f:
             for line in f:
@@ -43,10 +44,10 @@ class Bot:
 
     # plays closest word to the target word+other word combo
     # There are many ways to tweak this strategy a little 
-    def play_turn(self, target_words, last_word):
-        last_word_vec = self.embeddings[last_word]
+    def play_turn(self, target_words, previous_word):
+        print("Generating turn for previous word {}.".format(previous_word))
+        last_word_vec = self.embeddings[previous_word]
 
-        
         # calculate paths to target words from the last played word, and sort them by length
         options = []
         for target_word in target_words:
@@ -78,19 +79,22 @@ class Bot:
         filtered = []
         for word in nearby_words:
             stem = self.ps.stem(word)
-            if stem == self.ps.stem(target_word) or stem == self.ps.stem(last_word):
+            if stem == self.ps.stem(target_word) or stem == self.ps.stem(previous_word):
                 continue
             filtered.append(word)
 
         print(filtered)
+        print("returning {}.".format(filtered[0]))
 
         return filtered[0]
     
     # returns a boolean of whether to reject the played word
-    def vote_on_other_turn(self, last_word, played_word):
-        last_word_vec = self.embeddings[last_word]
-        played_word_vec = self.embeddings[played_word]
+    def vote_on_other_turn(self, previous_word, submitted_word):
+        last_word_vec = self.embeddings[previous_word]
+        played_word_vec = self.embeddings[submitted_word]
         distance = np.linalg.norm(played_word_vec - last_word_vec)
-        print("played word {} has distance {:0.2f} to {}.".format(played_word, distance, last_word))
+        print(distance)
+        print("played word {} has distance {:0.2f} to {}.".format(submitted_word, distance, previous_word))
 
-        return distance >= self.challenge_threshold
+        # if we don't do this we return a numpy "bool_" type
+        return bool(distance >= self.challenge_threshold)
