@@ -1074,7 +1074,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lCB-bh-4L4">
-                                        <rect key="frame" x="8" y="32.5" width="35" height="30"/>
+                                        <rect key="frame" x="12" y="32.5" width="35" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="tintColor" red="0.93594980240000003" green="0.47855035309999999" blue="0.085766232979999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <state key="normal" backgroundImage="arrow.counterclockwise.circle.fill" catalog="system"/>
@@ -1083,29 +1083,29 @@
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qya-aC-git">
-                                        <rect key="frame" x="86" y="31" width="277" height="34"/>
+                                        <rect key="frame" x="55" y="31" width="308" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u7L-5b-CoB">
-                                        <rect key="frame" x="46" y="32.5" width="35" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" red="0.93594980240000003" green="0.47855035309999999" blue="0.085766232979999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" backgroundImage="info.circle.fill" catalog="system"/>
-                                        <connections>
-                                            <action selector="informationButtonPressed:" destination="swv-99-rg2" eventType="touchUpInside" id="fhd-9b-97E"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="geG-sa-q3Y">
-                                <rect key="frame" x="348" y="60" width="46" height="30"/>
+                                <rect key="frame" x="169" y="48" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <segue destination="Z02-mD-Mqs" kind="presentation" modalPresentationStyle="fullScreen" id="iBI-vg-dwh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u7L-5b-CoB">
+                                <rect key="frame" x="354" y="49.5" width="42" height="36"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="info.circle" catalog="system"/>
+                                <connections>
+                                    <action selector="informationButtonPressed:" destination="swv-99-rg2" eventType="touchUpInside" id="fhd-9b-97E"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1458,7 +1458,6 @@
         <image name="game screen 3.png" width="389" height="778"/>
         <image name="hikaru.png" width="285" height="380"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
-        <image name="info.circle.fill" catalog="system" width="128" height="121"/>
         <image name="nick.png" width="504" height="504"/>
         <image name="paperplane.fill" catalog="system" width="128" height="121"/>
         <image name="score.png" width="403" height="114"/>

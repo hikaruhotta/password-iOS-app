@@ -68,6 +68,7 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         playerListTableView.dataSource = self
         lobbyCodeLabel.text = LOCAL.lobby?.lobbyCode
         startGameButton.isHidden = !LOCAL.isHost
+        roundsSlider.isHidden = !LOCAL.isHost
         
         // Set the firebase reference
         ref = Database.database().reference()

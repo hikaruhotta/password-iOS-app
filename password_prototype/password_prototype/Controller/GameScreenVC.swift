@@ -48,7 +48,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     @IBOutlet weak var inputMenuView: UIView!
     @IBOutlet weak var inputField: UITextField!
     
-    
     @IBAction func informationButtonPressed(_ sender: Any) {
         self.performSegue(withIdentifier: "information2", sender: nil)
     }
@@ -56,17 +55,23 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var numberOfVotes = 0
     
     @IBAction func resetWordBank(_ sender: Any) {
-        self.disableWordBank()
-        functions.httpsCallable("requestNewWords").call() { (result, error) in
-            if let error = error as NSError? {
-                if error.domain == FunctionsErrorDomain {
-                    let message = error.localizedDescription
-                    print(message)
+        switch(mySegmentedControl.selectedSegmentIndex) {
+        case 0:
+            self.disableWordBank()
+            functions.httpsCallable("requestNewWords").call() { (result, error) in
+                if let error = error as NSError? {
+                    if error.domain == FunctionsErrorDomain {
+                        let message = error.localizedDescription
+                        print(message)
+                    }
+                } else {
+                    print("reseting word bank")
+                    
                 }
-            } else {
-                print("reseting word bank")
-                
             }
+        default:
+            // clears text field in chat
+            inputField.text = ""
         }
     }
     
@@ -91,6 +96,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 cell.modifyIcon(user: User(), row: indexPath.row)
                 cell.updateWord(word: "password")
                 cell.hideScoreLabel()
+                
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
