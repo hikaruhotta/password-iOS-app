@@ -11,15 +11,14 @@ import FirebaseDatabase
 import FirebaseFunctions
 
 class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
-    @IBAction func exitResultScreenButtonPressed(_ sender: Any) {
-    //        print("DATA IS NOW RESET")
-    //        LOCAL = LocalData()
-        }
     
-    @IBAction func unwindButtonPressed(_ sender: Any) {
-        print("DATA IS NOW RESET")
-        LOCAL = LocalData()
+    @IBAction func unwindToGameScreen(_ sender: UIStoryboardSegue) {
     }
+    
+//    @IBAction func unwindButtonPressed(_ sender: Any) {
+//        print("DATA IS NOW RESET")
+//        LOCAL = LocalData()
+//    }
     
     // Create the reference to the database
     var ref: DatabaseReference?
@@ -30,6 +29,8 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
     var words: [Word] = []
     var boolArray = [Bool]()
     var messages: [Message] = []
+    
+    var startingWord = "password"
     
     
     @IBOutlet weak var wordsTableView: UITableView!
@@ -92,11 +93,8 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         // GAME
         case 0:
             if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
-                cell.modifyIcon(user: User(), row: indexPath.row)
-                cell.updateWord(word: "password")
-                cell.hideScoreLabel()
-                
+                let cell = tableView.dequeueReusableCell(withIdentifier: "SeedWordCell") as! SeedWordCell
+                cell.setStartingWord(word: startingWord)
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "SubmittedWordCell") as! SubmittedWordCell
@@ -334,8 +332,34 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                     print("==== Game Status Changed ===")
                     LOCAL.hasVoted = false
                 }
+                
+                if snap == "DONE" {
+                    print("==== Game Status DONE ===")
+                    self.performSegue(withIdentifier: "segueToStandings", sender: nil)
+                }
             }
         }
+        
+        // Observe changes of game status to "SUBMISSION"
+//        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public").observe { (snapshot) in
+//            //if snapshot.key == "startWord" {
+//                if let snap = snapshot.value as? [String: Any] {
+//                    print("**** snap is below ****")
+//                    print(snap)
+//                }
+//            //}
+//
+//
+//        }
+        
+            
+        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public").child("startWord").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            self.startingWord = snapshot.value! as! String
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+
         
         wordsTableView.dataSource = self
         wordsTableView.delegate = self

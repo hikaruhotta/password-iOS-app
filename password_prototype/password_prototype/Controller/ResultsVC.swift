@@ -10,9 +10,10 @@ import UIKit
 
 class ResultsVC: UIViewController {
 
-    
-    @IBAction func unwindToGameScreen(_ sender: UIStoryboardSegue) {
-    }
+        @IBAction func unwindButtonPressed(_ sender: Any) {
+            print("DATA IS NOW RESET")
+            LOCAL = LocalData()
+        }
     
 
     

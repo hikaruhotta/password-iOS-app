@@ -27,6 +27,8 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         numberOfRoundsLabel.text = "Number of Rounds: \(currentValue)"
     }
     
+    @IBAction func addBotButtonPressed(_ sender: Any) {
+    }
     
     @IBAction func unwindToSplashPressed(_ sender: Any) {
         print("DATA IS NOW RESET")
@@ -69,6 +71,10 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         lobbyCodeLabel.text = LOCAL.lobby?.lobbyCode
         startGameButton.isHidden = !LOCAL.isHost
         roundsSlider.isHidden = !LOCAL.isHost
+        numberOfRoundsLabel.isHidden = !LOCAL.isHost
+        
+        startGameButton.alpha = 0.5
+        startGameButton.isEnabled = false
         
         // Set the firebase reference
         ref = Database.database().reference()
@@ -80,6 +86,10 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             self.playerListTableView.reloadData()
             self.playerListTableView.scrollToBottom()
+            if LOCAL.users.count > 1 {
+                self.startGameButton.alpha = 1.0
+                self.startGameButton.isEnabled = true
+            }
         }
         
         // Listen to chages in game status -> segue to game screen VC
