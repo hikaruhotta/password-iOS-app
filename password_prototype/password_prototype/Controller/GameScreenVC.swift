@@ -162,7 +162,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         if (notification.name == UIResponder.keyboardWillShowNotification ||
             notification.name == UIResponder.keyboardWillChangeFrameNotification) {
             print( inputMenuView.frame.origin.y)
-            inputMenuView.frame.origin.y = view.frame.size.height - keyboardRect.height - inputMenuView.frame.size.height 
+            inputMenuView.frame.origin.y = view.frame.size.height - keyboardRect.height - inputMenuView.frame.size.height
             wordsTableView.frame.size.height = 494 - 180
             wordsTableView.scrollToBottom()
         } else {
@@ -193,7 +193,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 if let error = error as NSError? {
                     if error.domain == FunctionsErrorDomain {
                         let message = error.localizedDescription
-                        let alert = UIAlertController(title: "Submitted word contains disallowed characters.", message: "Please only include alphabetical characters.", preferredStyle: .alert)
+                        let alert = UIAlertController(title: "Invalid Word Submission", message: message, preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                         self.present(alert, animated: true)
                         self.inputField.text = ""
