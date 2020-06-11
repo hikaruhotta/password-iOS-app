@@ -147,10 +147,11 @@ exports.assignNewWords = function (lobby, playerId) {
 }
 
 exports.getPreviousWord = function (lobby) {
+    const numTurns = lobby.public.turns.length;
     if (numTurns === 1) {
-        previousWord = lobby.public.startWord;
+        return lobby.public.startWord;
     } else {
         const lastTurn = lobby.public.turns[numTurns - 2];
-        previousWord = lastTurn.submittedWord;
+        return lastTurn.submittedWord;
     }
 }
