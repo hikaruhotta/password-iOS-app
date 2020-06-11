@@ -6,6 +6,8 @@ const validation = require('./validation');
 const lobbyUtils = require('./lobby-utils');
 const gameLogic = require('./game-logic');
 
+const axios = require('axios');
+
 /**
  * Performs a transaction on a lobby object.
  * If validateLobbyFn returns an error, aborts the transaction and throws the returned error.
@@ -40,7 +42,7 @@ async function updateLobby(lobbyId, validateLobbyFn, updateLobbyFn) {
         if (!result.committed || !result.snapshot.exists()) {
             throw transactionError;
         }
-        return result.snapshot.val();
+        return;
     });
 }
 
@@ -106,6 +108,42 @@ exports.joinLobby = functions.https.onCall(async (data, context) => {
     
     await addPlayerToLobby(lobbyId, playerInfo, playerId);
     return { lobbyId: lobbyId };
+});
+
+exports.addBot = functions.https.onCall(async (data, context) => {
+    const requesterId = validation.getUid(context);
+    const lobbyId = await lobbyUtils.findLobbyIdFromUID(requesterId);
+
+    const validateLobbyFn = lobby => {
+        if (lobby.internal.hostId !== requesterId) {
+            return new functions.https.HttpsError("permission-denied",
+                `You are not the host of the lobby with id ${lobbyId}.`);
+        }
+        if (lobby.public.status !== 'LOBBY') {
+            return new functions.https.HttpsError("failed-precondition",
+                `Lobby with id ${lobbyId} is no longer open to join.`);
+        }
+        return null;
+    };
+
+    const updateLobbyFn = lobby => {
+        let numExistingBots = 0;
+        for (const playerId in lobby.public.players) {
+            if (playerId.startsWith("bot")) {
+                numExistingBots++;
+            }
+        }
+
+        const botPlayer = {
+            "colorNumber" : numExistingBots,
+            "displayName" : "Bot " + (numExistingBots + 1),
+            "emojiNumber" : 0,
+            "score" : 0
+        };
+        lobby.public.players["bot" + (numExistingBots + 1)] = botPlayer;
+    };
+
+    return updateLobby(lobbyId, validateLobbyFn, updateLobbyFn);
 });
 
 exports.startGame = functions.https.onCall(async (data, context) => {
@@ -232,4 +270,98 @@ exports.voteOnWord = functions.https.onCall(async (data, context) => {
     };
 
     return updateLobby(lobbyId, validateLobbyFn, updateLobbyFn);
+});
+
+
+/**
+ * The following functions are automatically triggered by changes in lobby sentinel values.
+ * They watch for when it's a bot's turn or a bot needs to vote on a word.
+ * Don't judge me for code quality here, I was rushing to try and get Nick's stuff incorporated.
+ */
+// const BOT_SERVER_URL = 'http://127.0.0.1:5000';
+const BOT_SERVER_URL = 'http://linux.buckbukaty.com:5000';
+
+const awaitingBotVotesRef = functions.database.ref('/lobbies/{lobbyId}/internal/awaitingBotVotes');
+exports.watchForBotVotes = awaitingBotVotesRef.onCreate((snapshot, context) => {
+    const lobbyId = context.params.lobbyId;
+    const votingBotIds = snapshot.val();
+    return admin.database().ref('/lobbies/').child(lobbyId).once('value').then(snapshot => {
+        let lobby = snapshot.val();
+        const currTurn = lobby.public.turns[lobby.public.turns.length - 1];
+        const previousWord = gameLogic.getPreviousWord(lobby);
+        
+        return {
+            previousWord: previousWord,
+            submittedWord: currTurn.submittedWord
+        };
+
+    }).then(infoForBotVote => {
+        return axios.post(BOT_SERVER_URL + '/getBotVote', infoForBotVote);
+    }).then(botResponse => {
+        return botResponse.data.challenge;
+    })
+    .then(botVote => {
+        const validateLobbyFn = () => {};
+        const updateLobbyFn = lobby => {
+            if (!lobby.internal.votes) {
+                lobby.internal.votes = {};
+            }
+
+            // by default, all bots pass
+            for (const botId of votingBotIds) {
+                lobby.internal.votes[botId] = false;
+                lobby.public.votesTallied++;
+            }
+
+            // choose a random bot player to be the one using the voting algorithm
+            const chosenBotId = votingBotIds[Math.floor(Math.random() * votingBotIds.length)];
+            lobby.internal.votes[chosenBotId] = botVote;
+            
+            const newStatus = gameLogic.handleVote(lobby);
+            lobby.public.status = newStatus;
+            lobby.internal.awaitingBotVotes = null;
+        };
+        
+        return updateLobby(lobbyId, validateLobbyFn, updateLobbyFn);
+    })
+    .catch(error => {
+        console.error(error)
+    });
+});
+
+const awaitingBotTurnRef = functions.database.ref('/lobbies/{lobbyId}/internal/awaitingBotTurn');
+exports.watchForBotTurns = awaitingBotTurnRef.onCreate((snapshot, context) => {
+    const lobbyId = context.params.lobbyId;
+    return admin.database().ref('/lobbies/').child(lobbyId).once('value').then(snapshot => {
+        let lobby = snapshot.val();
+        const currTurn = lobby.public.turns[lobby.public.turns.length - 1];
+        const botId = currTurn.player;
+        const previousWord = gameLogic.getPreviousWord(lobby);
+
+        return {
+            previousWord: previousWord,
+            targetWords: lobby.private[botId].targetWords
+        };
+    }).then(infoForBotTurn => {
+        return axios.post(BOT_SERVER_URL + '/getBotTurn', infoForBotTurn);
+    }).then(botResponse => {
+        return botResponse.data.word;
+    })
+    .then(botWord => {
+        const validateLobbyFn = () => {};
+        const updateLobbyFn = lobby => {
+            const currTurn = lobby.public.turns[lobby.public.turns.length - 1];
+            currTurn.submittedWord = botWord;
+            lobby.public.votesTallied = 0;
+    
+            const newStatus = gameLogic.handleWordSubmission(lobby);
+            lobby.public.status = newStatus;
+            lobby.internal.awaitingBotTurn = null;
+        };
+        
+        return updateLobby(lobbyId, validateLobbyFn, updateLobbyFn);
+    })
+    .catch(error => {
+        console.error(error)
+    });
 });

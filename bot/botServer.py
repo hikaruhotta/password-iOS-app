@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 bot = PasswordBot()
 
-@app.route('/getBotTurn')
+@app.route('/getBotTurn', methods=['POST'])
 def getBotTurn():
     # obfuscate bot word generation time; otherwise you'd know the bot
     # was using a word on its word list if it took its turn quickly.
@@ -26,7 +26,7 @@ def getBotTurn():
     return jsonify(word=word)
 
 
-@app.route('/getBotVote')
+@app.route('/getBotVote', methods=['POST'])
 def getBotVote():
     data = request.get_json()
     previousWord = data['previousWord']
