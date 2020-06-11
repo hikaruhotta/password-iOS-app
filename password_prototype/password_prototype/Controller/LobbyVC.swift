@@ -30,6 +30,15 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     @IBAction func addBotButtonPressed(_ sender: Any) {
+        functions.httpsCallable("addBot").call() { (result, error) in
+            if let error = error as NSError? {
+                if error.domain == FunctionsErrorDomain {
+                    let message = error.localizedDescription
+                    print(message)
+                }
+                print("error in create bot")
+            }
+        }
     }
     
     @IBAction func unwindToSplashPressed(_ sender: Any) {

@@ -199,6 +199,8 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                         self.inputField.text = ""
                         print(message)
                     }
+                } else {
+                    //greyOutWordButton(inputField.text)
                 }
             }
             inputField.text = ""
@@ -456,6 +458,10 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.wordButton5.isEnabled = true
         self.wordButton6.isEnabled = true
     }
+    
+    //func greyOutWordButton(word: String) {
+       // if self.wordButton1
+    //}
     
 }
 
