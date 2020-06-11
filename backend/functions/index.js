@@ -74,7 +74,7 @@ async function addPlayerToLobby(lobbyId, player, playerId) {
 exports.createLobby = functions.https.onCall(async (data, context) => {
     const now = admin.database.ServerValue.TIMESTAMP;
     const playerId = validation.getUid(context);
-    const player = validation.getPlayer(data);
+    const player = validation.getPlayerInfo(data);
     
     const lobbyCreation = admin.database().ref('/lobbies/').push({
         internal: {
@@ -100,11 +100,11 @@ exports.createLobby = functions.https.onCall(async (data, context) => {
 
 exports.joinLobby = functions.https.onCall(async (data, context) => {
     const playerId = validation.getUid(context);
-    const player = validation.getPlayer(data);
+    const playerInfo = validation.getPlayerInfo(data);
     const lobbyCode = validation.getLobbyCode(data);
     const lobbyId = await lobbyUtils.findLobbyIdFromCode(lobbyCode);
-
-    await addPlayerToLobby(lobbyId, player, playerId);
+    
+    await addPlayerToLobby(lobbyId, playerInfo, playerId);
     return { lobbyId: lobbyId };
 });
 

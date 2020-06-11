@@ -1,24 +1,24 @@
 const functions = require('firebase-functions');
 
-exports.getPlayer = function (data) {
-    const player = data.player;
-    if (!player) {
+exports.getPlayerInfo = function (data) {
+    const playerInfo = data.player;
+    if (!playerInfo) {
         throw new functions.https.HttpsError("invalid-argument",
             `Missing player object.`);
     }
-    if (!player.displayName) {
+    if (!playerInfo.displayName) {
         throw new functions.https.HttpsError("invalid-argument",
             `Missing player.displayName.`);
     }
-    if (player.colorNumber === undefined) {
+    if (playerInfo.colorNumber === undefined) {
         throw new functions.https.HttpsError("invalid-argument",
             `Missing player.colorNumber.`);
     }
-    if (player.emojiNumber === undefined) {
+    if (playerInfo.emojiNumber === undefined) {
         throw new functions.https.HttpsError("invalid-argument",
             `Missing player.emojiNumber.`);
     }
-    return player;
+    return playerInfo;
 }
 
 exports.getUid = function (context) {
