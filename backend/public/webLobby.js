@@ -36,6 +36,13 @@ document.getElementById("joinLobby").onclick = function() {
     });
 }
 
+document.getElementById("addBot").onclick = function() {    
+    let addBot = firebase.functions().httpsCallable('addBot');
+    addBot().then(result => {
+        console.log(result);
+    });
+}
+
 document.getElementById("startGame").onclick = function() {    
     let startGame = firebase.functions().httpsCallable('startGame');
     startGame().then(result => {
