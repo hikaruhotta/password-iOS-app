@@ -49,6 +49,9 @@ function startNextTurnOrEndGame (lobby) {
     } else {
         // start next turn
         const nextPlayer = lobby.public.playerOrder[numTurnsTaken % numPlayers];
+        if (nextPlayer.startsWith("bot")) {
+            lobby.internal.awaitingBotTurn = true;
+        }
         const now = lobby.internal.transactionTime;
         lobby.public.turns.push({ player: nextPlayer, created: now });
         newStatus = "SUBMISSION";
@@ -79,13 +82,12 @@ exports.initializeGame = function (lobby) {
 
 exports.handleWordSubmission = function (lobby) {
     const currTurn = lobby.public.turns[lobby.public.turns.length - 1];
-    const playerId = currTurn.player;
+    const submitterId = currTurn.player;
     const word = currTurn.submittedWord;
 
-    let newStatus = "VOTING";
     // check if submitted word is other player's target word
     for (const otherId in lobby.private) {
-        if (otherId === playerId) {
+        if (otherId === submitterId) {
             continue;
         }
         if (lobby.private[otherId].targetWords.includes(word)) {
@@ -93,10 +95,20 @@ exports.handleWordSubmission = function (lobby) {
             currTurn.otherId = otherId;
             scoreTurn(lobby);
             // TODO: generate new word for Other?
-            newStatus = startNextTurnOrEndGame(lobby);
+            const newStatus = startNextTurnOrEndGame(lobby);
+            return newStatus;
         }
     }
     
+    // if this array ends up nonempty, watchForBotVotes is triggered in index.js 
+    lobby.internal.awaitingBotVotes = []
+    for (const playerId of Object.keys(lobby.public.players)) {
+        if (playerId.startsWith("bot") && playerId !== submitterId) {
+            lobby.internal.awaitingBotVotes.push(playerId);
+        }
+    }
+    
+    const newStatus = "VOTING";
     return newStatus;
 }
 
@@ -132,4 +144,14 @@ exports.assignNewWords = function (lobby, playerId) {
     lobby.internal.availableWords = utils.shuffleArray(lobby.internal.availableWords.concat(ditchedWords));
     
     lobby.public.players[playerId].score -= 1;
+}
+
+exports.getPreviousWord = function (lobby) {
+    const numTurns = lobby.public.turns.length;
+    if (numTurns === 1) {
+        return lobby.public.startWord;
+    } else {
+        const lastTurn = lobby.public.turns[numTurns - 2];
+        return lastTurn.submittedWord;
+    }
 }
