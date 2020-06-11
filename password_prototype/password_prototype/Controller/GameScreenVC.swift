@@ -196,13 +196,14 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                         let alert = UIAlertController(title: "Invalid Word Submission", message: message, preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
                         self.present(alert, animated: true)
-                        self.inputField.text = ""
+                        //self.inputField.text = ""
                         print(message)
                     }
-                } else {
-                    //greyOutWordButton(inputField.text)
                 }
             }
+            let word = self.inputField.text!
+            print(word)
+            self.greyOutWordButton(word: word)
             inputField.text = ""
             hideKeyboard()
         case 1: // chat toggle
@@ -343,18 +344,6 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
             }
         }
         
-        // Observe changes of game status to "SUBMISSION"
-//        ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public").observe { (snapshot) in
-//            //if snapshot.key == "startWord" {
-//                if let snap = snapshot.value as? [String: Any] {
-//                    print("**** snap is below ****")
-//                    print(snap)
-//                }
-//            //}
-//
-//
-//        }
-        
             
         ref?.child("/lobbies/\(LOCAL.lobby!.lobbyId)/public").child("startWord").observeSingleEvent(of: .value, with: { (snapshot) in
             
@@ -459,9 +448,19 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
         self.wordButton6.isEnabled = true
     }
     
-    //func greyOutWordButton(word: String) {
-       // if self.wordButton1
-    //}
+    func greyOutWordButton(word: String) {
+        let buttonList = [self.wordButton1, self.wordButton2, self.wordButton3, self.wordButton4, self.wordButton5, self.wordButton6]
+        print("in grey func")
+        for button in buttonList {
+            print(String((button?.titleLabel?.text!)!))
+            print(word)
+            if String((button?.titleLabel?.text!)!) == word {
+                print("found")
+                button?.setTitleColor(UIColor.gray, for: .disabled)
+                button?.isEnabled = false
+            }
+        }
+    }
     
 }
 
