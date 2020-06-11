@@ -15,8 +15,7 @@ class ResultsVC: UIViewController {
             LOCAL = LocalData()
         }
     
-
-    
+    @IBOutlet weak var exitGameButton: GradientButton!
     
     @IBOutlet weak var secondPlaceLabel: UILabel!
     @IBOutlet weak var secondPlaceBackground: GradientButton!
@@ -41,6 +40,11 @@ class ResultsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if LOCAL.gameDone {
+            exitGameButton.isHidden = false
+        } else {
+            exitGameButton.isHidden = true
+        }
         setupResults()
     }
     

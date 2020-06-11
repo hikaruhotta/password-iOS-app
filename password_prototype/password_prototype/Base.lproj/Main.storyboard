@@ -404,7 +404,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="game screen 3.png" translatesAutoresizingMaskIntoConstraints="NO" id="dW4-Vo-akX">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="gameScreenNew.png" translatesAutoresizingMaskIntoConstraints="NO" id="dW4-Vo-akX">
                                                 <rect key="frame" x="57" y="243" width="310" height="556.5"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="310" id="WgQ-Y9-3Ie"/>
@@ -752,6 +752,7 @@
                         <viewLayoutGuide key="safeArea" id="E1p-a2-bsS"/>
                     </view>
                     <connections>
+                        <outlet property="addBotButton" destination="DLr-Yn-xE1" id="ARj-zU-a6o"/>
                         <outlet property="lobbyCodeLabel" destination="shw-EJ-ze0" id="Fvc-sI-uFC"/>
                         <outlet property="numberOfRoundsLabel" destination="pMx-Ok-r94" id="SKj-aX-lPg"/>
                         <outlet property="playerListTableView" destination="izi-qP-N2T" id="8By-Eu-O8Y"/>
@@ -1408,6 +1409,7 @@
                         <viewLayoutGuide key="safeArea" id="KP0-cd-NXH"/>
                     </view>
                     <connections>
+                        <outlet property="exitGameButton" destination="x9g-WN-eim" id="pxX-yc-9G7"/>
                         <outlet property="firstPlaceIcon" destination="Sgv-Ux-eJR" id="jfZ-jh-6hr"/>
                         <outlet property="firstPlaceName" destination="PEF-1c-GSe" id="aqJ-lG-JGE"/>
                         <outlet property="firstPlacePoints" destination="x0x-5w-Kqp" id="3YD-6g-wJn"/>
@@ -1535,7 +1537,7 @@
         <image name="arrow.counterclockwise.circle.fill" catalog="system" width="128" height="121"/>
         <image name="arrow.left" catalog="system" width="128" height="98"/>
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
-        <image name="game screen 3.png" width="389" height="778"/>
+        <image name="gameScreenNew.png" width="412" height="823"/>
         <image name="hikaru.png" width="285" height="380"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="nick.png" width="504" height="504"/>

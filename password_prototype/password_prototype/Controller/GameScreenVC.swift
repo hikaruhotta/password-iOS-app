@@ -335,6 +335,7 @@ class GameScreenVC: UIViewController, UITableViewDelegate, UITableViewDataSource
                 
                 if snap == "DONE" {
                     print("==== Game Status DONE ===")
+                    LOCAL.gameDone = true
                     self.performSegue(withIdentifier: "segueToStandings", sender: nil)
                 }
             }

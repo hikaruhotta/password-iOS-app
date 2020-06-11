@@ -17,7 +17,7 @@ class LocalData {
 
     var colors = [UIColor.orange.cgColor, UIColor.red.cgColor, UIColor.gray.cgColor, UIColor.yellow.cgColor, UIColor.green.cgColor, UIColor.blue.cgColor, UIColor.purple.cgColor]
     
-    var emojis = ["💃🏻", "🦁", "🤓", "🌲", "🐮", "🧨", "🎱", "🍔", "🐶", "🍺", "🍕"]
+    var emojis = ["🤖", "💃🏻", "🦁", "🤓", "🌲", "🐮", "🧨", "🎱", "🍔", "🐶", "🍺", "🍕"]
     
     var lobby: Lobby?
     
@@ -30,13 +30,15 @@ class LocalData {
     var user = User()
     
     func randomizeIcon() {
-        self.user.emojiNumber = Int.random(in: 0..<emojis.count)
+        self.user.emojiNumber = Int.random(in: 1..<emojis.count)
         self.user.colorNumber = Int.random(in: 0..<colors.count)
     }
     
     var users = [User]()
     
     var inGame = false
+    
+    var gameDone = false
     
 }
 

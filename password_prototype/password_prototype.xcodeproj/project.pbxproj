@@ -40,6 +40,7 @@
 		D7233FEB24902E0C00062D79 /* TV.png in Resources */ = {isa = PBXBuildFile; fileRef = D7233FEA24902E0C00062D79 /* TV.png */; };
 		D7233FED2490326700062D79 /* score.png in Resources */ = {isa = PBXBuildFile; fileRef = D7233FEC2490326700062D79 /* score.png */; };
 		D7233FEF24903E1B00062D79 /* scoreBoard.png in Resources */ = {isa = PBXBuildFile; fileRef = D7233FEE24903E1B00062D79 /* scoreBoard.png */; };
+		D7233FF12491B12400062D79 /* gameScreenNew.png in Resources */ = {isa = PBXBuildFile; fileRef = D7233FF02491B12400062D79 /* gameScreenNew.png */; };
 		D7275C11245E0AFC009C0B84 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C10245E0AFC009C0B84 /* AppDelegate.swift */; };
 		D7275C13245E0AFC009C0B84 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C12245E0AFC009C0B84 /* SceneDelegate.swift */; };
 		D7275C15245E0AFC009C0B84 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7275C14245E0AFC009C0B84 /* SplashVC.swift */; };
@@ -114,6 +115,7 @@
 		D7233FEA24902E0C00062D79 /* TV.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TV.png; sourceTree = "<group>"; };
 		D7233FEC2490326700062D79 /* score.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = score.png; sourceTree = "<group>"; };
 		D7233FEE24903E1B00062D79 /* scoreBoard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scoreBoard.png; sourceTree = "<group>"; };
+		D7233FF02491B12400062D79 /* gameScreenNew.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gameScreenNew.png; sourceTree = "<group>"; };
 		D7275C0D245E0AFC009C0B84 /* password_prototype.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = password_prototype.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7275C10245E0AFC009C0B84 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7275C12245E0AFC009C0B84 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 		D7275C50245FB6A5009C0B84 /* content */ = {
 			isa = PBXGroup;
 			children = (
+				D7233FF02491B12400062D79 /* gameScreenNew.png */,
 				D7233FE8249027D400062D79 /* textMenu.png */,
 				D7233FE6249026C500062D79 /* wordBank.png */,
 				D7233FEC2490326700062D79 /* score.png */,
@@ -436,6 +439,7 @@
 				D7275C1D245E0B03009C0B84 /* LaunchScreen.storyboard in Resources */,
 				6E77C64C2460DE5200766BFE /* hikaru.png in Resources */,
 				6E77C65A24611A0800766BFE /* bear.png in Resources */,
+				D7233FF12491B12400062D79 /* gameScreenNew.png in Resources */,
 				D7233FEF24903E1B00062D79 /* scoreBoard.png in Resources */,
 				6E77C65D24611A0800766BFE /* hippo.png in Resources */,
 				D7233FED2490326700062D79 /* score.png in Resources */,

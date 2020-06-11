@@ -22,6 +22,8 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var roundsSlider: UISlider!
     
+    @IBOutlet weak var addBotButton: GradientButton!
+    
     @IBAction func sliderValueChanged(_ sender: Any) {
         let currentValue = Int(roundsSlider.value)
         numberOfRoundsLabel.text = "Number of Rounds: \(currentValue)"
@@ -72,6 +74,7 @@ class LobbyVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         startGameButton.isHidden = !LOCAL.isHost
         roundsSlider.isHidden = !LOCAL.isHost
         numberOfRoundsLabel.isHidden = !LOCAL.isHost
+        addBotButton.isHidden = !LOCAL.isHost
         
         startGameButton.alpha = 0.5
         startGameButton.isEnabled = false
